@@ -1,0 +1,18 @@
+===================== OPA Dashboard ==================
+
+GitHub Dashboard URL : https://github.com/sn0727/OPA_Dashboard.git
+
+===================== OPA Dashboard ==================
+
+
+============= I am using library in this project ============
+
+1. npm i react-icons use for icons
+2.  for accordion {
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @mui/styled-engine-sc styled-components
+npm install @mui/icons-material
+}
+3. for date and time ranges 
+npm install react-date-range
+import 'react-date-range/dist/styles.css'
