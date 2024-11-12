@@ -27,114 +27,175 @@ const style = {
   scrollbarWidth: "none",
   zIndex: "1100",
   height: "90%",
-  
 };
 
 const DigitalService = () => {
-  const [name, setname] = useState("");
-  const [price, setprice] = useState("");
-  const [type, setType] = useState(""); // New state for Type
-  const [topic, setTopic] = useState(""); // New state for Topic
-  const [subheading, setSubheading] = useState(""); // New state for Subheading
-  const [image, setimage] = useState(null);
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [students, setStudents] = useState([]);
-  const [selectedStudent, setSelectedStudent] = useState(null);
 
   const limit = 10;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic
+  useEffect(() => {
+    // Fetch data here
+    const fetchStudents = async () => {
+      setIsLoading(true);
+      try {
+        const response = await APIRequest.get(`${ApiUrl}/students`, {
+          params: { page: currentPage, limit },
+        });
+        setStudents(response.data.students);
+        setTotalPages(response.data.totalPages);
+      } catch (error) {
+        toast.error("Failed to load students");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchStudents();
+  }, [currentPage]);
+
+  const handleDelete = (id) => {
+    // Handle delete logic
   };
 
   return (
     <>
       <TitleChanger title="All Digital Service" />
       <BreadCrumb pageTitle="All Digital Service" />
-      <div>
-        <div className="product_page">
-          <div className="basic_info">
-            <div className="basic_info_con">
-              <div className="basic_info_con1">
-                <div className="name">
-                  <label>TITLE</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                </div>
-                <div className="name">
-                  <label>description</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                </div>
-              
 
-                <div className="name">
-                  <label>TYPE</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                </div>
+      <div className="table_container">
+        <table className="table_style">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Image</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Website Design</td>
 
-                <div className="name">
-                  <label>CATOGORY</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                </div>
-               
-              
+              <td>Creating engaging websites</td>
+              <td>Design</td>
+              <td>UI/UX</td>
+              <td>
+                <img
+                  src="/assets/images/analyst.jpg"
+                  alt="French Fry"
+                  width="50"
+                  height="50"
+                />
+              </td>
+              <td>
+                <i class="fa-solid fa-trash"></i>
+              </td>
+              <td>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </td>
+            </tr>
+            {/*  */}
 
-                <div className="main_image">
-                  <p>Upload File</p>
-                  <input
-                    id="file-upload"
-                    type="file"
-                    multiple
-                    onChange={(e) => setimage(e.target.files[0])}
-                  />
-                  <label htmlFor="file-upload" className="custom-file-upload">
-                    Upload Image
-                  </label>
-                  <p>{image?.name}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="add_reset_btn">
-            <div className="add_product">
-              <input
-                type="button"
-                value="Button"
-                onClick={(e) => handleSubmit(e)}
-              />
-            </div>
-          </div>
-          {isLoading
-            ? document.body.classList.add("loading-indicator")
-            : document.body.classList.remove("loading-indicator")}
-        </div>
+            <tr>
+              <td>1</td>
+              <td>Website Design</td>
+
+              <td>Creating engaging websites</td>
+              <td>Design</td>
+              <td>UI/UX</td>
+              <td>
+                <img
+                  src="/assets/images/analyst.jpg"
+                  alt="French Fry"
+                  width="50"
+                  height="50"
+                />
+              </td>
+              <td>
+                <i class="fa-solid fa-trash"></i>
+              </td>
+              <td>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </td>
+            </tr>
+
+            {/*  */}
+            <tr>
+              <td>1</td>
+              <td>Website Design</td>
+
+              <td>Creating engaging websites</td>
+              <td>Design</td>
+              <td>UI/UX</td>
+              <td>
+                <img
+                  src="/assets/images/analyst.jpg"
+                  alt="French Fry"
+                  width="50"
+                  height="50"
+                />
+              </td>
+              <td>
+                <i class="fa-solid fa-trash"></i>
+              </td>
+              <td>
+                <i class="fa-solid fa-pen-to-square"></i>
+              </td>
+            </tr>
+
+            {/*  */}
+            <tr>
+              <td>1</td>
+              <td>Website Design</td>
+
+              <td>Creating engaging websites</td>
+              <td>Design</td>
+              <td>UI/UX</td>
+              <td>
+                <img
+                  src="/assets/images/analyst.jpg"
+                  alt="French Fry"
+                  width="50"
+                  height="50"
+                />
+              </td>
+              <td>
+                <i class="fa-solid fa-trash"></i>
+              </td>
+              <td>
+                <i class="fa-solid fa-pen-to-square" onClick={handleOpen}></i>
+              </td>
+            </tr>
+            {/*  */}
+          </tbody>
+        </table>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div>hfduiyfghdfghgfhgfht</div>
+          </Box>
+        </Modal>
+      </div>
+
+      <div className="tabel_button">
+        <button>Previous</button>
+        <p>Page 1 of 1</p>
+        <button>Next</button>
       </div>
     </>
   );

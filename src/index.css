@@ -72,7 +72,7 @@ th {
   cursor: pointer;
 }
 
-.table_info table td .edit>* {
+.table_info table td .edit > * {
   font-size: 12px;
 }
 
@@ -88,7 +88,7 @@ th {
   cursor: pointer;
 }
 
-.table_info table td .delete>* {
+.table_info table td .delete > * {
   font-size: 14px;
 }
 
@@ -103,7 +103,7 @@ th {
   cursor: pointer;
 }
 
-.table_info table td .remove>* {
+.table_info table td .remove > * {
   font-size: 14px;
 }
 
@@ -119,7 +119,7 @@ th {
   cursor: pointer;
 }
 
-.table_info table td .toggle>* {
+.table_info table td .toggle > * {
   font-size: 14px;
 }
 
@@ -519,7 +519,7 @@ hr {
   cursor: pointer;
 }
 
-.main1 .navbaricon>* {
+.main1 .navbaricon > * {
   font-size: 22px;
 }
 
@@ -1249,12 +1249,7 @@ hr {
   display: block;
 }
 
-
-
-
-
 /* SIDE bAR cSS */
-
 
 .sidebar hr {
   background-color: #278787;
@@ -1283,7 +1278,7 @@ hr {
   height: 90px;
 }
 
-.side_header>div {
+.side_header > div {
   font-size: 11px;
   font-weight: 600;
   color: white;
@@ -1316,12 +1311,12 @@ hr {
   letter-spacing: 0.4px;
 }
 
-.side_comp>ul {
+.side_comp > ul {
   list-style-type: none;
   display: block;
 }
 
-.side_comp>ul>li {
+.side_comp > ul > li {
   cursor: pointer;
   color: black;
   display: flex;
@@ -1361,7 +1356,7 @@ hr {
   margin-right: 10px;
 }
 
-.toggle_submenu_icon>* {
+.toggle_submenu_icon > * {
   font-weight: 600;
 }
 
@@ -1401,7 +1396,7 @@ hr {
   border-radius: 6px;
 }
 
-.side_comp_cont>.icon>* {
+.side_comp_cont > .icon > * {
   font-size: 22px;
 }
 
@@ -1410,7 +1405,6 @@ hr {
   color: black;
   border-radius: 6px;
 }
-
 
 /* sIDE bAR cSS eND  */
 .Filters {
@@ -2345,7 +2339,7 @@ select {
   align-items: center;
 }
 
-.setting_page_body .head span>* {
+.setting_page_body .head span > * {
   font-size: 20px;
   font-weight: 500;
 }
@@ -2990,10 +2984,9 @@ td {
   width: 20px;
   height: 20px;
   cursor: pointer;
-
 }
 
-.profile .profile_img .edit_icon>* {
+.profile .profile_img .edit_icon > * {
   color: white;
 }
 
@@ -3025,7 +3018,7 @@ td {
   border-radius: 4px;
 }
 
-.order_info .icon>* {
+.order_info .icon > * {
   width: 42px;
   height: 42px;
   color: white;
@@ -3071,20 +3064,16 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%; 
+  width: 100%;
   margin-bottom: 0px;
 }
 
-
 .logoimg img {
   width: 100px;
-  height: auto;  
-  
+  height: auto;
 }
 
-
-/* .................................... ........................................ */
-
+/* ....................................ADD INPUT BOX........................................ */
 
 .product_page {
   width: 99%;
@@ -3334,7 +3323,9 @@ td {
   font-weight: 500;
 }
 
-.basic_info_con2 .select_tags input[type="search"]::-webkit-search-cancel-button {
+.basic_info_con2
+  .select_tags
+  input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
 
@@ -3364,7 +3355,7 @@ td {
   margin-top: 20px;
 }
 
-.basic_info_con2 .highlights>div {
+.basic_info_con2 .highlights > div {
   display: flex;
   align-items: center;
 }
@@ -3394,7 +3385,7 @@ td {
   margin-top: 20px;
 }
 
-.basic_info_con2 .calories>div {
+.basic_info_con2 .calories > div {
   display: flex;
   align-items: center;
 }
@@ -3630,6 +3621,50 @@ td {
   cursor: pointer;
   color: white;
   font-weight: 500;
+}
+
+/*....................................... END ...................................................... */
+
+/* ................................ TABLE .................................................... */
+
+.table_container {
+  width: 100%;
+
+}
+.table_style {
+
+  width: 100%;
+  border-collapse: collapse;
+}
+.table_style th,
+.table_style td {
+  border: 1px solid black;
+}
+.table_style thead{
+  background-color: white;
+}
+
+.table_style tbody tr:nth-child(odd){
+  background-color:#e9edf0dc;
+
+}
+.tabel_button{
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+  
+  
+}
+.tabel_button button{
+  background-color:#12e6e2;
+  border-radius: 3px;
+  padding: 3px;
+  border: none;
+  width: 70px;
+}
+.tabel_button p{
+    margin: 0 5px 0 5px;
+    margin-top: 2px;
 }
 
 
