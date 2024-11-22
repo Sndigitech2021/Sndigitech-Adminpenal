@@ -1,7 +1,7 @@
 import axios from "axios";
 import ClearSession from "./ClearSession";
 
-export const BASEURL = "https://api.eltutor.in";
+export const BASEURL = "http://16.171.135.55:4000";
 
 const apiBaseUrl = `${BASEURL}/api/`;
 
@@ -9,32 +9,32 @@ const APIUserAdmin = `${apiBaseUrl}admin/`;
 
 export const ApiUrl = {
   //Auth
-  login: `${APIUserAdmin}login`,
-  resetPassword: `${APIUserAdmin}reset/password/admin`,
-  forgotPassword: `${APIUserAdmin}forgot/password/admin`,
-  resendOtp: `${APIUserAdmin}resend/otp`,
-  updatePassword: `${APIUserAdmin}change-password`,
-  verifyAccount: `${APIUserAdmin}verified/account`,
-  delete: `${APIUserAdmin}delete`,
+  login: `${apiBaseUrl}user/login`,
+  forgotPassword: `${apiBaseUrl}user/forgot`,
+  resetPassword: `${apiBaseUrl}user/reset`,
+  // resendOtp: `${APIUserAdmin}resend/otp`,
+  // updatePassword: `${APIUserAdmin}change-password`,
+  // verifyAccount: `${APIUserAdmin}verified/account`,
+  // delete: `${APIUserAdmin}delete`,
 
-  //Transaction
-  getTransaction: `${apiBaseUrl}transaction/get/all`,
+  // //Transaction
+  // getTransaction: `${apiBaseUrl}transaction/get/all`,
 
-  //Student
-  getStudent: `${APIUserAdmin}get/all/users`,
-  getStudentDetails: `${APIUserAdmin}get/student_details`,
-  deleteStudent: `${APIUserAdmin}delete/student_details`,
+  // //Student
+  // getStudent: `${APIUserAdmin}get/all/users`,
+  // getStudentDetails: `${APIUserAdmin}get/student_details`,
+  // deleteStudent: `${APIUserAdmin}delete/student_details`,
 
-  //Student
-  getTeacher: `${APIUserAdmin}get/all/users`,
-  getTeacherDetails: `${APIUserAdmin}get/student_details`,
-  deleteTeacher: `${APIUserAdmin}delete/teacher_details`,
+  // //Student
+  // getTeacher: `${APIUserAdmin}get/all/users`,
+  // getTeacherDetails: `${APIUserAdmin}get/student_details`,
+  // deleteTeacher: `${APIUserAdmin}delete/teacher_details`,
 
-  //Admin
-  getAdminDetails: `${APIUserAdmin}getDetails`,
-  updateProfile: `${APIUserAdmin}update-profile`,
+  // //Admin
+  // getAdminDetails: `${APIUserAdmin}getDetails`,
+  // updateProfile: `${APIUserAdmin}update-profile`,
 
-  getAllCount: `${APIUserAdmin}get/all/counts`,
+  // getAllCount: `${APIUserAdmin}get/all/counts`,
 };
 
 export const APIRequest = async (

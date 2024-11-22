@@ -11,38 +11,40 @@ const Login = () => {
     password: "",
   });
 
-  const loginAuth = async () => {
-    navigate("/app/dashboard");
-    // setIsLoading(true);
-    // let config = {
-    //   url: ApiUrl?.login,
-    //   method: "post",
-    //   body: {
-    //     email: inputValue?.email,
-    //     password: inputValue?.password,
-    //   },
-    // };
+  const loginAuth = () => {
+    // navigate("/app/dashboard");
+    setIsLoading(true);
+    let config = {
+      url: ApiUrl?.login,
+      method: "post",
+      body: {
+        email: inputValue?.email,
+        password: inputValue?.password,
+      },
+    };
     // console.log("sadasdas", config);
 
-    // APIRequest(
-    //   config,
-    //   (res) => {
-    //     console.log("login", res);
+    APIRequest(
+      config,
+      (res) => {
+        // console.log("login", res);
 
-    //     if (!res?.error) {
-    //       setIsLoading(false);
-    //       sessionStorage.setItem("data", JSON.stringify(res?.token));
-    //       navigate("/app/dashboard");
-    //       toast.success(res?.message);
-    //     }
-    //   },
-    //   (err) => {
-    //     setIsLoading(false);
-    //     if (err?.error) {
-    //       toast.error(err?.message);
-    //     }
-    //   }
-    // );
+        if (!res?.error) {
+          setIsLoading(false);
+          sessionStorage.setItem("data", JSON.stringify(res?.token));
+          navigate("/app/dashboard");
+          toast.success(res?.message);
+        }
+      },
+      (err) => {
+        // console.log("errerrerrerr", err);
+
+        setIsLoading(false);
+        toast.error(err?.message);
+        // if (err?.error) {
+        // }
+      }
+    );
   };
 
   const SubmitHandler = (e) => {
@@ -57,9 +59,14 @@ const Login = () => {
   };
 
   const changeInputHandler = (e) => {
-    console.log("asdasdsa", e?.target?.name);
+    const { name, value } = e.target;
+    // console.log("asdasdsa", e?.target?.name);
 
-    setInputValue({ ...inputValue, [e.target.name]: e.target.value });
+    setInputValue(
+      {
+        ...inputValue,
+        [name]: value
+      });
   };
 
   return (
@@ -73,10 +80,10 @@ const Login = () => {
           <div className="input_box">
             <div className="login">Login Id</div>
             <input
-              onChange={(e) => changeInputHandler(e)}
               type="text"
               name="email"
               value={inputValue?.email}
+              onChange={changeInputHandler}
               placeholder="Enter Email"
               required
             />
@@ -84,10 +91,10 @@ const Login = () => {
           <div className="input_box">
             <div className="login">Password</div>
             <input
-              onChange={(e) => changeInputHandler(e)}
-              type="text"
-              value={inputValue?.password}
+              type="password"
               name="password"
+              value={inputValue?.password}
+              onChange={changeInputHandler}
               placeholder="Enter Password"
             />
           </div>

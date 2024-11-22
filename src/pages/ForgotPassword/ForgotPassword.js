@@ -7,7 +7,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   const [statusCode, setStatusCode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [inputType, setInputType] = useState("password");
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const [inputValue, setInputValue] = useState({
     email: "",
@@ -15,19 +15,24 @@ const ForgotPassword = () => {
 
   const [resetInputValue, setResetInputValue] = useState({
     email: "",
-    OTP: "",
+    otp: "1215",
     password: "",
-    confirmPassword: "",
+    // confirmPassword: "",
   });
 
   const changeInputHandler = (e) => {
-    setInputValue({ ...inputValue, [e.target.name]: e.target.value });
-    setResetInputValue({ ...resetInputValue, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setInputValue({ ...inputValue, [name]: value });
+    setResetInputValue({ ...resetInputValue, [name]: value });
+    // setConfirmPassword({ [name]: value });
   };
 
   const validatePasswords = () => {
-    if (resetInputValue.password.length < 6) {
+    if (inputValue.password.length < 6) {
       return "Password must be at least 6 characters long.";
+    }
+    if (inputValue.password !== confirmPassword) {
+      return "Passwords do not match.";
     }
     return null;
   };
@@ -37,11 +42,11 @@ const ForgotPassword = () => {
     if (inputValue.email === "") {
       toast.error("Email field is required");
     } else {
-      emailVerifyAuth();
+      forgetPassword();
     }
   };
 
-  const emailVerifyAuth = () => {
+  const forgetPassword = () => {
     setIsLoading(true);
     let config = {
       url: ApiUrl?.forgotPassword,
@@ -71,12 +76,25 @@ const ForgotPassword = () => {
     );
   };
 
+  const resetPasswordHandler = (e) => {
+    e.preventDefault();
+    if (resetInputValue.email === "") {
+      toast.error("Email field is required");
+    } else if (resetInputValue.otp === "") {
+      toast.error("OTP field is required");
+    } else if (resetInputValue.password === "") {
+      toast.error("Password field is required");
+    } else {
+      resetPasswordAuth();
+    }
+  };
   const resetPasswordAuth = () => {
     setIsLoading(true);
 
     const validationError = validatePasswords();
     if (validationError) {
       toast.error(validationError);
+      // setIsLoading(false);
       return;
     }
 
@@ -85,17 +103,17 @@ const ForgotPassword = () => {
       method: "post",
       body: JSON.stringify(resetInputValue),
     };
-    // console.log("resetInputValueresetInputValue", config);
+    console.log("resetInputValueresetInputValue", config);
 
     APIRequest(
       config,
       (res) => {
-        // console.log("12345678sdfghj", res);
-
+        console.log("12345678sdfghj", res);
         setIsLoading(false);
         if (!res?.error) {
           toast.success(res?.message);
           navigate("/");
+          setIsLoading(false);
         } else {
           toast.error(res?.message);
         }
@@ -135,18 +153,7 @@ const ForgotPassword = () => {
     );
   };
 
-  const resetPasswordHandler = (e) => {
-    e.preventDefault();
-    if (resetInputValue.email === "") {
-      toast.error("Email field is required");
-    } else if (resetInputValue.OTP === "") {
-      toast.error("OTP field is required");
-    } else if (resetInputValue.password === "") {
-      toast.error("Password field is required");
-    } else {
-      resetPasswordAuth();
-    }
-  };
+
 
   return (
     <div className="wrapper">
@@ -180,37 +187,41 @@ const ForgotPassword = () => {
           <div className="input_box">
             <div className="login">Email</div>
             <input
-              onChange={(e) => changeInputHandler(e)}
-              type="text"
+              type="email"
               name="email"
-              placeholder="Email"
+              value={resetInputValue.email}
+              onChange={changeInputHandler}
+              placeholder="Enter email address"
             />
           </div>
           <div className="input_box">
             <div className="login">OTP</div>
             <input
-              type={inputType}
-              onChange={(e) => changeInputHandler(e)}
+              type="text"
+              name="otp"
+              value={resetInputValue.otp}
+              onChange={changeInputHandler}
               placeholder="Enter Valid OTP"
-              name="OTP"
             />
           </div>
           <div className="input_box">
             <div className="login">New Password</div>
             <input
-              type={inputType}
-              onChange={(e) => changeInputHandler(e)}
-              placeholder="New Password"
+              type="password"
               name="password"
+              value={resetInputValue.password}
+              onChange={changeInputHandler}
+              placeholder="New Password"
             />
           </div>
           <div className="input_box">
             <div className="login">Confirm New Password</div>
             <input
-              type={inputType}
-              onChange={(e) => changeInputHandler(e)}
-              placeholder="Confirm New Password"
+              type="password"
               name="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm New Password"
             />
           </div>
           <div className="Remember-forget">
