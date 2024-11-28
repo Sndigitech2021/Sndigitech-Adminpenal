@@ -17,22 +17,58 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "DigitalService",
+    name: "Hero Service",
     toggleArrowButton: true,
     heading: "",
     submenu: [
       {
-        path: "/app/digitalService",
+        path: "/app/add-hero-section",
         icon: <GiDigitalTrace />,
-        name: "All Digital Service",
+        name: "All Hero Service",
       },
       {
-        path: "/app/add-digitalService",
+        path: "/app/all-hero-section",
         icon: <GiDigitalTrace />,
-        name: "Add Digital Service",
+        name: "Add Hero Service",
       },
     ],
   },
+  {
+    img: <GiDigitalTrace />,
+    name: "Client Image",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/Client-Image",
+        icon: <GiDigitalTrace />,
+        name: "All Client Image",
+      },
+      {
+        path: "/app/add-Client-Image",
+        icon: <GiDigitalTrace />,
+        name: "Add Client Image",
+      },
+    ],
+  },
+  // {
+  //   img: <GiDigitalTrace />,
+  //   name: "DigitalService",
+  //   toggleArrowButton: true,
+  //   heading: "",
+  //   submenu: [
+  //     {
+  //       path: "/app/digitalService",
+  //       icon: <GiDigitalTrace />,
+  //       name: "All Digital Service",
+  //     },
+  //     {
+  //       path: "/app/add-digitalService",
+  //       icon: <GiDigitalTrace />,
+  //       name: "Add Digital Service",
+  //     },
+  //   ],
+  // },
   {
     img: <GiDigitalTrace />,
     name: "IT Service",
@@ -48,6 +84,42 @@ const SideBarRoute = [
         path: "/app/add-it_service",
         icon: <CiMonitor />,
         name: "Add IT Service",
+      },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
+    name: "Digital Marketing ",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/all-Digital_Marketing",
+        icon: <CiMonitor />,
+        name: "All Digital Marketing",
+      },
+      {
+        path: "/app/add-Digital_Marketing",
+        icon: <CiMonitor />,
+        name: "Add Digital Marketing",
+      },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
+    name: "Digital Marketing Process ",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/all-Digital_Marketing_Process",
+        icon: <CiMonitor />,
+        name: "All Digital Marketing Process",
+      },
+      {
+        path: "/app/add-Digital_Marketing_Process",
+        icon: <CiMonitor />,
+        name: "Add Digital Marketing Process",
       },
     ],
   },
@@ -71,19 +143,19 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "360 Marketing Services",
+    name: "360 Marketing ",
     toggleArrowButton: true,
     heading: "",
     submenu: [
       {
         path: "/app/all-360-marketing-services",
         icon: <SiGooglemarketingplatform />,
-        name: "All 360 Marketing Services",
+        name: "All 360 Marketing ",
       },
       {
         path: "/app/add-360-marketing-services",
         icon: <SiGooglemarketingplatform />,
-        name: "Add 360 Marketing Services",
+        name: "Add 360 Marketing ",
       },
     ],
   },
@@ -102,6 +174,42 @@ const SideBarRoute = [
         path: "/app/add-portfolio-projects",
         icon: <FaPortrait />,
         name: "Add Portfolio Projects",
+      },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
+    name: "Why Services",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/all-why-services",
+        icon: <FaPortrait />,
+        name: "All Why Services",
+      },
+      {
+        path: "/app/add-why-services",
+        icon: <FaPortrait />,
+        name: "Add Why Services",
+      },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
+    name: "Testimonial",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/all-testimonial",
+        icon: <FaPortrait />,
+        name: "All Testimonial",
+      },
+      {
+        path: "/app/add-testimonial",
+        icon: <FaPortrait />,
+        name: "Add Testimonial ",
       },
     ],
   },
@@ -179,19 +287,37 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "Hero Section",
+    name: "Key Pointers",
     toggleArrowButton: true,
     heading: "",
     submenu: [
       {
-        path: "/app/all-hero-section",
+        path: "/app/all-key-pointers",
         icon: <FaChalkboardTeacher />,
-        name: "All Hero Section",
+        name: "All Key Pointers",
       },
       {
-        path: "/app/add-hero-section",
+        path: "/app/add-key-pointers",
         icon: <FaChalkboardTeacher />,
-        name: "Add Hero Section",
+        name: "Add Key Pointers",
+      },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
+    name: "Our Team",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/all-our-team",
+        icon: <FaChalkboardTeacher />,
+        name: "All Our Team",
+      },
+      {
+        path: "/app/add-our-team",
+        icon: <FaChalkboardTeacher />,
+        name: "Add Our Team",
       },
     ],
   },

@@ -1,117 +1,291 @@
 import React, { useState } from "react";
-import { Modal, Backdrop } from "@mui/material";
-import { styled } from "@mui/system";
-import Box from "@mui/material/Box";
-import { RxCross1 } from "react-icons/rx";
-import { Height } from "@mui/icons-material";
-import { APIRequest, ApiUrl } from "../../utils/api";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { RiTimelineView } from "react-icons/ri";
-import { MdDelete } from "react-icons/md";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 450,
-  backgroundColor: "background.paper",
-  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-  p: 4,
-  border: "none !important",
-  outline: "none",
-  overflow: "auto",
-  scrollbarWidth: "none",
-  zIndex: "1100",
-  height: "90%",
-};
+import { APIRequest, APIRequestWithFile, ApiUrl } from "../../utils/api";
 
 const Add360MarketingServices = () => {
-  const [name, setname] = useState("");
-  const [price, setprice] = useState("");
-  const [type, setType] = useState(""); // New state for Type
-  const [topic, setTopic] = useState(""); // New state for Topic
-  const [subheading, setSubheading] = useState(""); // New state for Subheading
-  const [image, setimage] = useState(null);
-
+  const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [students, setStudents] = useState([]);
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [serviceData, setServiceData] = useState({
+    title: "",
+    description: "",
+    type: "",
+    category: "",
+    uploadedfile: null,
+    sub_category: "",
+    location: "",
+    technology: "",
+    sub_title: "",
+  });
 
-  const limit = 10;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setServiceData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setServiceData((prev) => ({
+      ...prev,
+      uploadedfile: file,
+    }));
+  };
+
+  // const handlerAddService = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!serviceData.title || !serviceData.description || !serviceData.type) {
+  //     toast.error("Please fill in all required fields.");
+  //     return;
+  //   }
+
+  //   const formData = new FormData();
+  //   for (const key in serviceData) {
+  //     formData.append(key, serviceData[key]);
+  //   }
+
+  //   setIsLoading(true);
+
+  //   try {
+  //     const config = {
+  //       url: ApiUrl.addAllService,
+  //       method: "POST",
+  //       body: formData,
+  //       headers: {
+  //         "Content-Type": "multipart/form-data", // Ensure form data is sent correctly
+  //       },
+  //     };
+
+  //     const response = await APIRequest(config);
+
+  //     if (response?.status === 200) {
+  //       toast.success(response.message || "Service added successfully!");
+  //       setServiceData({
+  //         title: "",
+  //         description: "",
+  //         type: "",
+  //         category: "",
+  //         uploadedfile: null,
+  //         sub_category: "",
+  //         location: "",
+  //         technology: "",
+  //         sub_title: "",
+  //       });
+  //       setImage(null);
+  //     } else {
+  //       toast.error(response?.message || "Failed to add service.");
+  //     }
+  //   } catch (error) {
+  //     toast.error("An error occurred while adding the service.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  const handlerAddService = (e) => {
     e.preventDefault();
-    // Handle form submission logic
+    console.log("handlerAddServicehandlerAddService");
+
+    if (!serviceData.title || !serviceData.description || !serviceData.type) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('title', serviceData.title);
+    formData.append('description', serviceData.description);
+    formData.append('type', serviceData.type);
+    formData.append('category', serviceData.category);
+    formData.append('sub_category', serviceData.sub_category);
+    formData.append('location', serviceData.location);
+    formData.append('technology', serviceData.technology);
+    formData.append('sub_title', serviceData.sub_title);
+    formData.append('uploadedfile', serviceData.uploadedfile);
+    // formData.append('file', serviceData.file);
+
+    const config = {
+      url: ApiUrl.addAllService,
+      method: 'POST',
+      body: formData,
+
+
+      //  {
+      // }
+    };
+    console.log("configconfig", config);
+
+    APIRequestWithFile(config,
+      (res) => {
+        console.log("response", res);
+        toast.success(res.message);
+        setServiceData({
+          title: "",
+          description: "",
+          type: "",
+          category: "",
+          uploadedfile: null,
+          sub_category: "",
+          location: "",
+          technology: "",
+          sub_title: "",
+        });
+        setImage(null);
+      },
+      (error) => {
+        toast.error(error.message)
+      }// No error handling for now
+    )
   };
 
   return (
     <>
-      <TitleChanger title="Add Marketing Service" />
-      <BreadCrumb pageTitle="Add Marketing Service" />
+      <TitleChanger title="Add 360Marketing Services" />
+      <BreadCrumb pageTitle="Add 360Marketing Services" />
       <div>
         <div className="product_page">
           <div className="basic_info">
             <div className="basic_info_con">
               <div className="basic_info_con1">
+                {/* Title Input */}
                 <div className="name">
                   <label>TITLE</label>
                   <input
                     type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
+                    name="title"
+                    value={serviceData.title}
+                    onChange={handleInputChange}
+                    placeholder="Enter Title Here"
                   />
                 </div>
+
+                {/* Sub Title Input */}
                 <div className="name">
-                  <label>description</label>
+                  <label>SUB TITLE</label>
                   <input
                     type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
+                    name="sub_title"
+                    value={serviceData.sub_title}
+                    onChange={handleInputChange}
+                    placeholder="Enter Sub-title Here"
                   />
                 </div>
-              
 
+                {/* Description Input */}
+                <div className="name">
+                  <label>DESCRIPTION</label>
+                  <input
+                    type="text"
+                    name="description"
+                    value={serviceData.description}
+                    onChange={handleInputChange}
+                    placeholder="Enter description Here"
+                  />
+                </div>
+
+                {/* Type Select */}
                 <div className="name">
                   <label>TYPE</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
+                  <select
+                    name="type"
+                    value={serviceData.type}
+                    onChange={handleInputChange}
+                  >
+                    <option value="" disabled>
+                      Select Type
+                    </option>
+                    <option value="Image">Image</option>
+                    <option value="Video">Video</option>
+                  </select>
                 </div>
 
+                {/* Category Select */}
                 <div className="name">
-                  <label>CATOGORY</label>
+                  <label>CATEGORY</label>
+                  <select name="category" value={serviceData.category} // Bind the selected value to state
+                    onChange={handleInputChange}
+                  > // Update the state on selection change
+                    <option value="" disabled>
+                      Select Category
+                    </option>
+                    <option value="industry_section">Industry Section</option>
+                    <option value="digital_marketing">Digital Marketing</option>
+                    <option value="digital_marketing_process">Digital Marketing Process</option>
+                    <option value="360_marketing">360 Marketing</option>
+                    <option value="development_process">Development Process</option>
+                    <option value="it_services">IT Services</option>
+                    <option value="news">News</option>
+                    <option value="blog">Blog</option>
+                    <option value="key_pointers">Key Pointers</option>
+                    <option value="our_team">Our Team</option>
+                    <option value="why_services">Why Services</option>
+                    <option value="hero">Hero</option>
+                    <option value="client_image">Client Image</option>
+                    <option value="gallery_image">Gallery Image</option>
+                    <option value="why_sndigitech_section">Why SNDigitech Section</option>
+                  </select>
+                </div>
+
+                {/* Sub-Category Select */}
+                <div className="name">
+                  <label>Sub CATEGORY</label>
+                  <select name="sub_category" // Ensure the name matches the field in the state
+                    value={serviceData.sub_category} // Bind the selected value to the `sub_category` field in the state
+                    onChange={handleInputChange}>
+                    <option value="" disabled>
+                      Select Sub Category
+                    </option>
+                    <option value="home_page">Home Page</option>
+                    <option value="about_page">About Page</option>
+                    <option value="service_list">Service List</option>
+                    <option value="service_details">Service Details</option>
+                    <option value="portfolio_list">Portfolio List</option>
+                    <option value="portfolio_details">Portfolio Details</option>
+                    <option value="blog_list">Blog List</option>
+                    <option value="blog_details">Blog Details</option>
+                    <option value="contact_us">Contact Us</option>
+                    <option value="testimonial">Testimonial</option>
+                    <option value="industry_page">Industry Page</option>
+                    <option value="industry_details">Industry Details</option>
+                    <option value="carrer_page">Career Page</option>
+                  </select>
+                </div>
+
+                {/* Technology Input */}
+                <div className="name">
+                  <label>TECHNOLOGY</label>
                   <input
                     type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
+                    name="technology"
+                    value={serviceData.technology}
+                    onChange={handleInputChange}
+                    placeholder="Enter Technology Here"
                   />
                 </div>
-               
-              
 
+                {/* Location Input */}
+                <div className="name">
+                  <label>LOCATION</label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={serviceData.location}
+                    onChange={handleInputChange}
+                    placeholder="Enter Location Here"
+                  />
+                </div>
+
+                {/* File Upload */}
                 <div className="main_image">
                   <p>Upload File</p>
                   <input
                     id="file-upload"
                     type="file"
-                    multiple
-                    onChange={(e) => setimage(e.target.files[0])}
+                    onChange={handleFileChange}
                   />
                   <label htmlFor="file-upload" className="custom-file-upload">
                     Upload Image
@@ -121,20 +295,17 @@ const Add360MarketingServices = () => {
               </div>
             </div>
           </div>
+
+          {/* Add Button */}
           <div className="add_reset_btn">
-            <div className="add_product">
-              <input
-                type="button"
-                value="Button"
-                onClick={(e) => handleSubmit(e)}
-              />
+            <div className="add_prod">
+              <button onClick={handlerAddService} disabled={isLoading}>
+                {isLoading ? "Loading..." : "Add Service"}
+              </button>
             </div>
           </div>
-          {isLoading
-            ? document.body.classList.add("loading-indicator")
-            : document.body.classList.remove("loading-indicator")}
         </div>
-      </div>
+      </div >
     </>
   );
 };

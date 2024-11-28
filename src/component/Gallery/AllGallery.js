@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Modal, Backdrop } from "@mui/material";
-import { styled } from "@mui/system";
+import { color, styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import { RxCross1 } from "react-icons/rx";
 import { Height } from "@mui/icons-material";
 import { APIRequest, ApiUrl } from "../../utils/api";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { RiTimelineView } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
+// import { toast } from "react-toastify";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
 
@@ -30,110 +30,153 @@ const style = {
 };
 
 const AllGallery = () => {
-  const [name, setname] = useState("");
-  const [price, setprice] = useState("");
-  const [type, setType] = useState(""); // New state for Type
-  const [topic, setTopic] = useState(""); // New state for Topic
-  const [subheading, setSubheading] = useState(""); // New state for Subheading
-  const [image, setimage] = useState(null);
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [students, setStudents] = useState([]);
-  const [selectedStudent, setSelectedStudent] = useState(null);
 
   const limit = 10;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic
+  const [data, setData] = useState([]);
+  // const [sub_category, setSubCategory] = useState();
+
+
+  const getAllServices = (category, sub_category) => {
+    setIsLoading(true);
+    const config = {
+      url: `${ApiUrl.getAllServices}?category=${category}&sub_category=${sub_category}`,
+      method: "GET",
+    }
+
+    APIRequest(
+      config,
+      (res) => {
+        // console.log(res.data, "resresrestr");
+        setIsLoading(false)
+        setData(res?.data);
+
+        const totalCount = res?.count;
+        setTotalPages(Math.ceil(totalCount / limit));
+
+      },
+      (error) => {
+        console.log(error);
+        setIsLoading(false)
+
+      },
+    )
+
+  }
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber == 'prev' && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    } else if (pageNumber == 'next' && currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
   };
+
+  useEffect(() => {
+    getAllServices("testimonial", "about_page")
+
+  }, [currentPage]);
+
+  // const handleDelete = (id) => {
+  //   // Handle delete logic
+  // };
 
   return (
     <>
-      <TitleChanger title="All Gallery Service" />
-      <BreadCrumb pageTitle="All Gallery Service" />
-      <div>
-        <div className="product_page">
-          <div className="basic_info">
-            <div className="basic_info_con">
-              <div className="basic_info_con1">
-                <div className="name">
-                  <label>TITLE</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                </div>
-                <div className="name">
-                  <label>description</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                </div>
-              
+      <TitleChanger title="All Gallery" />
+      <BreadCrumb pageTitle="All Gallery" />
 
-                <div className="name">
-                  <label>TYPE</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                </div>
+      <div className="table_container">
+        <div className="table_info">
+          <table>
+            <thead>
+              <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Category</th>
+                <th>Sub-Category</th>
+                <th>Technology</th>
+                <th>Description</th>
+                <th>Image</th>
+                {/* <th>Delete</th>
+              <th>Edit</th> */}
+              </tr>
+            </thead>
+            <tbody>
+              {
+                isLoading ? (
+                  <tr >
+                    <td colSpan='8' className="text-center">
+                      Loading...
+                    </td>
+                  </tr>
+                ) : (
+                  data.length > 0 ? (
+                    data.map((service, index) => (
+                      < tr key={service.id}>
+                        <td>{(currentPage - 1) * limit + index + 1}</td>
+                        <td>{service.name}</td>
+                        <td>{service.location}</td>
+                        <td>{service.category}</td>
+                        <td>{service.sub_category}</td>
+                        <td>{service.technology}</td>
+                        <td>{service.description}</td>
+                        <td>
+                          <img
+                            src={service.uploadedfile}
+                            alt="Image"
+                            width="50"
+                            height="50"
+                          />
+                        </td>
+                        {/* <td>
+                      <i class="fa-solid fa-trash"></i>
+                    </td> */}
+                        {/* <td>
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </td> */}
+                      </tr>
+                    ))
 
-                <div className="name">
-                  <label>CATOGORY</label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Type Here"
-                    value={name}
-                    onChange={(e) => setname(e.target.value)}
-                  />
-                </div>
-               
-              
+                  ) : (
+                    <tr>
+                      <td colSpan="8" className="text-center">No Data Found</td>
+                    </tr>
+                  )
+                )
+              }
 
-                <div className="main_image">
-                  <p>Upload File</p>
-                  <input
-                    id="file-upload"
-                    type="file"
-                    multiple
-                    onChange={(e) => setimage(e.target.files[0])}
-                  />
-                  <label htmlFor="file-upload" className="custom-file-upload">
-                    Upload Image
-                  </label>
-                  <p>{image?.name}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="add_reset_btn">
-            <div className="add_product">
-              <input
-                type="button"
-                value="Button"
-                onClick={(e) => handleSubmit(e)}
-              />
-            </div>
-          </div>
-          {isLoading
-            ? document.body.classList.add("loading-indicator")
-            : document.body.classList.remove("loading-indicator")}
+            </tbody>
+          </table >
         </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div>                    No Data Found
+            </div>
+          </Box>
+        </Modal>
+      </div >
+
+      <div className="tabel_button">
+        <button
+          onClick={handlePageChange}
+        >Previous</button>
+        <p>Page 1 of 1</p>
+        <button
+          onClick={handlePageChange}
+        >Next</button>
       </div>
     </>
   );

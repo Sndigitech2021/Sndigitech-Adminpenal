@@ -12,29 +12,13 @@ export const ApiUrl = {
   login: `${apiBaseUrl}user/login`,
   forgotPassword: `${apiBaseUrl}user/forgot`,
   resetPassword: `${apiBaseUrl}user/reset`,
-  // resendOtp: `${APIUserAdmin}resend/otp`,
-  // updatePassword: `${APIUserAdmin}change-password`,
-  // verifyAccount: `${APIUserAdmin}verified/account`,
-  // delete: `${APIUserAdmin}delete`,
 
-  // //Transaction
-  // getTransaction: `${apiBaseUrl}transaction/get/all`,
 
-  // //Student
-  // getStudent: `${APIUserAdmin}get/all/users`,
-  // getStudentDetails: `${APIUserAdmin}get/student_details`,
-  // deleteStudent: `${APIUserAdmin}delete/student_details`,
+  // services
+  getAllServices: `${apiBaseUrl}service/admin`,
+  addAllService: `${apiBaseUrl}service/add/admin`,
 
-  // //Student
-  // getTeacher: `${APIUserAdmin}get/all/users`,
-  // getTeacherDetails: `${APIUserAdmin}get/student_details`,
-  // deleteTeacher: `${APIUserAdmin}delete/teacher_details`,
 
-  // //Admin
-  // getAdminDetails: `${APIUserAdmin}getDetails`,
-  // updateProfile: `${APIUserAdmin}update-profile`,
-
-  // getAllCount: `${APIUserAdmin}get/all/counts`,
 };
 
 export const APIRequest = async (

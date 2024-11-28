@@ -5,10 +5,10 @@ import Box from "@mui/material/Box";
 import { RxCross1 } from "react-icons/rx";
 import { Height } from "@mui/icons-material";
 import { APIRequest, ApiUrl } from "../../utils/api";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { RiTimelineView } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
+// import { toast } from "react-toastify";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
 
@@ -33,35 +33,59 @@ const DigitalService = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   const limit = 10;
 
+  const [data, setData] = useState([]);
+  // const [sub_category, setSubCategory] = useState();
+
+
+  const getAllServices = (category) => {
+    setIsLoading(true);
+    const config = {
+      url: `${ApiUrl.getAllServices}?category=${category}`,
+      method: "GET",
+    }
+
+    APIRequest(
+      config,
+      (res) => {
+        // console.log(res.data, "resresrestr");
+        setIsLoading(false)
+        setData(res?.data);
+
+        const totalCount = res?.count;
+        setTotalPages(Math.ceil(totalCount / limit));
+
+      },
+      (error) => {
+        console.log(error);
+        setIsLoading(false)
+
+      },
+    )
+
+  }
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber == 'prev' && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    } else if (pageNumber == 'next' && currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   useEffect(() => {
-    // Fetch data here
-    const fetchStudents = async () => {
-      setIsLoading(true);
-      try {
-        const response = await APIRequest.get(`${ApiUrl}/students`, {
-          params: { page: currentPage, limit },
-        });
-        setStudents(response.data.students);
-        setTotalPages(response.data.totalPages);
-      } catch (error) {
-        toast.error("Failed to load students");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchStudents();
+    getAllServices("testimonial")
+
   }, [currentPage]);
 
-  const handleDelete = (id) => {
-    // Handle delete logic
-  };
+  // const handleDelete = (id) => {
+  //   // Handle delete logic
+  // };
 
   return (
     <>
@@ -69,117 +93,69 @@ const DigitalService = () => {
       <BreadCrumb pageTitle="All Digital Service" />
 
       <div className="table_container">
-        <table className="table_style">
-          <thead>
-            <tr>
-              <th>S.no</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Type</th>
-              <th>Category</th>
-              <th>Image</th>
-              <th>Delete</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Website Design</td>
+        <div className="table_info">
+          <table>
+            <thead>
+              <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Category</th>
+                <th>Sub-Category</th>
+                <th>Technology</th>
+                <th>Description</th>
+                <th>Image</th>
+                {/* <th>Delete</th>
+              <th>Edit</th> */}
+              </tr>
+            </thead>
+            <tbody>
+              {
+                isLoading ? (
+                  <tr >
+                    <td colSpan='8' className="text-center">
+                      Loading...
+                    </td>
+                  </tr>
+                ) : (
+                  data.length > 0 ? (
+                    data.map((service, index) => (
+                      < tr key={service.id}>
+                        <td>{(currentPage - 1) * limit + index + 1}</td>
+                        <td>{service.name}</td>
+                        <td>{service.location}</td>
+                        <td>{service.category}</td>
+                        <td>{service.sub_category}</td>
+                        <td>{service.technology}</td>
+                        <td>{service.description}</td>
+                        <td>
+                          <img
+                            src={service.uploadedfile}
+                            alt="Image"
+                            width="50"
+                            height="50"
+                          />
+                        </td>
+                        {/* <td>
+                      <i class="fa-solid fa-trash"></i>
+                    </td> */}
+                        {/* <td>
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </td> */}
+                      </tr>
+                    ))
 
-              <td>Creating engaging websites</td>
-              <td>Design</td>
-              <td>UI/UX</td>
-              <td>
-                <img
-                  src="/assets/images/analyst.jpg"
-                  alt="French Fry"
-                  width="50"
-                  height="50"
-                />
-              </td>
-              <td>
-                <i class="fa-solid fa-trash"></i>
-              </td>
-              <td>
-                <i class="fa-solid fa-pen-to-square"></i>
-              </td>
-            </tr>
-            {/*  */}
+                  ) : (
+                    <tr>
+                      <td colSpan="8" className="text-center">No Data Found</td>
+                    </tr>
+                  )
+                )
+              }
 
-            <tr>
-              <td>1</td>
-              <td>Website Design</td>
-
-              <td>Creating engaging websites</td>
-              <td>Design</td>
-              <td>UI/UX</td>
-              <td>
-                <img
-                  src="/assets/images/analyst.jpg"
-                  alt="French Fry"
-                  width="50"
-                  height="50"
-                />
-              </td>
-              <td>
-                <i class="fa-solid fa-trash"></i>
-              </td>
-              <td>
-                <i class="fa-solid fa-pen-to-square"></i>
-              </td>
-            </tr>
-
-            {/*  */}
-            <tr>
-              <td>1</td>
-              <td>Website Design</td>
-
-              <td>Creating engaging websites</td>
-              <td>Design</td>
-              <td>UI/UX</td>
-              <td>
-                <img
-                  src="/assets/images/analyst.jpg"
-                  alt="French Fry"
-                  width="50"
-                  height="50"
-                />
-              </td>
-              <td>
-                <i class="fa-solid fa-trash"></i>
-              </td>
-              <td>
-                <i class="fa-solid fa-pen-to-square"></i>
-              </td>
-            </tr>
-
-            {/*  */}
-            <tr>
-              <td>1</td>
-              <td>Website Design</td>
-
-              <td>Creating engaging websites</td>
-              <td>Design</td>
-              <td>UI/UX</td>
-              <td>
-                <img
-                  src="/assets/images/analyst.jpg"
-                  alt="French Fry"
-                  width="50"
-                  height="50"
-                />
-              </td>
-              <td>
-                <i class="fa-solid fa-trash"></i>
-              </td>
-              <td>
-                <i class="fa-solid fa-pen-to-square" onClick={handleOpen}></i>
-              </td>
-            </tr>
-            {/*  */}
-          </tbody>
-        </table>
+            </tbody>
+          </table >
+        </div>
         <Modal
           open={open}
           onClose={handleClose}
@@ -187,15 +163,20 @@ const DigitalService = () => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <div>hfduiyfghdfghgfhgfht</div>
+            <div>                    No Data Found
+            </div>
           </Box>
         </Modal>
-      </div>
+      </div >
 
       <div className="tabel_button">
-        <button>Previous</button>
+        <button
+          onClick={handlePageChange}
+        >Previous</button>
         <p>Page 1 of 1</p>
-        <button>Next</button>
+        <button
+          onClick={handlePageChange}
+        >Next</button>
       </div>
     </>
   );

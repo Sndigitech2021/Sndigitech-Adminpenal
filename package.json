@@ -19,7 +19,7 @@
     "react-lazy-load": "^4.0.1",
     "react-scripts": "5.0.1",
     "react-stepper-horizontal": "^1.0.11",
-    "react-toastify": "^10.0.5",
+    "react-toastify": "^10.0.6",
     "styled-components": "^6.1.13",
     "web-vitals": "^2.1.4"
   },

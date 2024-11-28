@@ -1324,7 +1324,7 @@ hr {
   align-items: center;
   justify-content: space-between;
   margin: 0px 8px;
-  text-align: center;
+  /* text-align: center; */
   border-radius: 6px;
 }
 
@@ -3623,16 +3623,30 @@ td {
   font-weight: 500;
 }
 
+.product_page .add_reset_btn .add_prod {
+  margin-left: -2px;
+}
+
+.product_page .add_reset_btn .add_prod button {
+  width: max-content;
+  border-radius: 4px;
+  background-color: #17a2b8;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
 /*....................................... END ...................................................... */
 
 /* ................................ TABLE .................................................... */
 
 .table_container {
   width: 100%;
-
 }
 .table_style {
-
   width: 100%;
   border-collapse: collapse;
 }
@@ -3640,31 +3654,26 @@ td {
 .table_style td {
   border: 1px solid black;
 }
-.table_style thead{
+.table_style thead {
   background-color: white;
 }
 
-.table_style tbody tr:nth-child(odd){
-  background-color:#e9edf0dc;
-
+.table_style tbody tr:nth-child(odd) {
+  background-color: #e9edf0dc;
 }
-.tabel_button{
+.tabel_button {
   display: flex;
   justify-content: end;
   margin-top: 10px;
-  
-  
 }
-.tabel_button button{
-  background-color:#12e6e2;
+.tabel_button button {
+  background-color: #12e6e2;
   border-radius: 3px;
   padding: 3px;
   border: none;
   width: 70px;
 }
-.tabel_button p{
-    margin: 0 5px 0 5px;
-    margin-top: 2px;
+.tabel_button p {
+  margin: 0 5px 0 5px;
+  margin-top: 2px;
 }
-
-
