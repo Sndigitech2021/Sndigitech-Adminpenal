@@ -5,7 +5,7 @@ import BreadCrumb from "../Breadcrumb/index";
 import { APIRequest, APIRequestWithFile, ApiUrl } from "../../utils/api";
 
 const AddHeroSection = () => {
-  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serviceData, setServiceData] = useState({
     title: "",
@@ -14,9 +14,6 @@ const AddHeroSection = () => {
     category: "",
     uploadedfile: null,
     sub_category: "",
-    location: "",
-    technology: "",
-    sub_title: "",
   });
 
   const handleInputChange = (e) => {
@@ -28,68 +25,37 @@ const AddHeroSection = () => {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+    const uploadedFile = e.target.files[0];
+    if (uploadedFile) {
+      setFile(uploadedFile);
+    }
     setServiceData((prev) => ({
       ...prev,
-      uploadedfile: file,
+      uploadedfile: uploadedFile,
     }));
   };
 
-  // const handlerAddService = async (e) => {
-  //   e.preventDefault();
 
-  //   if (!serviceData.title || !serviceData.description || !serviceData.type) {
-  //     toast.error("Please fill in all required fields.");
-  //     return;
-  //   }
 
-  //   const formData = new FormData();
-  //   for (const key in serviceData) {
-  //     formData.append(key, serviceData[key]);
-  //   }
-
-  //   setIsLoading(true);
-
-  //   try {
-  //     const config = {
-  //       url: ApiUrl.addAllService,
-  //       method: "POST",
-  //       body: formData,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data", // Ensure form data is sent correctly
-  //       },
-  //     };
-
-  //     const response = await APIRequest(config);
-
-  //     if (response?.status === 200) {
-  //       toast.success(response.message || "Service added successfully!");
-  //       setServiceData({
-  //         title: "",
-  //         description: "",
-  //         type: "",
-  //         category: "",
-  //         uploadedfile: null,
-  //         sub_category: "",
-  //         location: "",
-  //         technology: "",
-  //         sub_title: "",
-  //       });
-  //       setImage(null);
-  //     } else {
-  //       toast.error(response?.message || "Failed to add service.");
-  //     }
-  //   } catch (error) {
-  //     toast.error("An error occurred while adding the service.");
-  //   } finally {
-  //     setIsLoading(false);
+  // const handleFileChange = (event) => {
+  //   const uploadedFile = event.target.files[0];
+  //   if (uploadedFile) {
+  //     setFile(uploadedFile);
   //   }
   // };
 
+  const isImage = (file) => {
+    return file && file.type.startsWith("image/");
+  };
+
+  const isVideo = (file) => {
+    return file && file.type.startsWith("video/");
+  };
+
+
   const handlerAddService = (e) => {
     e.preventDefault();
-    console.log("handlerAddServicehandlerAddService");
+    // console.log("handlerAddServicehandlerAddService");
 
     if (!serviceData.title || !serviceData.description || !serviceData.type) {
       toast.error("Please fill in all required fields.");
@@ -102,9 +68,9 @@ const AddHeroSection = () => {
     formData.append('type', serviceData.type);
     formData.append('category', serviceData.category);
     formData.append('sub_category', serviceData.sub_category);
-    formData.append('location', serviceData.location);
-    formData.append('technology', serviceData.technology);
-    formData.append('sub_title', serviceData.sub_title);
+    // formData.append('location', serviceData.location);
+    // formData.append('technology', serviceData.technology);
+    // formData.append('sub_title', serviceData.sub_title);
     formData.append('uploadedfile', serviceData.uploadedfile);
     // formData.append('file', serviceData.file);
 
@@ -112,10 +78,6 @@ const AddHeroSection = () => {
       url: ApiUrl.addAllService,
       method: 'POST',
       body: formData,
-
-
-      //  {
-      // }
     };
     console.log("configconfig", config);
 
@@ -130,11 +92,11 @@ const AddHeroSection = () => {
           category: "",
           uploadedfile: null,
           sub_category: "",
-          location: "",
-          technology: "",
-          sub_title: "",
+          // location: "",
+          // technology: "",
+          // sub_title: "",
         });
-        setImage(null);
+        setFile(null);
       },
       (error) => {
         toast.error(error.message)
@@ -164,7 +126,7 @@ const AddHeroSection = () => {
                 </div>
 
                 {/* Sub Title Input */}
-                <div className="name">
+                {/* <div className="name">
                   <label>SUB TITLE</label>
                   <input
                     type="text"
@@ -173,7 +135,7 @@ const AddHeroSection = () => {
                     onChange={handleInputChange}
                     placeholder="Enter Sub-title Here"
                   />
-                </div>
+                </div> */}
 
                 {/* Description Input */}
                 <div className="name">
@@ -256,7 +218,7 @@ const AddHeroSection = () => {
                 </div>
 
                 {/* Technology Input */}
-                <div className="name">
+                {/* <div className="name">
                   <label>TECHNOLOGY</label>
                   <input
                     type="text"
@@ -265,10 +227,10 @@ const AddHeroSection = () => {
                     onChange={handleInputChange}
                     placeholder="Enter Technology Here"
                   />
-                </div>
+                </div> */}
 
                 {/* Location Input */}
-                <div className="name">
+                {/* <div className="name">
                   <label>LOCATION</label>
                   <input
                     type="text"
@@ -277,7 +239,7 @@ const AddHeroSection = () => {
                     onChange={handleInputChange}
                     placeholder="Enter Location Here"
                   />
-                </div>
+                </div> */}
 
                 {/* File Upload */}
                 <div className="main_image">
@@ -285,13 +247,34 @@ const AddHeroSection = () => {
                   <input
                     id="file-upload"
                     type="file"
+                    accept="image/*,video/*" // Allows only images and videos
                     onChange={handleFileChange}
+                    style={{ display: "none" }} // Hides the default file input
                   />
                   <label htmlFor="file-upload" className="custom-file-upload">
-                    Upload Image
+                    Upload Image/Video
                   </label>
-                  <p>{image?.name}</p>
+                  <p>{file?.name}</p>
+                  <div className="preview">
+                    {isImage(file) && (
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt="Uploaded Preview"
+                        style={{ maxWidth: "100%", height: "auto" }}
+                      />
+                    )}
+                    {isVideo(file) && (
+                      <video
+                        controls
+                        style={{ maxWidth: "100%", height: "auto" }}
+                      >
+                        <source src={URL.createObjectURL(file)} type={file.type} />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>

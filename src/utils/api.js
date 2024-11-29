@@ -17,6 +17,7 @@ export const ApiUrl = {
   // services
   getAllServices: `${apiBaseUrl}service/admin`,
   addAllService: `${apiBaseUrl}service/add/admin`,
+  deleteService: `${apiBaseUrl}service/delete/admin`,
 
 
 };

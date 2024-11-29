@@ -24,12 +24,12 @@ const SideBarRoute = [
       {
         path: "/app/add-hero-section",
         icon: <GiDigitalTrace />,
-        name: "All Hero Service",
+        name: "Add Hero Service",
       },
       {
         path: "/app/all-hero-section",
         icon: <GiDigitalTrace />,
-        name: "Add Hero Service",
+        name: "All Hero Service",
       },
     ],
   },
@@ -40,14 +40,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
+        path: "/app/add-client-image",
+        icon: <GiDigitalTrace />,
+        name: "Add Client Image",
+      },
+      {
         path: "/app/Client-Image",
         icon: <GiDigitalTrace />,
         name: "All Client Image",
-      },
-      {
-        path: "/app/add-Client-Image",
-        icon: <GiDigitalTrace />,
-        name: "Add Client Image",
       },
     ],
   },
@@ -94,14 +94,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-Digital_Marketing",
-        icon: <CiMonitor />,
-        name: "All Digital Marketing",
-      },
-      {
-        path: "/app/add-Digital_Marketing",
+        path: "/app/add-Digital-Marketing",
         icon: <CiMonitor />,
         name: "Add Digital Marketing",
+      },
+      {
+        path: "/app/all-Digital-Marketing",
+        icon: <CiMonitor />,
+        name: "All Digital Marketing",
       },
     ],
   },
@@ -112,14 +112,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-Digital_Marketing_Process",
-        icon: <CiMonitor />,
-        name: "All Digital Marketing Process",
-      },
-      {
-        path: "/app/add-Digital_Marketing_Process",
+        path: "/app/add-Digital-Marketing-Process",
         icon: <CiMonitor />,
         name: "Add Digital Marketing Process",
+      },
+      {
+        path: "/app/all-Digital-Marketing-Process",
+        icon: <CiMonitor />,
+        name: "All Digital Marketing Process",
       },
     ],
   },
@@ -130,14 +130,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-development-process",
-        icon: <FaConnectdevelop />,
-        name: "All Development Process",
-      },
-      {
         path: "/app/add-development-process",
         icon: <FaConnectdevelop />,
         name: "Add Development Process",
+      },
+      {
+        path: "/app/all-development-process",
+        icon: <FaConnectdevelop />,
+        name: "All Development Process",
       },
     ],
   },
@@ -148,14 +148,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-360-marketing-services",
-        icon: <SiGooglemarketingplatform />,
-        name: "All 360 Marketing ",
-      },
-      {
         path: "/app/add-360-marketing-services",
         icon: <SiGooglemarketingplatform />,
         name: "Add 360 Marketing ",
+      },
+      {
+        path: "/app/all-360-marketing-services",
+        icon: <SiGooglemarketingplatform />,
+        name: "All 360 Marketing ",
       },
     ],
   },
@@ -166,14 +166,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-portfolio-projects",
-        icon: <FaPortrait />,
-        name: "All Portfolio Projects",
-      },
-      {
         path: "/app/add-portfolio-projects",
         icon: <FaPortrait />,
         name: "Add Portfolio Projects",
+      },
+      {
+        path: "/app/all-portfolio-projects",
+        icon: <FaPortrait />,
+        name: "All Portfolio Projects",
       },
     ],
   },

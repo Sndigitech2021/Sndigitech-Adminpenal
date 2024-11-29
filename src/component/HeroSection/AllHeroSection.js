@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Backdrop } from "@mui/material";
+import { Modal, Backdrop, Typography, Button } from "@mui/material";
 import { color, styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import { RxCross1 } from "react-icons/rx";
@@ -11,6 +11,8 @@ import { MdDelete } from "react-icons/md";
 // import { toast } from "react-toastify";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -23,15 +25,19 @@ const style = {
   p: 4,
   border: "none !important",
   outline: "none",
-  overflow: "auto",
+  // overflow: "auto",
   scrollbarWidth: "none",
   zIndex: "1100",
-  height: "90%",
+  height: "30%",
 };
 
 const AllHeroSection = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [open, setOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const handleOpen = (id) => {
+    setOpen(true);
+    setSelectedData(id)
+  }
   const handleClose = () => setOpen(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,14 +84,38 @@ const AllHeroSection = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    // e.preventdefaut();
+    // Add delete logic here
+    console.log('Account deleted', id);
+
+    const config = {
+      url: `${ApiUrl.deleteService}/${id}`,
+      method: "delete",
+    }
+    console.log("asfgf", config);
+
+    APIRequest(
+      config,
+      (res) => {
+        console.log(res.data, "resresrestr");
+        handleClose();
+        toast.success(res.message);
+        getAllServices();
+      },
+      (error) => {
+        console.log(error, "eerrroeeesserd");
+        toast.error(error.message)
+      }
+    )
+
+  };
+
   useEffect(() => {
     getAllServices("hero")
 
   }, [currentPage]);
 
-  // const handleDelete = (id) => {
-  //   // Handle delete logic
-  // };
 
   return (
     <>
@@ -122,7 +152,7 @@ const AllHeroSection = () => {
                 ) : (
                   data.length > 0 ? (
                     data.map((service, index) => (
-                      < tr key={service.id}>
+                      < tr key={service._id}>
                         <td>{(currentPage - 1) * limit + index + 1}</td>
                         <td>{service.title}</td>
                         {/* <td>{service.location}</td> */}
@@ -141,10 +171,18 @@ const AllHeroSection = () => {
                           />
                         </td>
                         <td>
-                          <i class="fa-solid fa-trash"></i>
+                          <div
+                            className="delet_button"
+                          >
+                            <i class="fa-solid fa-pen-to-square"></i>
+                          </div>
                         </td>
                         <td>
-                          <i class="fa-solid fa-pen-to-square"></i>
+                          <div
+                            className="delet_button"
+                            onClick={() => handleOpen(service._id)}>
+                            <i class="fa-solid fa-trash"></i>
+                          </div>
                         </td>
                       </tr>
                     ))
@@ -182,6 +220,32 @@ const AllHeroSection = () => {
           onClick={handlePageChange}
         >Next</button>
       </div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Confirm Deletion
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Are you sure you want to delete this section data? This action cannot be undone.
+          </Typography>
+          <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between' }}>
+            <Button variant="contained" color="error"
+              onClick={() => handleDelete(selectedData)}
+            >
+              Confirm
+            </Button>
+            <Button variant="outlined" onClick={() => handleClose()}>
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </>
   );
 };

@@ -3677,3 +3677,8 @@ td {
   margin: 0 5px 0 5px;
   margin-top: 2px;
 }
+
+/* hero section */
+.delet_button {
+  cursor: pointer;
+}

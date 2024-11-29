@@ -4,8 +4,8 @@ import { lazy } from "react";
 const Dashboard = lazy(() => import("../component/Dashboard/Dashboard"));
 const DigitalService = lazy(() => import("../component/DigitalService/DigitalService"));
 const AddDigitalService = lazy(() => import("../component/DigitalService/AddDigitalService"));
-const AddITService = lazy(() => import("../component/ITService/AddITService")); 
-const AllITService = lazy(() => import("../component/ITService/AllITService")); 
+const AddITService = lazy(() => import("../component/ITService/AddITService"));
+const AllITService = lazy(() => import("../component/ITService/AllITService"));
 
 const AddDevelopmentProcess = lazy(() => import("../component/Development/AddDevelopment"));
 const AllDevelopmentProcess = lazy(() => import("../component/Development/AllDevelopment"));
@@ -23,6 +23,10 @@ const AddFaq = lazy(() => import("../component/FAQ/AddFaq"));
 const AllFaq = lazy(() => import("../component/FAQ/AllFaq"));
 const AddHeroSection = lazy(() => import("../component/HeroSection/AddHeroSection"));
 const AllHeroSection = lazy(() => import("../component/HeroSection/AllHeroSection"));
+const AddClientImage = lazy(() => import("../component/ClientImage/AddClientImage"));
+const AllClientImage = lazy(() => import("../component/ClientImage/AllClientImage"));
+const AddDigitalMarketing = lazy(() => import("../component/DigitalMarketing/AddDigitalMarketing"));
+const AllDigitalMarketing = lazy(() => import("../component/DigitalMarketing/AllDigitalMarketing"));
 
 // Define routes
 const routes = [
@@ -32,18 +36,18 @@ const routes = [
     service: true,
   },
   {
-    path: "/digitalService",
+    path: "/all-Digital-Marketing-Process",
     component: DigitalService,
     service: true,
   },
   {
-    path: "/add-digitalService",
+    path: "/add-Digital-Marketing-Process",
     component: AddDigitalService,
     service: true,
   },
   {
     path: "/add-it_service",
-    component: AddITService, 
+    component: AddITService,
     service: true,
   },
   {
@@ -131,6 +135,27 @@ const routes = [
     component: AllHeroSection,
     service: true,
   },
+  {
+    path: "/add-client-image",
+    component: AddClientImage,
+    service: true,
+  },
+  {
+    path: "/client-Image",
+    component: AllClientImage,
+    service: true,
+  },
+  {
+    path: "/add-Digital-Marketing",
+    component: AddDigitalMarketing,
+    service: true,
+  },
+  {
+    path: "/all-Digital-Marketing",
+    component: AllDigitalMarketing,
+    service: true,
+  },
+
 ];
 
 export default routes;

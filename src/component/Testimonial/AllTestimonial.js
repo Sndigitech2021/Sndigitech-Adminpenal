@@ -29,7 +29,7 @@ const style = {
   height: "90%",
 };
 
-const AllDevelopmentProcess = () => {
+const AllTestimonial = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -182,4 +182,4 @@ const AllDevelopmentProcess = () => {
   );
 };
 
-export default AllDevelopmentProcess;
+export default AllTestimonial;

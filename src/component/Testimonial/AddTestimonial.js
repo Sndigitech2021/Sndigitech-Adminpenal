@@ -4,7 +4,7 @@ import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
 import { APIRequest, APIRequestWithFile, ApiUrl } from "../../utils/api";
 
-const AddDevelopmentProcess = () => {
+const AddTestimonial = () => {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serviceData, setServiceData] = useState({
@@ -310,4 +310,4 @@ const AddDevelopmentProcess = () => {
   );
 };
 
-export default AddDevelopmentProcess;
+export default AddTestimonial;
