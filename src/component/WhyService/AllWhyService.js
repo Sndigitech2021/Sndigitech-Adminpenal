@@ -31,7 +31,7 @@ const style = {
   height: "30%",
 };
 
-const AllGallery = () => {
+const AllWhyService = () => {
   const [open, setOpen] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const handleOpen = (id) => {
@@ -112,15 +112,15 @@ const AllGallery = () => {
   };
 
   useEffect(() => {
-    getAllServices("gallery_image")
+    getAllServices("why_sndigitech_section")
 
   }, [currentPage]);
 
 
   return (
     <>
-      <TitleChanger title="All Gallery" />
-      <BreadCrumb pageTitle="All Gallery" />
+      <TitleChanger title="All Why Service" />
+      <BreadCrumb pageTitle="All Why Service" />
 
       <div className="table_container">
         <div className="table_info">
@@ -250,4 +250,4 @@ const AllGallery = () => {
   );
 };
 
-export default AllGallery;
+export default AllWhyService;

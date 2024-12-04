@@ -76,14 +76,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-it_service",
-        icon: <CiMonitor />,
-        name: "All IT Service",
-      },
-      {
         path: "/app/add-it_service",
         icon: <CiMonitor />,
         name: "Add IT Service",
+      },
+      {
+        path: "/app/all-it_service",
+        icon: <CiMonitor />,
+        name: "All IT Service",
       },
     ],
   },
@@ -184,14 +184,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-why-services",
-        icon: <FaPortrait />,
-        name: "All Why Services",
-      },
-      {
         path: "/app/add-why-services",
         icon: <FaPortrait />,
         name: "Add Why Services",
+      },
+      {
+        path: "/app/all-why-services",
+        icon: <FaPortrait />,
+        name: "All Why Services",
       },
     ],
   },
@@ -202,14 +202,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-testimonial",
-        icon: <FaPortrait />,
-        name: "All Testimonial",
-      },
-      {
         path: "/app/add-testimonial",
         icon: <FaPortrait />,
         name: "Add Testimonial ",
+      },
+      {
+        path: "/app/all-testimonial",
+        icon: <FaPortrait />,
+        name: "All Testimonial",
       },
     ],
   },
@@ -220,14 +220,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-blogs",
-        icon: <FaMicroblog />,
-        name: "All Blogs",
-      },
-      {
         path: "/app/add-blogs",
         icon: <FaMicroblog />,
         name: "Add Blogs",
+      },
+      {
+        path: "/app/all-blogs",
+        icon: <FaMicroblog />,
+        name: "All Blogs",
       },
     ],
   },
@@ -238,14 +238,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-news",
-        icon: <TiNews />,
-        name: "All News",
-      },
-      {
         path: "/app/add-news",
         icon: <TiNews />,
         name: "Add News",
+      },
+      {
+        path: "/app/all-news",
+        icon: <TiNews />,
+        name: "All News",
       },
     ],
   },
@@ -256,14 +256,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-gallery",
-        icon: <GrGallery />,
-        name: "All Gallery",
-      },
-      {
         path: "/app/add-gallery",
         icon: <GrGallery />,
         name: "Add Gallery",
+      },
+      {
+        path: "/app/all-gallery",
+        icon: <GrGallery />,
+        name: "All Gallery",
       },
     ],
   },
@@ -274,14 +274,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-faq",
-        icon: <FaQuestionCircle />,
-        name: "All FAQ",
-      },
-      {
         path: "/app/add-faq",
         icon: <FaQuestionCircle />,
         name: "Add FAQ",
+      },
+      {
+        path: "/app/all-faq",
+        icon: <FaQuestionCircle />,
+        name: "All FAQ",
       },
     ],
   },
@@ -292,14 +292,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-key-pointers",
-        icon: <FaChalkboardTeacher />,
-        name: "All Key Pointers",
-      },
-      {
         path: "/app/add-key-pointers",
         icon: <FaChalkboardTeacher />,
         name: "Add Key Pointers",
+      },
+      {
+        path: "/app/all-key-pointers",
+        icon: <FaChalkboardTeacher />,
+        name: "All Key Pointers",
       },
     ],
   },
@@ -310,14 +310,14 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/all-our-team",
-        icon: <FaChalkboardTeacher />,
-        name: "All Our Team",
-      },
-      {
         path: "/app/add-our-team",
         icon: <FaChalkboardTeacher />,
         name: "Add Our Team",
+      },
+      {
+        path: "/app/all-our-team",
+        icon: <FaChalkboardTeacher />,
+        name: "All Our Team",
       },
     ],
   },

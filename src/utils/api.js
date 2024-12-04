@@ -19,6 +19,11 @@ export const ApiUrl = {
   addAllService: `${apiBaseUrl}service/add/admin`,
   deleteService: `${apiBaseUrl}service/delete/admin`,
 
+  // portfolio 
+  AddAllCategory: `${apiBaseUrl}portfolio/development/add/admin`,
+  AddAllSubCategory: `${apiBaseUrl}portfolio/sub/development/add/admin`,
+  getAllCategory: `${apiBaseUrl}portfolio/development/all/admin`,
+
 
 };
 

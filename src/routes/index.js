@@ -1,5 +1,4 @@
 import { lazy } from "react";
-
 // Lazy-loaded components
 const Dashboard = lazy(() => import("../component/Dashboard/Dashboard"));
 const DigitalService = lazy(() => import("../component/DigitalService/DigitalService"));
@@ -27,6 +26,14 @@ const AddClientImage = lazy(() => import("../component/ClientImage/AddClientImag
 const AllClientImage = lazy(() => import("../component/ClientImage/AllClientImage"));
 const AddDigitalMarketing = lazy(() => import("../component/DigitalMarketing/AddDigitalMarketing"));
 const AllDigitalMarketing = lazy(() => import("../component/DigitalMarketing/AllDigitalMarketing"));
+const AddWhyServices = lazy(() => import("../component/WhyService/AddWhyService"));
+const AllWhyServices = lazy(() => import("../component/WhyService/AllWhyService"));
+const AddTestimonial = lazy(() => import("../component/Testimonial/AddTestimonial"));
+const AllTestimonial = lazy(() => import("../component/Testimonial/AllTestimonial"));
+const AddKeyPointers = lazy(() => import("../component/KeyPointers/AddKeyPointers"));
+const AllKeyPointers = lazy(() => import("../component/KeyPointers/AllKeyPointers"));
+const AddOurTeam = lazy(() => import("../component/OurTeam/AddOurTeam"));
+const AllOurTeam = lazy(() => import("../component/OurTeam/AllOurTeam"));
 
 // Define routes
 const routes = [
@@ -153,6 +160,46 @@ const routes = [
   {
     path: "/all-Digital-Marketing",
     component: AllDigitalMarketing,
+    service: true,
+  },
+  {
+    path: "/add-why-services",
+    component: AddWhyServices,
+    service: true,
+  },
+  {
+    path: "/all-why-services",
+    component: AllWhyServices,
+    service: true,
+  },
+  {
+    path: "/add-testimonial",
+    component: AddTestimonial,
+    service: true,
+  },
+  {
+    path: "/all-testimonial",
+    component: AllTestimonial,
+    service: true,
+  },
+  {
+    path: "/add-key-pointers",
+    component: AddKeyPointers,
+    service: true,
+  },
+  {
+    path: "/all-key-pointers",
+    component: AllKeyPointers,
+    service: true,
+  },
+  {
+    path: "/add-our-team",
+    component: AddOurTeam,
+    service: true,
+  },
+  {
+    path: "/all-our-team",
+    component: AllOurTeam,
     service: true,
   },
 

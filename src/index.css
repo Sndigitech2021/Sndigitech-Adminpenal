@@ -3682,3 +3682,24 @@ td {
 .delet_button {
   cursor: pointer;
 }
+
+/* .add_buttn {
+  position: relative;
+} */
+
+/* .add_reset_bt {
+  position: "absolute";
+  top: "10px";
+  right: "20px";
+} */
+
+.add_reset_bt button {
+  background-color: #17a2b8;
+  color: white;
+  border-radius: 3px;
+  padding: 10px;
+  border: none;
+  width: 130px;
+  cursor: pointer;
+  margin-left: 20px;
+}

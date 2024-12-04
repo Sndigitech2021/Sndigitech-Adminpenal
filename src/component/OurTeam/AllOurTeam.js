@@ -31,7 +31,7 @@ const style = {
   height: "30%",
 };
 
-const AllGallery = () => {
+const AllOurTeam = () => {
   const [open, setOpen] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const handleOpen = (id) => {
@@ -112,15 +112,15 @@ const AllGallery = () => {
   };
 
   useEffect(() => {
-    getAllServices("gallery_image")
+    getAllServices("our_team")
 
   }, [currentPage]);
 
 
   return (
     <>
-      <TitleChanger title="All Gallery" />
-      <BreadCrumb pageTitle="All Gallery" />
+      <TitleChanger title="All Our_Team" />
+      <BreadCrumb pageTitle="All Our_Team" />
 
       <div className="table_container">
         <div className="table_info">
@@ -250,4 +250,4 @@ const AllGallery = () => {
   );
 };
 
-export default AllGallery;
+export default AllOurTeam;

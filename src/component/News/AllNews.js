@@ -30,9 +30,9 @@ const style = {
 };
 
 const AllNews = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -43,10 +43,10 @@ const AllNews = () => {
   // const [sub_category, setSubCategory] = useState();
 
 
-  const getAllServices = (category, sub_category) => {
+  const getAllServices = (category) => {
     setIsLoading(true);
     const config = {
-      url: `${ApiUrl.getAllServices}?category=${category}&sub_category=${sub_category}`,
+      url: `${ApiUrl.getAllCategory}?pageName=${category} `,
       method: "GET",
     }
 
@@ -79,7 +79,7 @@ const AllNews = () => {
   };
 
   useEffect(() => {
-    getAllServices("testimonial", "about_page")
+    getAllServices("new_list");
 
   }, [currentPage]);
 
@@ -89,8 +89,8 @@ const AllNews = () => {
 
   return (
     <>
-      <TitleChanger title="AllNews" />
-      <BreadCrumb pageTitle="AllNews" />
+      <TitleChanger title="All News " />
+      <BreadCrumb pageTitle="All News " />
 
       <div className="table_container">
         <div className="table_info">
@@ -98,65 +98,71 @@ const AllNews = () => {
             <thead>
               <tr>
                 <th>S.no</th>
-                <th>Name</th>
-                <th>Location</th>
+                <th>Category ID</th>
                 <th>Category</th>
-                <th>Sub-Category</th>
-                <th>Technology</th>
+                <th>Sub-Category Title</th>
+                <th>Sub-Category Sub-title</th>
                 <th>Description</th>
+                <th>Date</th>
+                <th>Type</th>
                 <th>Image</th>
-                {/* <th>Delete</th>
-              <th>Edit</th> */}
               </tr>
             </thead>
             <tbody>
-              {
-                isLoading ? (
-                  <tr >
-                    <td colSpan='8' className="text-center">
-                      Loading...
+              {isLoading ? (
+                <tr>
+                  <td colSpan="7" className="text-center">
+                    Loading...
+                  </td>
+                </tr>
+              ) : (
+                data.length > 0 ? (
+                  data.map((category, categoryIndex) => (
+                    category.subCategories && category.subCategories.length > 0 ? (
+                      category.subCategories.map((subCategory, subCategoryIndex) => (
+                        <tr key={subCategory._id}>
+                          <td>{categoryIndex + 1}.{subCategoryIndex + 0}</td>
+                          <td>{category._id}</td>
+                          <td>{category.category}</td>
+                          <td>{subCategory.title}</td>
+                          <td>{subCategory.sub_title}</td>
+                          <td>{subCategory.description}</td>
+                          <td>{subCategory.date}</td>
+                          <td>{subCategory.type}</td>
+                          <td>
+                            <img
+                              src={subCategory.uploadedfile}
+                              alt="Sub-category Image"
+                              width="50"
+                              height="50"
+                            />
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr key={category._id}>
+                        <td>{categoryIndex + 1}</td>
+                        <td>{category._id}</td>
+                        <td>{category.category}</td>
+                        <td colSpan="4" className="text-center">
+                          No Sub-Categories
+                        </td>
+                      </tr>
+                    )
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="text-center">
+                      No Data Found
                     </td>
                   </tr>
-                ) : (
-                  data.length > 0 ? (
-                    data.map((service, index) => (
-                      < tr key={service.id}>
-                        <td>{(currentPage - 1) * limit + index + 1}</td>
-                        <td>{service.name}</td>
-                        <td>{service.location}</td>
-                        <td>{service.category}</td>
-                        <td>{service.sub_category}</td>
-                        <td>{service.technology}</td>
-                        <td>{service.description}</td>
-                        <td>
-                          <img
-                            src={service.uploadedfile}
-                            alt="Image"
-                            width="50"
-                            height="50"
-                          />
-                        </td>
-                        {/* <td>
-                      <i class="fa-solid fa-trash"></i>
-                    </td> */}
-                        {/* <td>
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </td> */}
-                      </tr>
-                    ))
-
-                  ) : (
-                    <tr>
-                      <td colSpan="8" className="text-center">No Data Found</td>
-                    </tr>
-                  )
                 )
-              }
-
+              )}
             </tbody>
-          </table >
+          </table>
+
         </div>
-        <Modal
+        {/* <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
@@ -166,7 +172,7 @@ const AllNews = () => {
             <div>                    No Data Found
             </div>
           </Box>
-        </Modal>
+        </Modal> */}
       </div >
 
       <div className="tabel_button">

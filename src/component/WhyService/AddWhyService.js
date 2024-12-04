@@ -4,7 +4,7 @@ import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
 import { APIRequest, APIRequestWithFile, ApiUrl } from "../../utils/api";
 
-const AddGallery = () => {
+const AddWhyService = () => {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serviceData, setServiceData] = useState({
@@ -92,8 +92,8 @@ const AddGallery = () => {
 
   return (
     <>
-      <TitleChanger title="Add Gallery" />
-      <BreadCrumb pageTitle="Add Gallery" />
+      <TitleChanger title="Add Why Service" />
+      <BreadCrumb pageTitle="Add Why Service" />
       <div>
         <div className="product_page">
           <div className="basic_info">
@@ -243,4 +243,4 @@ const AddGallery = () => {
   );
 };
 
-export default AddGallery;
+export default AddWhyService;

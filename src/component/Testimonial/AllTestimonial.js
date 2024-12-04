@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Backdrop } from "@mui/material";
+import { Modal, Backdrop, Typography, Button } from "@mui/material";
 import { color, styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import { RxCross1 } from "react-icons/rx";
@@ -11,6 +11,8 @@ import { MdDelete } from "react-icons/md";
 // import { toast } from "react-toastify";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -23,15 +25,19 @@ const style = {
   p: 4,
   border: "none !important",
   outline: "none",
-  overflow: "auto",
+  // overflow: "auto",
   scrollbarWidth: "none",
   zIndex: "1100",
-  height: "90%",
+  height: "30%",
 };
 
 const AllTestimonial = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [open, setOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
+  const handleOpen = (id) => {
+    setOpen(true);
+    setSelectedData(id)
+  }
   const handleClose = () => setOpen(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,10 +49,10 @@ const AllTestimonial = () => {
   // const [sub_category, setSubCategory] = useState();
 
 
-  const getAllServices = (category, sub_category) => {
+  const getAllServices = (category) => {
     setIsLoading(true);
     const config = {
-      url: `${ApiUrl.getAllServices}?category=${category}&sub_category=${sub_category}`,
+      url: `${ApiUrl.getAllServices}?category=${category}`,
       method: "GET",
     }
 
@@ -78,19 +84,43 @@ const AllTestimonial = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    // e.preventdefaut();
+    // Add delete logic here
+    console.log('Account deleted', id);
+
+    const config = {
+      url: `${ApiUrl.deleteService}/${id}`,
+      method: "delete",
+    }
+    console.log("asfgf", config);
+
+    APIRequest(
+      config,
+      (res) => {
+        console.log(res.data, "resresrestr");
+        handleClose();
+        toast.success(res.message);
+        getAllServices();
+      },
+      (error) => {
+        console.log(error, "eerrroeeesserd");
+        toast.error(error.message)
+      }
+    )
+
+  };
+
   useEffect(() => {
-    getAllServices("testimonial", "about_page")
+    getAllServices("testimonial")
 
   }, [currentPage]);
 
-  // const handleDelete = (id) => {
-  //   // Handle delete logic
-  // };
 
   return (
     <>
-      <TitleChanger title="All Development Process" />
-      <BreadCrumb pageTitle="All Development Process" />
+      <TitleChanger title="All Testimonials" />
+      <BreadCrumb pageTitle="All Testimonials" />
 
       <div className="table_container">
         <div className="table_info">
@@ -98,15 +128,21 @@ const AllTestimonial = () => {
             <thead>
               <tr>
                 <th>S.no</th>
+                <th>Title</th>
                 <th>Name</th>
-                <th>Location</th>
+                <th>Sub Title</th>
                 <th>Category</th>
                 <th>Sub-Category</th>
+                <th>location</th>
                 <th>Technology</th>
-                <th>Description</th>
+                {/* <th>Description</th> */}
+                {/* <th>Is Verified</th> */}
+                <th>designation</th>
+                <th>description</th>
+                <th>Type</th>
                 <th>Image</th>
-                {/* <th>Delete</th>
-              <th>Edit</th> */}
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -120,28 +156,52 @@ const AllTestimonial = () => {
                 ) : (
                   data.length > 0 ? (
                     data.map((service, index) => (
-                      < tr key={service.id}>
+                      < tr key={service._id}>
                         <td>{(currentPage - 1) * limit + index + 1}</td>
+                        <td>{service.title}</td>
                         <td>{service.name}</td>
-                        <td>{service.location}</td>
+                        <td>{service.sub_title}</td>
                         <td>{service.category}</td>
                         <td>{service.sub_category}</td>
+                        <td>{service.location}</td>
                         <td>{service.technology}</td>
+                        <td>{service.designation}</td>
                         <td>{service.description}</td>
+                        <td>{service.type}</td>
+                        {/* <td>{service.isVerified}</td> */}
                         <td>
-                          <img
-                            src={service.uploadedfile}
-                            alt="Image"
-                            width="50"
-                            height="50"
-                          />
+                          {service.uploadedfile ? (
+                            service.type === "Image" ? (
+                              <img
+                                src={service.uploadedfile}
+                                alt="Image"
+                                width="50"
+                                height="50"
+                              />
+                            ) : (
+                              <video width="100" height="50" controls>
+                                <source src={service.uploadedfile} type="video/mp4" />
+                                Your browser does not support the video tag.
+                              </video>
+                            )
+                          ) : (
+                            "No File"
+                          )}
                         </td>
-                        {/* <td>
-                      <i class="fa-solid fa-trash"></i>
-                    </td> */}
-                        {/* <td>
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </td> */}
+                        <td>
+                          <div
+                            className="delet_button"
+                          >
+                            <i class="fa-solid fa-pen-to-square"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div
+                            className="delet_button"
+                            onClick={() => handleOpen(service._id)}>
+                            <i class="fa-solid fa-trash"></i>
+                          </div>
+                        </td>
                       </tr>
                     ))
 
@@ -178,6 +238,32 @@ const AllTestimonial = () => {
           onClick={handlePageChange}
         >Next</button>
       </div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Confirm Deletion
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Are you sure you want to delete this section data? This action cannot be undone.
+          </Typography>
+          <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between' }}>
+            <Button variant="contained" color="error"
+              onClick={() => handleDelete(selectedData)}
+            >
+              Confirm
+            </Button>
+            <Button variant="outlined" onClick={() => handleClose()}>
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </>
   );
 };

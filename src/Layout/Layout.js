@@ -38,7 +38,7 @@ const Layout = () => {
           <Suspense fallback={<h1>Loading...</h1>}>
             <Routes>
               {routes.map((route, key) => {
-                console.log("1234567rtyui", route, key);
+                // console.log("1234567rtyui", route, key);
                 return (
                   <Route
                     key={key}

@@ -5,18 +5,16 @@ import BreadCrumb from "../Breadcrumb/index";
 import { APIRequest, APIRequestWithFile, ApiUrl } from "../../utils/api";
 
 const AddTestimonial = () => {
-  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serviceData, setServiceData] = useState({
-    title: "",
+    name: "",
     description: "",
     type: "",
     category: "",
     uploadedfile: null,
     sub_category: "",
     location: "",
-    technology: "",
-    sub_title: "",
   });
 
   const handleInputChange = (e) => {
@@ -28,113 +26,64 @@ const AddTestimonial = () => {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+    const uploadedFile = e.target.files[0];
+    if (uploadedFile) {
+      setFile(uploadedFile);
+    }
     setServiceData((prev) => ({
       ...prev,
-      uploadedfile: file,
+      uploadedfile: uploadedFile,
     }));
   };
 
-  // const handlerAddService = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!serviceData.title || !serviceData.description || !serviceData.type) {
-  //     toast.error("Please fill in all required fields.");
-  //     return;
-  //   }
-
-  //   const formData = new FormData();
-  //   for (const key in serviceData) {
-  //     formData.append(key, serviceData[key]);
-  //   }
-
-  //   setIsLoading(true);
-
-  //   try {
-  //     const config = {
-  //       url: ApiUrl.addAllService,
-  //       method: "POST",
-  //       body: formData,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data", // Ensure form data is sent correctly
-  //       },
-  //     };
-
-  //     const response = await APIRequest(config);
-
-  //     if (response?.status === 200) {
-  //       toast.success(response.message || "Service added successfully!");
-  //       setServiceData({
-  //         title: "",
-  //         description: "",
-  //         type: "",
-  //         category: "",
-  //         uploadedfile: null,
-  //         sub_category: "",
-  //         location: "",
-  //         technology: "",
-  //         sub_title: "",
-  //       });
-  //       setImage(null);
-  //     } else {
-  //       toast.error(response?.message || "Failed to add service.");
-  //     }
-  //   } catch (error) {
-  //     toast.error("An error occurred while adding the service.");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
+  // const isImage = (file) => {
+  //   return file && file.type.startsWith("image/");
   // };
+
+  const isVideo = (file) => {
+    return file && file.type.startsWith("video/");
+  };
+
 
   const handlerAddService = (e) => {
     e.preventDefault();
-    console.log("handlerAddServicehandlerAddService");
+    // console.log("handlerAddServicehandlerAddService");
 
-    if (!serviceData.title || !serviceData.description || !serviceData.type) {
+    if (!serviceData.name || !serviceData.description || !serviceData.type || !serviceData.sub_category || !serviceData.category || !serviceData.location) {
       toast.error("Please fill in all required fields.");
       return;
     }
 
     const formData = new FormData();
-    formData.append('title', serviceData.title);
+    formData.append('name', serviceData.name);
     formData.append('description', serviceData.description);
     formData.append('type', serviceData.type);
     formData.append('category', serviceData.category);
     formData.append('sub_category', serviceData.sub_category);
-    formData.append('location', serviceData.location);
-    formData.append('technology', serviceData.technology);
-    formData.append('sub_title', serviceData.sub_title);
     formData.append('uploadedfile', serviceData.uploadedfile);
-    // formData.append('file', serviceData.file);
+    formData.append('location', serviceData.location);
 
     const config = {
       url: ApiUrl.addAllService,
       method: 'POST',
       body: formData,
-
-
-      //  {
-      // }
     };
-    console.log("configconfig", config);
+    // console.log("configconfig", config);
 
     APIRequestWithFile(config,
       (res) => {
         console.log("response", res);
         toast.success(res.message);
         setServiceData({
-          title: "",
+          name: "",
           description: "",
           type: "",
           category: "",
           uploadedfile: null,
           sub_category: "",
           location: "",
-          technology: "",
-          sub_title: "",
         });
-        setImage(null);
+        setFile(null);
       },
       (error) => {
         toast.error(error.message)
@@ -144,8 +93,8 @@ const AddTestimonial = () => {
 
   return (
     <>
-      <TitleChanger title="Add Development Process" />
-      <BreadCrumb pageTitle="Add Development Process" />
+      <TitleChanger title="Add Digital Marketing Process" />
+      <BreadCrumb pageTitle="Add Digital Marketing Process" />
       <div>
         <div className="product_page">
           <div className="basic_info">
@@ -153,25 +102,13 @@ const AddTestimonial = () => {
               <div className="basic_info_con1">
                 {/* Title Input */}
                 <div className="name">
-                  <label>TITLE</label>
+                  <label>Name</label>
                   <input
                     type="text"
-                    name="title"
-                    value={serviceData.title}
+                    name="name"
+                    value={serviceData.name}
                     onChange={handleInputChange}
-                    placeholder="Enter Title Here"
-                  />
-                </div>
-
-                {/* Sub Title Input */}
-                <div className="name">
-                  <label>SUB TITLE</label>
-                  <input
-                    type="text"
-                    name="sub_title"
-                    value={serviceData.sub_title}
-                    onChange={handleInputChange}
-                    placeholder="Enter Sub-title Here"
+                    placeholder="Enter Name Here"
                   />
                 </div>
 
@@ -186,6 +123,26 @@ const AddTestimonial = () => {
                     placeholder="Enter description Here"
                   />
                 </div>
+                <div className="name">
+                  <label>Location</label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={serviceData.location}
+                    onChange={handleInputChange}
+                    placeholder="Enter location Here"
+                  />
+                </div>
+                {/* <div className="name">
+                  <label>DESCRIPTION</label>
+                  <input
+                    type="text"
+                    name="description"
+                    value={serviceData.description}
+                    onChange={handleInputChange}
+                    placeholder="Enter description Here"
+                  />
+                </div> */}
 
                 {/* Type Select */}
                 <div className="name">
@@ -198,7 +155,7 @@ const AddTestimonial = () => {
                     <option value="" disabled>
                       Select Type
                     </option>
-                    <option value="Image">Image</option>
+                    {/* <option value="Image">Image</option> */}
                     <option value="Video">Video</option>
                   </select>
                 </div>
@@ -226,6 +183,7 @@ const AddTestimonial = () => {
                     <option value="hero">Hero</option>
                     <option value="client_image">Client Image</option>
                     <option value="gallery_image">Gallery Image</option>
+                    <option value="testimonial">Testimonial </option>
                     <option value="why_sndigitech_section">Why SNDigitech Section</option>
                   </select>
                 </div>
@@ -255,43 +213,40 @@ const AddTestimonial = () => {
                   </select>
                 </div>
 
-                {/* Technology Input */}
-                <div className="name">
-                  <label>TECHNOLOGY</label>
-                  <input
-                    type="text"
-                    name="technology"
-                    value={serviceData.technology}
-                    onChange={handleInputChange}
-                    placeholder="Enter Technology Here"
-                  />
-                </div>
-
-                {/* Location Input */}
-                <div className="name">
-                  <label>LOCATION</label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={serviceData.location}
-                    onChange={handleInputChange}
-                    placeholder="Enter Location Here"
-                  />
-                </div>
-
                 {/* File Upload */}
                 <div className="main_image">
                   <p>Upload File</p>
                   <input
                     id="file-upload"
                     type="file"
+                    accept="image/*,video/*" // Allows only images and videos
                     onChange={handleFileChange}
+                    style={{ display: "none" }} // Hides the default file input
                   />
                   <label htmlFor="file-upload" className="custom-file-upload">
-                    Upload Image
+                    Upload Video
                   </label>
-                  <p>{image?.name}</p>
+                  <p>{file?.name}</p>
+                  <div className="preview">
+                    {/* {isImage(file) && (
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt="Uploaded Preview"
+                        style={{ maxWidth: "200px", height: "200px" }}
+                      />
+                    )} */}
+                    {isVideo(file) && (
+                      <video
+                        controls
+                        style={{ maxWidth: "200px", height: "200px" }}
+                      >
+                        <source src={URL.createObjectURL(file)} type={file.type} />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
