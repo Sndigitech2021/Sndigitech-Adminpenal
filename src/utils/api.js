@@ -17,6 +17,7 @@ export const ApiUrl = {
   // services
   getAllServices: `${apiBaseUrl}service/admin`,
   addAllService: `${apiBaseUrl}service/add/admin`,
+  updateService: `${apiBaseUrl}service/update/admin`,
   deleteService: `${apiBaseUrl}service/delete/admin`,
 
   // portfolio 
@@ -24,6 +25,10 @@ export const ApiUrl = {
   AddAllSubCategory: `${apiBaseUrl}portfolio/sub/development/add/admin`,
   getAllCategory: `${apiBaseUrl}portfolio/development/all/admin`,
 
+  addServiceDetails: `${apiBaseUrl}details/add/admin`,
+  getServiceDetails: `${apiBaseUrl}details/admin`,
+  updateServiceDetails: `${apiBaseUrl}details/update/admin`,
+  deleteServiceDetails: `${apiBaseUrl}details/delete/admin`,
 
 };
 
@@ -117,9 +122,10 @@ export const APIRequestWithFile = async (config = {}, onSuccess, onError) => {
       };
     }
 
-    console.log("config", data);
+    console.log("config@@@@@@@@@@@@@@@@@@@@", data);
     axios(data)
       .then((res) => {
+        console.log("asdsasdfdasf", res)
         if (res.status == 200 || res.status == 201) {
           console.log(res.data);
           onSuccess(res.data);

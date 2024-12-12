@@ -10,13 +10,8 @@ const AddFaq = () => {
   const [serviceData, setServiceData] = useState({
     title: "",
     description: "",
-    type: "",
     category: "",
-    uploadedfile: null,
     sub_category: "",
-    location: "",
-    technology: "",
-    sub_title: "",
   });
 
   const handleInputChange = (e) => {
@@ -27,71 +22,12 @@ const AddFaq = () => {
     }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    setServiceData((prev) => ({
-      ...prev,
-      uploadedfile: file,
-    }));
-  };
-
-  // const handlerAddService = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!serviceData.title || !serviceData.description || !serviceData.type) {
-  //     toast.error("Please fill in all required fields.");
-  //     return;
-  //   }
-
-  //   const formData = new FormData();
-  //   for (const key in serviceData) {
-  //     formData.append(key, serviceData[key]);
-  //   }
-
-  //   setIsLoading(true);
-
-  //   try {
-  //     const config = {
-  //       url: ApiUrl.addAllService,
-  //       method: "POST",
-  //       body: formData,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data", // Ensure form data is sent correctly
-  //       },
-  //     };
-
-  //     const response = await APIRequest(config);
-
-  //     if (response?.status === 200) {
-  //       toast.success(response.message || "Service added successfully!");
-  //       setServiceData({
-  //         title: "",
-  //         description: "",
-  //         type: "",
-  //         category: "",
-  //         uploadedfile: null,
-  //         sub_category: "",
-  //         location: "",
-  //         technology: "",
-  //         sub_title: "",
-  //       });
-  //       setImage(null);
-  //     } else {
-  //       toast.error(response?.message || "Failed to add service.");
-  //     }
-  //   } catch (error) {
-  //     toast.error("An error occurred while adding the service.");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   const handlerAddService = (e) => {
     e.preventDefault();
-    console.log("handlerAddServicehandlerAddService");
+    // console.log("handlerAddServicehandlerAddService");
 
-    if (!serviceData.title || !serviceData.description || !serviceData.type) {
+    if (!serviceData.title || !serviceData.description) {
       toast.error("Please fill in all required fields.");
       return;
     }
@@ -99,23 +35,14 @@ const AddFaq = () => {
     const formData = new FormData();
     formData.append('title', serviceData.title);
     formData.append('description', serviceData.description);
-    formData.append('type', serviceData.type);
     formData.append('category', serviceData.category);
     formData.append('sub_category', serviceData.sub_category);
-    formData.append('location', serviceData.location);
-    formData.append('technology', serviceData.technology);
-    formData.append('sub_title', serviceData.sub_title);
-    formData.append('uploadedfile', serviceData.uploadedfile);
-    // formData.append('file', serviceData.file);
+
 
     const config = {
       url: ApiUrl.addAllService,
       method: 'POST',
       body: formData,
-
-
-      //  {
-      // }
     };
     console.log("configconfig", config);
 
@@ -126,13 +53,8 @@ const AddFaq = () => {
         setServiceData({
           title: "",
           description: "",
-          type: "",
           category: "",
-          uploadedfile: null,
           sub_category: "",
-          location: "",
-          technology: "",
-          sub_title: "",
         });
         setImage(null);
       },
@@ -163,17 +85,6 @@ const AddFaq = () => {
                   />
                 </div>
 
-                {/* Sub Title Input */}
-                <div className="name">
-                  <label>SUB TITLE</label>
-                  <input
-                    type="text"
-                    name="sub_title"
-                    value={serviceData.sub_title}
-                    onChange={handleInputChange}
-                    placeholder="Enter Sub-title Here"
-                  />
-                </div>
 
                 {/* Description Input */}
                 <div className="name">
@@ -187,21 +98,6 @@ const AddFaq = () => {
                   />
                 </div>
 
-                {/* Type Select */}
-                <div className="name">
-                  <label>TYPE</label>
-                  <select
-                    name="type"
-                    value={serviceData.type}
-                    onChange={handleInputChange}
-                  >
-                    <option value="" disabled>
-                      Select Type
-                    </option>
-                    <option value="Image">Image</option>
-                    <option value="Video">Video</option>
-                  </select>
-                </div>
 
                 {/* Category Select */}
                 <div className="name">
@@ -227,6 +123,7 @@ const AddFaq = () => {
                     <option value="client_image">Client Image</option>
                     <option value="gallery_image">Gallery Image</option>
                     <option value="why_sndigitech_section">Why SNDigitech Section</option>
+                    <option value="faq">FAQ</option>
                   </select>
                 </div>
 
@@ -255,43 +152,6 @@ const AddFaq = () => {
                   </select>
                 </div>
 
-                {/* Technology Input */}
-                <div className="name">
-                  <label>TECHNOLOGY</label>
-                  <input
-                    type="text"
-                    name="technology"
-                    value={serviceData.technology}
-                    onChange={handleInputChange}
-                    placeholder="Enter Technology Here"
-                  />
-                </div>
-
-                {/* Location Input */}
-                <div className="name">
-                  <label>LOCATION</label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={serviceData.location}
-                    onChange={handleInputChange}
-                    placeholder="Enter Location Here"
-                  />
-                </div>
-
-                {/* File Upload */}
-                <div className="main_image">
-                  <p>Upload File</p>
-                  <input
-                    id="file-upload"
-                    type="file"
-                    onChange={handleFileChange}
-                  />
-                  <label htmlFor="file-upload" className="custom-file-upload">
-                    Upload Image
-                  </label>
-                  <p>{image?.name}</p>
-                </div>
               </div>
             </div>
           </div>

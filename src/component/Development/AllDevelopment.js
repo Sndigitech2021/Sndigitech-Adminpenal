@@ -12,7 +12,7 @@ import { MdDelete } from "react-icons/md";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { DescriptionCell } from "../Description/DescriptionCell";
 
 const style = {
   position: "absolute",
@@ -160,8 +160,9 @@ const AllDevelopmentProcess = () => {
                         <td>{service.category}</td>
                         <td>{service.sub_category}</td>
                         {/* <td>{service.technology}</td> */}
-                        <td>{service.description}</td>
-                        {/* <td>{service.isVerified}</td> */}
+                        <td>
+                          <DescriptionCell description={service?.description} />
+                        </td>
                         <td>
                           <img
                             src={service.uploadedfile}

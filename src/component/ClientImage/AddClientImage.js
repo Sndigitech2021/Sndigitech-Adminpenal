@@ -92,8 +92,8 @@ const AddClientImage = () => {
 
   return (
     <>
-      <TitleChanger title="Add Hero Section" />
-      <BreadCrumb pageTitle="Add Hero Section" />
+      <TitleChanger title="Add Client Image" />
+      <BreadCrumb pageTitle="Add Client Image" />
       <div>
         <div className="product_page">
           <div className="basic_info">

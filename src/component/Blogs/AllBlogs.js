@@ -11,6 +11,8 @@ import { MdDelete } from "react-icons/md";
 // import { toast } from "react-toastify";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
+import { DescriptionCell } from "../Description/DescriptionCell";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -30,9 +32,10 @@ const style = {
 };
 
 const AddAllBlogsBlogs = () => {
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+  const [open1, setOpen1] = React.useState(false);
+  const handleOpen1 = () => setOpen1(true);
+  const handleClose1 = () => setOpen1(false);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -78,6 +81,18 @@ const AddAllBlogsBlogs = () => {
     }
   };
 
+  const handleView = (service) => {
+    // Navigate to service details page
+    // navigate(`/app/all-it_service_details`);
+    navigate('/app/all-blogList-details', { state: { service } });
+  }
+
+
+  const nullStateOverView = () => {
+
+    handleClose1()
+  }
+
   useEffect(() => {
     getAllServices("blog_list");
 
@@ -105,6 +120,10 @@ const AddAllBlogsBlogs = () => {
                 <th>Description</th>
                 <th>Type</th>
                 <th>Image</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
               </tr>
             </thead>
             <tbody>
@@ -125,7 +144,9 @@ const AddAllBlogsBlogs = () => {
                           <td>{category.category}</td>
                           <td>{subCategory.title}</td>
                           <td>{subCategory.sub_title}</td>
-                          <td>{subCategory.description}</td>
+                          <td>
+                            <DescriptionCell description={subCategory?.description} />
+                          </td>
                           <td>{subCategory.type}</td>
                           <td>
                             <img
@@ -134,6 +155,30 @@ const AddAllBlogsBlogs = () => {
                               width="50"
                               height="50"
                             />
+                          </td>
+                          <td>
+                            <div
+                              onClick={() => handleView(subCategory._id)}
+                              className="delet_button"
+                            >
+                              <RiTimelineView size={22} />
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              className="delet_button"
+                            // onClick={() => handleOpen1(service)}
+                            >
+                              <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              className="delet_button"
+                            // onClick={() => handleOpen(service._id)}
+                            >
+                              <i class="fa-solid fa-trash"></i>
+                            </div>
                           </td>
                         </tr>
                       ))

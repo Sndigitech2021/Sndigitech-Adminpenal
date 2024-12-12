@@ -11,6 +11,7 @@ import { MdDelete } from "react-icons/md";
 // import { toast } from "react-toastify";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
+import { DescriptionCell } from "../Description/DescriptionCell";
 
 const style = {
   position: "absolute",
@@ -126,7 +127,9 @@ const AllNews = () => {
                           <td>{category.category}</td>
                           <td>{subCategory.title}</td>
                           <td>{subCategory.sub_title}</td>
-                          <td>{subCategory.description}</td>
+                          <td>
+                            <DescriptionCell description={subCategory?.description} />
+                          </td>
                           <td>{subCategory.date}</td>
                           <td>{subCategory.type}</td>
                           <td>

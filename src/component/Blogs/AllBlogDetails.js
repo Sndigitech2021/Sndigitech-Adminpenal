@@ -1,82 +1,102 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Modal, Backdrop, Typography, Button } from "@mui/material";
-import { color, styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import { RxCross1 } from "react-icons/rx";
 import { Height } from "@mui/icons-material";
 import { APIRequest, ApiUrl } from "../../utils/api";
-import { useEffect } from "react";
-import { RiTimelineView } from "react-icons/ri";
-import { MdDelete } from "react-icons/md";
-// import { toast } from "react-toastify";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
+import { RiTimelineView } from "react-icons/ri";
 import { toast } from "react-toastify";
 import { DescriptionCell } from "../Description/DescriptionCell";
+import { useLocation } from 'react-router-dom';
+// import OverviewService from "./ItServiceComponent/OverviewService";
+// import WhyServices from "./ItServiceComponent/WhyServices";
+// import PortfolioService from "./ItServiceComponent/PortfolioService";
+// import TestimonialService from "./ItServiceComponent/TestimonialService";
+// import Faq from "./ItServiceComponent/Faq";
+// import OverviewBelowService from "./ItServiceComponent/OverviewBelowService";
+// import WhyChooseUsService from "./ItServiceComponent/WhyChooseUsService";
+// import ProcessService from "./ItServiceComponent/ProcessService";
+import Introduction from "./ItServiceComponent/Introduction";
+import AboutSection from "./ItServiceComponent/AboutSection";
+import Features from "./ItServiceComponent/Features";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 450,
+  width: "70%",
   backgroundColor: "background.paper",
   boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
   p: 4,
   border: "none !important",
   outline: "none",
-  // overflow: "auto",
-  scrollbarWidth: "none",
+  overflow: "auto",
+  // scrollbarWidth: "none",
   zIndex: "1100",
-  height: "33%",
+  height: "80%",
 };
 
-const AllKeyPointers = () => {
+const AllBlogDetails = () => {
   const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const handleOpen = (id) => {
     setOpen(true);
     setSelectedData(id)
   }
   const handleClose = () => setOpen(false);
+  const handleClose1 = () => setOpen1(false);
+  const handleOpen1 = () => {
+    setOpen1(true);
+  }
+
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [currentView, setCurrentView] = useState(null);
 
   const limit = 10;
 
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
 
-  const getAllServices = (category) => {
-    setIsLoading(true);
+  const location = useLocation();
+  const service = location.state?.service;
 
-    // Construct query parameters dynamically
+
+  const getAllServices = useCallback(() => {
+    console.log("servicesss", service);
+
+    setIsLoading(true);
     const queryParams = [];
     if (filter) queryParams.push(`sub_category=${filter}`);
-
-    const queryString = queryParams.length > 0 ? `&${queryParams.join('&')}` : '';
+    const queryString = queryParams.length ? `&${queryParams.join("&")}` : "";
 
     const config = {
-      url: `${ApiUrl.getAllServices}?category=${category}${queryString}`,
+      url: `${ApiUrl.getServiceDetails}?listById=${service}`,
       method: "GET",
     };
 
     APIRequest(
       config,
       (res) => {
+        setData(res || []);
+        console.log("responsedata", res);
+
+        // const totalCount = res?.count || 0;
+        // setTotalPages(Math.ceil(totalCount / limit));
         setIsLoading(false);
-        setData(res?.data || []); // Default to empty array if no data
-        const totalCount = res?.count || 0;
-        setTotalPages(Math.ceil(totalCount / limit));
       },
-      (error) => {
-        console.log(error);
+      (err) => {
+        console.error(err);
+        setData([]);
         setIsLoading(false);
-        setData([]); // Reset data on error
       }
     );
-  };
+  }, []);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber === 'prev' && currentPage > 1) {
@@ -85,6 +105,7 @@ const AllKeyPointers = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
   const handleDelete = (id) => {
     const config = {
       url: `${ApiUrl.deleteService}/${id}`,
@@ -105,17 +126,48 @@ const AllKeyPointers = () => {
     );
   };
 
+  const handleView = (view, key) => {
+    // console.log("viewdatahere", view);
+
+    if (key === "introduction") {
+      setCurrentView(<Introduction data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    } else if (key === "about_section") {
+      setCurrentView(<AboutSection data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    } else if (key === "features") {
+      setCurrentView(<Features data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    }
+    // else if (key === "testimonial_service") {
+    //   setCurrentView(<TestimonialService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    // } else if (key === "faq") {
+    //   // setCurrentView(<Faq data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    // } else if (key === "overview_below_service") {
+    //   setCurrentView(<OverviewBelowService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    // } else if (key === "whyChooseUs_service") {
+    //   setCurrentView(<WhyChooseUsService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    // } else if (key === "process_service") {
+    //   setCurrentView(<ProcessService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    // }
+    handleOpen1();
+  };
+
+
+  const nullStateOverView = () => {
+
+    handleClose1()
+  }
+
   useEffect(() => {
-    getAllServices("key_pointers")
-
+    getAllServices();
+    // setFilter('');
   }, [filter, currentPage]);
-
 
   return (
     <>
-      <TitleChanger title="All Key Pointers" />
-      <BreadCrumb pageTitle="All Key Pointers" />
+      {/* <h1>this is AllITServiceDetails </h1> */}
+      <TitleChanger title="All Blog Details" />
+      <BreadCrumb pageTitle="All Blog Details" />
 
+      {/* <h1>this is my cd pass</h1> */}
       <div className="name_filter">
         <label>Filter : </label>
         <select
@@ -151,89 +203,66 @@ const AllKeyPointers = () => {
           <table>
             <thead>
               <tr>
-                <th>S.no</th>
+                {/* <th>S.no</th> */}
                 <th>Title</th>
                 {/* <th>Location</th> */}
-                <th>Type</th>
-                <th>Category</th>
-                <th>Sub-Category</th>
+                {/* <th>Type</th> */}
+                {/* <th>Category</th> */}
+                {/* <th>Sub-Category</th> */}
                 {/* <th>Technology</th> */}
-                <th>Description</th>
+                {/* <th>Description</th> */}
                 {/* <th>Is Verified</th> */}
-                <th>Image</th>
-                <th>Edit</th>
+                <th>View</th>
+                {/* <th>Edit</th> */}
                 <th>Delete</th>
               </tr>
             </thead>
             <tbody>
               {
                 isLoading ? (
-                  <tr >
-                    <td colSpan='8' className="text-center">
+                  <tr>
+                    <td colSpan="8" className="text-center">
                       Loading...
                     </td>
                   </tr>
                 ) : (
                   data.length > 0 ? (
-                    data.map((service, index) => (
-                      < tr key={service._id}>
-                        <td>{(currentPage - 1) * limit + index + 1}</td>
-                        <td>{service.title}</td>
-                        {/* <td>{service.location}</td> */}
-                        <td>{service.type}</td>
-                        <td>{service.category}</td>
-                        <td>{service.sub_category}</td>
-                        {/* <td>{service.technology}</td> */}
-                        <td>
-                          <DescriptionCell description={service?.description} />
-                        </td>
-                        <td>
-                          <img
-                            src={service.uploadedfile}
-                            alt="Image"
-                            width="50"
-                            height="50"
-                          />
-                        </td>
+                    Object.keys(data).map((sectionKey) => (
+                      <tr key={sectionKey}>
+                        <td>{sectionKey.replace(/_/g, " ")}</td>
                         <td>
                           <div
+                            onClick={() => handleView(data[sectionKey], sectionKey)}
                             className="delet_button"
                           >
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <RiTimelineView size={22} />
                           </div>
                         </td>
                         <td>
-                          <div
-                            className="delet_button"
-                            onClick={() => handleOpen(service._id)}>
-                            <i class="fa-solid fa-trash"></i>
-                          </div>
+                          <Button
+                            variant="contained"
+                            color="error"
+                            onClick={() => handleDelete(sectionKey)}  // Add delete handler here
+                          >
+                            Delete
+                          </Button>
                         </td>
                       </tr>
                     ))
-
                   ) : (
                     <tr>
-                      <td colSpan="8" className="text-center">No Data Found</td>
+                      <td colSpan="7" className="text-center">
+                        No Data Found
+                      </td>
                     </tr>
                   )
                 )
               }
 
+
             </tbody>
           </table >
         </div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <div>                    No Data Found
-            </div>
-          </Box>
-        </Modal>
       </div >
 
       <div className="tabel_button">
@@ -271,8 +300,18 @@ const AllKeyPointers = () => {
           </Box>
         </Box>
       </Modal>
+      <Modal
+        open={open1}
+        onClose={handleClose1}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          {currentView}
+        </Box>
+      </Modal>
     </>
   );
 };
 
-export default AllKeyPointers;
+export default AllBlogDetails;

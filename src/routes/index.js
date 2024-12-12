@@ -5,6 +5,8 @@ const DigitalService = lazy(() => import("../component/DigitalService/DigitalSer
 const AddDigitalService = lazy(() => import("../component/DigitalService/AddDigitalService"));
 const AddITService = lazy(() => import("../component/ITService/AddITService"));
 const AllITService = lazy(() => import("../component/ITService/AllITService"));
+const AllITServiceDetails = lazy(() => import("../component/ITService/AllITServiceDetails"));
+const AddITServiceDetails = lazy(() => import("../component/ITService/AddITServiceDetails"));
 
 const AddDevelopmentProcess = lazy(() => import("../component/Development/AddDevelopment"));
 const AllDevelopmentProcess = lazy(() => import("../component/Development/AllDevelopment"));
@@ -14,6 +16,8 @@ const AddPortfolioProjects = lazy(() => import("../component/PortfolioProjects/A
 const AllPortfolioProjects = lazy(() => import("../component/PortfolioProjects/AllPortfolioProjects"));
 const AddBlogs = lazy(() => import("../component/Blogs/AddBlogs"));
 const AllBlogs = lazy(() => import("../component/Blogs/AllBlogs"));
+const AddBlogDetails = lazy(() => import("../component/Blogs/AddBlogDetails"));
+const AllBlogDetails = lazy(() => import("../component/Blogs/AllBlogDetails"));
 const AddNews = lazy(() => import("../component/News/AddNews"));
 const AllNews = lazy(() => import("../component/News/AllNews"));
 const AddGallery = lazy(() => import("../component/Gallery/AddGallery"));
@@ -63,6 +67,16 @@ const routes = [
     service: true,
   },
   {
+    path: "/add-it_service_details",
+    component: AddITServiceDetails,
+    service: true,
+  },
+  {
+    path: "/all-it_service_details",
+    component: AllITServiceDetails,
+    service: true,
+  },
+  {
     path: "/add-development-process",
     component: AddDevelopmentProcess,
     service: true,
@@ -100,6 +114,16 @@ const routes = [
   {
     path: "/all-blogs",
     component: AllBlogs,
+    service: true,
+  },
+  {
+    path: "/add-blogList-details",
+    component: AddBlogDetails,
+    service: true,
+  },
+  {
+    path: "/all-blogList-details",
+    component: AllBlogDetails,
     service: true,
   },
   {

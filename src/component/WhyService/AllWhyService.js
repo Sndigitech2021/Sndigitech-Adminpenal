@@ -12,7 +12,7 @@ import { MdDelete } from "react-icons/md";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { DescriptionCell } from "../Description/DescriptionCell";
 
 const style = {
   position: "absolute",
@@ -28,7 +28,7 @@ const style = {
   // overflow: "auto",
   scrollbarWidth: "none",
   zIndex: "1100",
-  height: "30%",
+  height: "33%",
 };
 
 const AllWhyService = () => {
@@ -46,81 +46,104 @@ const AllWhyService = () => {
   const limit = 10;
 
   const [data, setData] = useState([]);
-  // const [sub_category, setSubCategory] = useState();
-
+  const [filter, setFilter] = useState('');
 
   const getAllServices = (category) => {
     setIsLoading(true);
+
+    // Construct query parameters dynamically
+    const queryParams = [];
+    if (filter) queryParams.push(`sub_category=${filter}`);
+
+    const queryString = queryParams.length > 0 ? `&${queryParams.join('&')}` : '';
+
     const config = {
-      url: `${ApiUrl.getAllServices}?category=${category}`,
+      url: `${ApiUrl.getAllServices}?category=${category}${queryString}`,
       method: "GET",
-    }
+    };
 
     APIRequest(
       config,
       (res) => {
-        // console.log(res.data, "resresrestr");
-        setIsLoading(false)
-        setData(res?.data);
-
-        const totalCount = res?.count;
+        setIsLoading(false);
+        setData(res?.data || []); // Default to empty array if no data
+        const totalCount = res?.count || 0;
         setTotalPages(Math.ceil(totalCount / limit));
-
       },
       (error) => {
         console.log(error);
-        setIsLoading(false)
-
-      },
-    )
-
-  }
+        setIsLoading(false);
+        setData([]); // Reset data on error
+      }
+    );
+  };
 
   const handlePageChange = (pageNumber) => {
-    if (pageNumber == 'prev' && currentPage > 1) {
+    if (pageNumber === 'prev' && currentPage > 1) {
       setCurrentPage(currentPage - 1);
-    } else if (pageNumber == 'next' && currentPage < totalPages) {
+    } else if (pageNumber === 'next' && currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
-
   const handleDelete = (id) => {
-    // e.preventdefaut();
-    // Add delete logic here
-    console.log('Account deleted', id);
-
     const config = {
       url: `${ApiUrl.deleteService}/${id}`,
-      method: "delete",
-    }
-    console.log("asfgf", config);
+      method: "DELETE",
+    };
 
     APIRequest(
       config,
       (res) => {
-        console.log(res.data, "resresrestr");
-        handleClose();
+        console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        getAllServices();
+        getAllServices("hero"); // Refresh data after deletion
       },
       (error) => {
-        console.log(error, "eerrroeeesserd");
-        toast.error(error.message)
+        console.log(error, "Error in deletion");
+        toast.error(error.message);
       }
-    )
-
+    );
   };
 
   useEffect(() => {
     getAllServices("why_sndigitech_section")
 
-  }, [currentPage]);
+  }, [filter, currentPage]);
 
 
   return (
     <>
       <TitleChanger title="All Why Service" />
       <BreadCrumb pageTitle="All Why Service" />
+
+      <div className="name_filter">
+        <label>Filter : </label>
+        <select
+          name="filter"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option
+            value=""
+            disabled
+          >
+            Select Sub Category
+          </option>
+          <option value="home_page">Home Page</option>
+          <option value="about_page">About Page</option>
+          <option value="service_list">Service List</option>
+          <option value="service_details">Service Details</option>
+          <option value="portfolio_list">Portfolio List</option>
+          <option value="portfolio_details">Portfolio Details</option>
+          <option value="blog_list">Blog List</option>
+          <option value="blog_details">Blog Details</option>
+          <option value="contact_us">Contact Us</option>
+          <option value="testimonial">Testimonial</option>
+          <option value="industry_page">Industry Page</option>
+          <option value="industry_details">Industry Details</option>
+          <option value="carrer_page">Career Page</option>
+        </select>
+      </div>
 
       <div className="table_container">
         <div className="table_info">
@@ -160,7 +183,10 @@ const AllWhyService = () => {
                         <td>{service.category}</td>
                         <td>{service.sub_category}</td>
                         {/* <td>{service.technology}</td> */}
-                        <td>{service.description}</td>
+                        <td>
+                          <DescriptionCell description={service?.description} />
+
+                        </td>
                         {/* <td>{service.isVerified}</td> */}
                         <td>
                           <img

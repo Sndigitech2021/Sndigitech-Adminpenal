@@ -92,8 +92,8 @@ const AddITService = () => {
 
   return (
     <>
-      <TitleChanger title="Add Hero Section" />
-      <BreadCrumb pageTitle="Add Hero Section" />
+      <TitleChanger title="Add It Service" />
+      <BreadCrumb pageTitle="Add It Service" />
       <div>
         <div className="product_page">
           <div className="basic_info">

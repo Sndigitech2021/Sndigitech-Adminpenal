@@ -85,6 +85,16 @@ const SideBarRoute = [
         icon: <CiMonitor />,
         name: "All IT Service",
       },
+      {
+        path: "/app/add-it_service_details",
+        icon: <CiMonitor />,
+        name: "Add ITService Details",
+      },
+      // {
+      //   path: "/app/all-it_service_details",
+      //   icon: <CiMonitor />,
+      //   name: "All ITService Details",
+      // },
     ],
   },
   {
@@ -229,6 +239,11 @@ const SideBarRoute = [
         icon: <FaMicroblog />,
         name: "All Blogs",
       },
+      {
+        path: "/app/add-blogList-details",
+        icon: <FaMicroblog />,
+        name: "Add Blogs Details",
+      }
     ],
   },
   {
