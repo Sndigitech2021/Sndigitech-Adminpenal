@@ -165,7 +165,7 @@ const AddPortfolioProjects = () => {
   return (
     <>
       <TitleChanger title="Add Portfolio Projects" />
-      <BreadCrumb pageTitle="Add PortfolioProjects" />
+      <BreadCrumb pageTitle="Add Portfolio Projects" />
 
       <div className="add_buttn">
         <div

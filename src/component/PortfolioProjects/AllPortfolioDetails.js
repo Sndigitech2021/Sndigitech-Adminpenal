@@ -10,14 +10,7 @@ import { RiTimelineView } from "react-icons/ri";
 import { toast } from "react-toastify";
 import { DescriptionCell } from "../Description/DescriptionCell";
 import { useLocation } from 'react-router-dom';
-import OverviewService from "./ItServiceComponent/OverviewService";
-import WhyServices from "./ItServiceComponent/WhyServices";
-import PortfolioService from "./ItServiceComponent/PortfolioService";
-import TestimonialService from "./ItServiceComponent/TestimonialService";
-import Faq from "./ItServiceComponent/Faq";
-import OverviewBelowService from "./ItServiceComponent/OverviewBelowService";
-import WhyChooseUsService from "./ItServiceComponent/WhyChooseUsService";
-import ProcessService from "./ItServiceComponent/ProcessService";
+import About from "./ItServiceComponent/About";
 
 const style = {
   position: "absolute",
@@ -36,7 +29,7 @@ const style = {
   height: "80%",
 };
 
-const AllITServiceDetails = () => {
+const AllPortfolioDetails = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [selectedData, setSelectedData] = useState({});
@@ -81,7 +74,7 @@ const AllITServiceDetails = () => {
       config,
       (res) => {
         setData(res || []);
-        console.log("responsedata", res);
+        console.log("responsedata", res.data);
 
         // const totalCount = res?.count || 0;
         // setTotalPages(Math.ceil(totalCount / limit));
@@ -124,31 +117,17 @@ const AllITServiceDetails = () => {
   };
 
   const handleView = (view, key) => {
-    // console.log("viewdatahere", view);
+    console.log("viewviewview", view);
+    console.log("keykeykey", view);
 
-    if (key === "overview_service") {
-      setCurrentView(<OverviewService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
-    } else if (key === "why_services") {
-      setCurrentView(<WhyServices data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
-    } else if (key === "portfolio_service") {
-      setCurrentView(<PortfolioService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
-    } else if (key === "testimonial_service") {
-      setCurrentView(<TestimonialService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
-    } else if (key === "faq") {
-      setCurrentView(<Faq data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
-    } else if (key === "overview_below_service") {
-      setCurrentView(<OverviewBelowService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
-    } else if (key === "whyChooseUs_service") {
-      setCurrentView(<WhyChooseUsService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
-    } else if (key === "process_service") {
-      setCurrentView(<ProcessService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+    if (key === "about_section") {
+      setCurrentView(<About data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
     }
     handleOpen1();
   };
 
 
   const nullStateOverView = () => {
-
     handleClose1()
   }
 
@@ -160,8 +139,8 @@ const AllITServiceDetails = () => {
   return (
     <>
       {/* <h1>this is AllITServiceDetails </h1> */}
-      <TitleChanger title="All IT Service Details" />
-      <BreadCrumb pageTitle="All IT Service Details" />
+      <TitleChanger title="All Portfolio Details" />
+      <BreadCrumb pageTitle="All Portfolio Details" />
 
       {/* <h1>this is my cd pass</h1> */}
       <div className="name_filter">
@@ -225,6 +204,7 @@ const AllITServiceDetails = () => {
                   <tr key={sectionKey}>
                     <td>{index + 1}</td>
                     <td>{sectionKey.replace(/_/g, " ")}</td>
+                    {/* <td>{sectionKey}</td> */}
                     <td>
                       <div
                         onClick={() => handleView(data[sectionKey], sectionKey)}
@@ -306,4 +286,4 @@ const AllITServiceDetails = () => {
   );
 };
 
-export default AllITServiceDetails;
+export default AllPortfolioDetails;

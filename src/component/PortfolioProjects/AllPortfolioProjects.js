@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import TitleChanger from "../../TitleChanger/TitleChanger";
 import BreadCrumb from "../Breadcrumb/index";
 import { DescriptionCell } from "../Description/DescriptionCell";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -30,7 +31,8 @@ const style = {
   height: "33%",
 };
 
-const AllPortfolioProjects = () => {
+const AllPortfolioDetails = () => {
+  const navigate = useNavigate();
   // const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
@@ -117,6 +119,14 @@ const AllPortfolioProjects = () => {
 
   };
 
+  const handleView = (service) => {
+    // Navigate to service details page
+    // navigate(`/app/all-it_service_details`);
+    navigate('/app/all-portfolio-Details', { state: { service } });
+
+    // navigate(`all-it_service_details/${service}`);
+  }
+
   useEffect(() => {
     getAllServices("portfolio_list");
 
@@ -144,6 +154,7 @@ const AllPortfolioProjects = () => {
                 <th>Description</th>
                 <th>Type</th>
                 <th>Image</th>
+                <th>View</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -177,6 +188,15 @@ const AllPortfolioProjects = () => {
                               width="50"
                               height="50"
                             />
+                          </td>
+                          <td>
+                            <div
+                              onClick={() => handleView(category._id)}
+                              className="delet_button"
+                            >
+                              <RiTimelineView size={22} />
+
+                            </div>
                           </td>
                           <td>
                             <div
@@ -269,4 +289,4 @@ const AllPortfolioProjects = () => {
   );
 };
 
-export default AllPortfolioProjects;
+export default AllPortfolioDetails;

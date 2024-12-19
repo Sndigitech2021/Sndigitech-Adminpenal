@@ -39,8 +39,8 @@ const style1 = {
     height: "70%",
 };
 
-const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
-    const [file, setFile] = useState(null);
+const WhyChooseUsService = ({ data, callApi, nullStateOverView }) => {
+    // const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [selectedData, setSelectedData] = useState({});
@@ -50,50 +50,16 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
     }
     const handleClose = () => setOpen(false);
     const [open1, setOpen1] = useState(false);
-    const [serviceData, setServiceData] = useState({
-        sub_category: "",
-        main_title: "",
-        main_description: "",
-        sub_title1: "",
-        sub_description1: "",
-        sub_title2: "",
-        sub_description2: "",
-        sub_title3: "",
-        sub_description3: "",
-        sub_title4: "",
-        sub_description4: "",
-        sub_title5: "",
-        sub_description5: "",
-        sub_title6: "",
-        sub_description6: "",
-        sub_title7: "",
-        sub_description7: "",
-        sub_title8: "",
-        sub_description8: "",
-        sub_title9: "",
-        sub_description9: "",
-        type: "",
-        uploadedfile1: null,
-        uploadedfile2: null,
-        uploadedfile3: null,
-        uploadedfile4: null,
-        uploadedfile5: null,
-        uploadedfile6: null,
-        uploadedfile7: null,
-        uploadedfile8: null,
-        uploadedfile9: null,
-    });
-
+    const [serviceData, setServiceData] = useState({});
     const handleOpen1 = (data) => {
         setOpen1(true);
         setServiceData(data)
     }
     const handleClose1 = () => setOpen1(false);
 
-    const isImage = (file) => {
-        return file && file.type && file.type.startsWith("image");
-    };
-
+    // const isImage = (file) => {
+    //     return file && file.type.startsWith("image/");
+    // };
 
     // const isVideo = (file) => {
     //     return file && file.type.startsWith("video/");
@@ -102,16 +68,11 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
 
     // const service = data && data.length > 0 ? data : [];
     const [service, setservice] = useState(data && data.length > 0 ? data : []);
-
-    const handleFileChange = (event, fileField) => {
-        const file = event.target.files[0];
-        if (file) {
-            setServiceData(prevState => ({
-                ...prevState,
-                [fileField]: file
-            }));
-        }
-    };
+    // const handleFileChange = (e) => {
+    //     const uploadedfile = e.target.files[0];
+    //     setFile(uploadedfile);
+    //     setServiceData((prev) => ({ ...prev, uploadedfile: uploadedfile }));
+    // };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -120,7 +81,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
 
     const handleUpdate = async () => {
 
-        console.log("service56789data", serviceData);
+        // console.log("service56789data", serviceData);
 
         // callApi()
         const formData = new FormData();
@@ -135,26 +96,18 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
         formData.append('sub_description3', serviceData.sub_description3)
         formData.append('sub_title4', serviceData.sub_title4)
         formData.append('sub_description4', serviceData.sub_description4)
-        formData.append('sub_title5', serviceData.sub_title5)
-        formData.append('sub_description5', serviceData.sub_description5)
-        formData.append('sub_title6', serviceData.sub_title6)
-        formData.append('sub_description6', serviceData.sub_description6)
-        formData.append('sub_title7', serviceData.sub_title7)
-        formData.append('sub_description7', serviceData.sub_description7)
-        formData.append('sub_title8', serviceData.sub_title8)
-        formData.append('sub_description8', serviceData.sub_description8)
-        formData.append('sub_title9', serviceData.sub_title9)
-        formData.append('sub_description9', serviceData.sub_description9)
-        formData.append('type', serviceData.type)
-        formData.append('uploadedfile1', serviceData.uploadedfil1)
-        formData.append('uploadedfile2', serviceData.uploadedfile2)
-        formData.append('uploadedfile3', serviceData.uploadedfile3)
-        formData.append('uploadedfile4', serviceData.uploadedfile4)
-        formData.append('uploadedfile5', serviceData.uploadedfile5)
-        formData.append('uploadedfile6', serviceData.uploadedfile6)
-        formData.append('uploadedfile7', serviceData.uploadedfile7)
-        formData.append('uploadedfile8', serviceData.uploadedfile8)
-        formData.append('uploadedfile9', serviceData.uploadedfile9)
+        // formData.append('sub_title5', serviceData.sub_title5)
+        // formData.append('sub_description5', serviceData.sub_description5)
+        // formData.append('sub_title6', serviceData.sub_title6)
+        // formData.append('sub_description6', serviceData.sub_description6)
+        // formData.append('sub_title7', serviceData.sub_title7)
+        // formData.append('sub_description7', serviceData.sub_description7)
+        // formData.append('sub_title8', serviceData.sub_title8)
+        // formData.append('sub_description8', serviceData.sub_description8)
+        // formData.append('sub_title9', serviceData.sub_title9)
+        // formData.append('sub_description9', serviceData.sub_description9)
+        // formData.append('type', serviceData.type)
+        // formData.append('uploadedfile', serviceData.uploadedfile)
         const config = {
             url: `${ApiUrl.updateServiceDetails}/?id=${serviceData._id}`,
             method: "PUT",
@@ -165,19 +118,16 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
         APIRequestWithFile(
             config,
             (res) => {
+                // console.log(res.data, "updated Successfully");
                 toast.success(res.message);
-
-                // Update the local service data with the updated details
-                const updatedService = res.data;
-                setservice((prevServices) =>
-                    prevServices.map((service) =>
-                        service._id === updatedService._id ? updatedService : service
-                    )
-                );
+                // getAllServices();
+                // callApi()
+                // setFile(null)
+                setServiceData({})
                 handleClose1();
-                CallApiFucntion(); // Ensure this refreshes the UI with fresh data if needed
-                resetServiceData();
 
+                CallApiFucntion()
+                // callApi()
             },
             (error) => {
                 // console.log(error, "Error in deletion");
@@ -213,48 +163,11 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
         );
     };
 
-    const resetServiceData = () => {
-        setServiceData({
-            sub_category: "",
-            main_title: "",
-            main_description: "",
-            sub_title1: "",
-            sub_description1: "",
-            sub_title2: "",
-            sub_description2: "",
-            sub_title3: "",
-            sub_description3: "",
-            sub_title4: "",
-            sub_description4: "",
-            sub_title5: "",
-            sub_description5: "",
-            sub_title6: "",
-            sub_description6: "",
-            sub_title7: "",
-            sub_description7: "",
-            sub_title8: "",
-            sub_description8: "",
-            sub_title9: "",
-            sub_description9: "",
-            type: "",
-            uploadedfile1: null,
-            uploadedfile2: null,
-            uploadedfile3: null,
-            uploadedfile4: null,
-            uploadedfile5: null,
-            uploadedfile6: null,
-            uploadedfile7: null,
-            uploadedfile8: null,
-            uploadedfile9: null,
-        });
-    };
-
-
     return (
         <>
 
             <div>
-                <h1 style={{ textAlign: "center" }}>Overview Below Service</h1>
+                <h1 style={{ textAlign: "center" }}>Why Choose Us Services</h1>
 
                 <div className="table_container">
                     <div className="table_info">
@@ -273,7 +186,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                     <th>Sub Description3</th>
                                     <th>Sub Title4</th>
                                     <th>Sub Description4</th>
-                                    <th>Sub Title5</th>
+                                    {/* <th>Sub Title5</th>
                                     <th>Sub Description5</th>
                                     <th>Sub Title6</th>
                                     <th>Sub Description6</th>
@@ -282,17 +195,9 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                     <th>Sub Title8</th>
                                     <th>Sub Description8</th>
                                     <th>Sub Title9</th>
-                                    <th>Sub Description9</th>
-                                    <th>Type</th>
-                                    <th>Image1</th>
-                                    <th>Image2</th>
-                                    <th>Image3</th>
-                                    <th>Image4</th>
-                                    <th>Image5</th>
-                                    <th>Image6</th>
-                                    <th>Image7</th>
-                                    <th>Image8</th>
-                                    <th>Image9</th>
+                                    <th>Sub Description9</th> */}
+                                    {/* <th>Type</th>
+                                    <th>Image</th> */}
                                     {/* <th>View</th> */}
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -314,7 +219,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                                 <td>{service.sub_category}</td>
                                                 <td>{service.main_title}</td>
                                                 <td>
-                                                    <DescriptionCell description={service.main_description} />
+                                                    <DescriptionCell description={service?.main_description} />
                                                 </td>
                                                 <td>{service.sub_title1}</td>
                                                 <td>
@@ -332,135 +237,26 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                                 <td>
                                                     <DescriptionCell description={service?.sub_description4} />
                                                 </td>
-                                                <td>{service.sub_title5}</td>
-                                                <td>
-                                                    <DescriptionCell description={service?.sub_description5} />
-                                                </td>
-                                                <td>{service.sub_title6}</td>
-                                                <td>
-                                                    <DescriptionCell description={service?.sub_description6} />
-                                                </td>
+                                                {/* <td>{service.sub_title5}</td>
+                                                <td>{service.sub_description5}</td> */}
+                                                {/* <td>{service.sub_title6}</td>
+                                                <td>{service.sub_description6}</td>
                                                 <td>{service.sub_title7}</td>
-                                                <td>
-                                                    <DescriptionCell description={service?.sub_description7} />
-                                                </td>
+                                                <td>{service.sub_description7}</td>
                                                 <td>{service.sub_title8}</td>
-                                                <td>
-                                                    <DescriptionCell description={service?.sub_description8} />
-                                                </td>
+                                                <td>{service.sub_description8}</td>
                                                 <td>{service.sub_title9}</td>
+                                                <td>{service.sub_description9}</td> */}
+
+                                                {/* <td>{service.type}</td>
                                                 <td>
-                                                    <DescriptionCell description={service?.sub_description9} />
-                                                </td>
-                                                <td>{service.type}</td>
-                                                <td>
-                                                    {service.uploadedfile1 ? (
-                                                        <img
-                                                            src={service.uploadedfile1}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {service.uploadedfile2 ? (
-                                                        <img
-                                                            src={service.uploadedfile2}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {service.uploadedfile3 ? (
-                                                        <img
-                                                            src={service.uploadedfile3}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {service.uploadedfile4 ? (
-                                                        <img
-                                                            src={service.uploadedfile4}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {service.uploadedfile5 ? (
-                                                        <img
-                                                            src={service.uploadedfile5}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {service.uploadedfile6 ? (
-                                                        <img
-                                                            src={service.uploadedfile6}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {service.uploadedfile7 ? (
-                                                        <img
-                                                            src={service.uploadedfile7}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {service.uploadedfile8 ? (
-                                                        <img
-                                                            src={service.uploadedfile8}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
-                                                <td>
-                                                    {service.uploadedfile9 ? (
-                                                        <img
-                                                            src={service.uploadedfile9}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
-                                                </td>
+                                                    <img
+                                                        src={service.uploadedfile}
+                                                        alt="Image"
+                                                        width="50"
+                                                        height="50"
+                                                    />
+                                                </td> */}
                                                 <td>
                                                     <div
                                                         className="delet_button"
@@ -614,7 +410,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                 placeholder="Enter description Here"
                             />
                         </div>
-                        <div className="name">
+                        {/* <div className="name">
                             <label>Sub Title5</label>
                             <input
                                 type="text"
@@ -713,10 +509,10 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                 onChange={handleInputChange}
                                 placeholder="Enter description Here"
                             />
-                        </div>
+                        </div> */}
 
                         {/* Type Select */}
-                        <div className="name">
+                        {/* <div className="name">
                             <label>TYPE</label>
                             <select
                                 name="type"
@@ -729,151 +525,41 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                 <option value="Image">Image</option>
                                 <option value="Video">Video</option>
                             </select>
-                        </div>
+                        </div> */}
 
-
-                        <div className="main_image">
-                            <p>Upload File 1</p>
-                            <input
-                                id="file-upload1"
-                                type="file"
-                                accept="image/*,video/*"
-                                onChange={(e) => handleFileChange(e, 'uploadedfile1')}
-                                style={{ display: "none" }}
-                            />
-                            <label htmlFor="file-upload1" className="custom-file-upload">
-                                Upload Image 1
-                            </label>
-                            <p>{serviceData.uploadedfile1?.name}</p>
-                            <div className="preview">
-                                {serviceData.uploadedfile1 && isImage(serviceData.uploadedfile1) && (
-                                    <img
-                                        src={URL.createObjectURL(serviceData.uploadedfile1)}
-                                        alt="Uploaded Preview"
-                                        style={{ maxWidth: "50%", height: "50%" }}
-                                    />
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Repeat for other files */}
-                        <div className="main_image">
-                            <p>Upload File 2</p>
-                            <input
-                                id="file-upload2"
-                                type="file"
-                                accept="image/*,video/*"
-                                onChange={(e) => handleFileChange(e, 'uploadedfile2')}
-                                style={{ display: "none" }}
-                            />
-                            <label htmlFor="file-upload2" className="custom-file-upload">
-                                Upload Image 2
-                            </label>
-                            <p>{serviceData.uploadedfile2?.name}</p>
-                            <div className="preview">
-                                {serviceData.uploadedfile2 && isImage(serviceData.uploadedfile2) && (
-                                    <img
-                                        src={URL.createObjectURL(serviceData.uploadedfile2)}
-                                        alt="Uploaded Preview"
-                                        style={{ maxWidth: "50%", height: "50%" }}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                        <div className="main_image">
-                            <p>Upload File 3</p>
-                            <input
-                                id="file-upload3"
-                                type="file"
-                                accept="image/*,video/*"
-                                onChange={(e) => handleFileChange(e, 'uploadedfile3')}
-                                style={{ display: "none" }}
-                            />
-                            <label htmlFor="file-upload3" className="custom-file-upload">
-                                Upload Image 3
-                            </label>
-                            <p>{serviceData.uploadedfile3?.name}</p>
-                            <div className="preview">
-                                {serviceData.uploadedfile3 && isImage(serviceData.uploadedfile3) && (
-                                    <img
-                                        src={URL.createObjectURL(serviceData.uploadedfile3)}
-                                        alt="Uploaded Preview"
-                                        style={{ maxWidth: "50%", height: "50%" }}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                        <div className="main_image">
-                            <p>Upload File 4</p>
-                            <input
-                                id="file-upload4"
-                                type="file"
-                                accept="image/*,video/*"
-                                onChange={(e) => handleFileChange(e, 'uploadedfile4')}
-                                style={{ display: "none" }}
-                            />
-                            <label htmlFor="file-upload4" className="custom-file-upload">
-                                Upload Image 4
-                            </label>
-                            <p>{serviceData.uploadedfile4?.name}</p>
-                            <div className="preview">
-                                {serviceData.uploadedfile4 && isImage(serviceData.uploadedfile4) && (
-                                    <img
-                                        src={URL.createObjectURL(serviceData.uploadedfile4)}
-                                        alt="Uploaded Preview"
-                                        style={{ maxWidth: "50%", height: "50%" }}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                        <div className="main_image">
-                            <p>Upload File 5</p>
-                            <input
-                                id="file-upload5"
-                                type="file"
-                                accept="image/*,video/*"
-                                onChange={(e) => handleFileChange(e, 'uploadedfile5')}
-                                style={{ display: "none" }}
-                            />
-                            <label htmlFor="file-upload5" className="custom-file-upload">
-                                Upload Image 5
-                            </label>
-                            <p>{serviceData.uploadedfile5?.name}</p>
-                            <div className="preview">
-                                {serviceData.uploadedfile5 && isImage(serviceData.uploadedfile5) && (
-                                    <img
-                                        src={URL.createObjectURL(serviceData.uploadedfile5)}
-                                        alt="Uploaded Preview"
-                                        style={{ maxWidth: "50%", height: "50%" }}
-                                    />
-                                )}
-                            </div>
-                        </div>
 
                         {/* <div className="main_image">
-                            <p>Upload File 2</p>
+                            <p>Upload File</p>
                             <input
-                                id="file-upload2"
+                                id="file-upload"
                                 type="file"
-                                accept="image/*,video/*"
-                                onChange={(e) => handleFileChange(e, 'uploadedfile2')}
+                                accept="image/*,video/*" 
+                                onChange={handleFileChange}
                                 style={{ display: "none" }}
                             />
-                            <label htmlFor="file-upload2" className="custom-file-upload">
-                                Upload Image 2
+                            <label htmlFor="file-upload" className="custom-file-upload">
+                                Upload Image
                             </label>
-                            <p>{serviceData.uploadedfile2?.name}</p>
+                            <p>{file?.name}</p>
                             <div className="preview">
-                                {serviceData.uploadedfile2 && isImage(serviceData.uploadedfile2) && (
+                                {isImage(file) && (
                                     <img
-                                        src={URL.createObjectURL(serviceData.uploadedfile2)}
+                                        src={URL.createObjectURL(file)}
                                         alt="Uploaded Preview"
                                         style={{ maxWidth: "50%", height: "50%" }}
                                     />
+                                )}
+                                {isVideo(file) && (
+                                    <video
+                                        controls
+                                        style={{ maxWidth: "100%", height: "50%" }}
+                                    >
+                                        <source src={URL.createObjectURL(file)} type={file.type} />
+                                        Your browser does not support the video tag.
+                                    </video>
                                 )}
                             </div>
                         </div> */}
-
 
                     </div>
                     <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between' }}>
@@ -920,4 +606,4 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
 
 }
 
-export default OverviewBelowService
+export default WhyChooseUsService

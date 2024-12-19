@@ -1,5 +1,6 @@
 import axios from "axios";
 import ClearSession from "./ClearSession";
+import AddStacks from "../component/Stacks/AddStacks";
 
 export const BASEURL = "http://16.171.135.55:4000";
 
@@ -30,6 +31,14 @@ export const ApiUrl = {
   updateServiceDetails: `${apiBaseUrl}details/update/admin`,
   deleteServiceDetails: `${apiBaseUrl}details/delete/admin`,
 
+  AddStacks: `${apiBaseUrl}stack/add/admin`,
+  AddSubStacks: `${apiBaseUrl}sub/stack/add/admin`,
+  getStacks: `${apiBaseUrl}stack/all/admin`,
+  getSubStacks: `${apiBaseUrl}sub/stack/all/admin`,
+  updateStacks: `${apiBaseUrl}stack/update/admin`,
+  updateSubStacks: `${apiBaseUrl}sub/stack/update/admin`,
+  deleteStacks: `${apiBaseUrl}stack/delete/all/admin`,
+  deleteSubStacks: `${apiBaseUrl}sub/stack/delete/admin`,
 };
 
 export const APIRequest = async (

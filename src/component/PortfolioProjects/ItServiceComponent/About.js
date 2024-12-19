@@ -39,7 +39,11 @@ const style1 = {
     height: "70%",
 };
 
-const OverviewService = ({ data, callApi, nullStateOverView }) => {
+const About = ({ data, callApi, nullStateOverView }) => {
+
+    console.log("AboutAbout", data);
+    console.log("callApi", callApi);
+
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [open, setOpen] = useState(false);
@@ -153,7 +157,7 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
         <>
 
             <div>
-                <h1 style={{ textAlign: "center" }}>Overview Service</h1>
+                <h1 style={{ textAlign: "center" }}>About Service</h1>
 
                 <div className="table_container">
                     <div className="table_info">
@@ -169,7 +173,8 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                                     <th>Sub Title2</th>
                                     <th>Sub Description2</th>
                                     <th>Type</th>
-                                    <th>Image</th>
+                                    <th>Image1</th>
+                                    <th>Image2</th>
                                     {/* <th>View</th> */}
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -206,6 +211,18 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                                                     {service.uploadedfile1 ? (
                                                         <img
                                                             src={service.uploadedfile1}
+                                                            alt="Uploaded"
+                                                            width="50"
+                                                            height="50"
+                                                        />
+                                                    ) : (
+                                                        'No Image'
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    {service.uploadedfile3 ? (
+                                                        <img
+                                                            src={service.uploadedfile3}
                                                             alt="Uploaded"
                                                             width="50"
                                                             height="50"
@@ -423,4 +440,4 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
 
 }
 
-export default OverviewService
+export default About

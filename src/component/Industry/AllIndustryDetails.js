@@ -36,7 +36,7 @@ const style = {
   height: "80%",
 };
 
-const AllITServiceDetails = () => {
+const AllIndustryDetails = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [selectedData, setSelectedData] = useState({});
@@ -160,8 +160,8 @@ const AllITServiceDetails = () => {
   return (
     <>
       {/* <h1>this is AllITServiceDetails </h1> */}
-      <TitleChanger title="All IT Service Details" />
-      <BreadCrumb pageTitle="All IT Service Details" />
+      <TitleChanger title="All Industry Details" />
+      <BreadCrumb pageTitle="All Industry Details" />
 
       {/* <h1>this is my cd pass</h1> */}
       <div className="name_filter">
@@ -306,4 +306,4 @@ const AllITServiceDetails = () => {
   );
 };
 
-export default AllITServiceDetails;
+export default AllIndustryDetails;

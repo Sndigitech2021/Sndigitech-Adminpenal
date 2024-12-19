@@ -38,6 +38,14 @@ const AddKeyPointers = lazy(() => import("../component/KeyPointers/AddKeyPointer
 const AllKeyPointers = lazy(() => import("../component/KeyPointers/AllKeyPointers"));
 const AddOurTeam = lazy(() => import("../component/OurTeam/AddOurTeam"));
 const AllOurTeam = lazy(() => import("../component/OurTeam/AllOurTeam"));
+const AddStacks = lazy(() => import("../component/Stacks/AddStacks"));
+const AllStacks = lazy(() => import("../component/Stacks/AllStacks"));
+const AddPortfolioDetails = lazy(() => import("../component/PortfolioProjects/AddPortfolioDetails"));
+const AllPortfolioDetails = lazy(() => import("../component/PortfolioProjects/AllPortfolioDetails"));
+const AddIndustry = lazy(() => import("../component/Industry/AddIndustry"));
+const AllIndustry = lazy(() => import("../component/Industry/AllIndustry"));
+const AddIndustryDetails = lazy(() => import("../component/Industry/AddIndustryDetails"));
+const AllIndustryDetails = lazy(() => import("../component/Industry/AllIndustryDetails"));
 
 // Define routes
 const routes = [
@@ -224,6 +232,46 @@ const routes = [
   {
     path: "/all-our-team",
     component: AllOurTeam,
+    service: true,
+  },
+  {
+    path: "/add-stacks",
+    component: AddStacks,
+    service: true,
+  },
+  {
+    path: "/all-stacks",
+    component: AllStacks,
+    service: true,
+  },
+  {
+    path: "/all-portfolio-Details",
+    component: AllPortfolioDetails,
+    service: true,
+  },
+  {
+    path: "/add-portfolio-details",
+    component: AddPortfolioDetails,
+    service: true,
+  },
+  {
+    path: "/add-industry-list",
+    component: AddIndustry,
+    service: true,
+  },
+  {
+    path: "/all-industry-list",
+    component: AllIndustry,
+    service: true,
+  },
+  {
+    path: "/add-industry-details",
+    component: AddIndustryDetails,
+    service: true,
+  },
+  {
+    path: "/all-industry-details",
+    component: AllIndustryDetails,
     service: true,
   },
 

@@ -171,6 +171,24 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
+    name: "Portfolio Projects",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/add-portfolio-projects",
+        icon: <FaPortrait />,
+        name: "Add Portfolio Projects",
+      },
+      {
+        path: "/app/all-portfolio-projects",
+        icon: <FaPortrait />,
+        name: "All Portfolio Projects",
+      },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
     name: "Why Services",
     toggleArrowButton: true,
     heading: "",
@@ -207,42 +225,19 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "Portfolio Projects",
-    toggleArrowButton: true,
-    heading: "",
-    submenu: [
-      {
-        path: "/app/add-portfolio-projects",
-        icon: <FaPortrait />,
-        name: "Add Portfolio Projects",
-      },
-      {
-        path: "/app/all-portfolio-projects",
-        icon: <FaPortrait />,
-        name: "All Portfolio Projects",
-      },
-      {
-        path: "/app/add-portfolio-details",
-        icon: <FaPortrait />,
-        name: "Add Portfolio Details",
-      },
-    ],
-  },
-  {
-    img: <GiDigitalTrace />,
-    name: "Blogs List",
+    name: "Blogs",
     toggleArrowButton: true,
     heading: "",
     submenu: [
       {
         path: "/app/add-blogs",
         icon: <FaMicroblog />,
-        name: "Add Blogs List",
+        name: "Add Blogs",
       },
       {
         path: "/app/all-blogs",
         icon: <FaMicroblog />,
-        name: "All Blogs List",
+        name: "All Blogs",
       },
       {
         path: "/app/add-blogList-details",
@@ -253,42 +248,19 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "News List",
+    name: "News",
     toggleArrowButton: true,
     heading: "",
     submenu: [
       {
         path: "/app/add-news",
         icon: <TiNews />,
-        name: "Add News List",
+        name: "Add News",
       },
       {
         path: "/app/all-news",
         icon: <TiNews />,
-        name: "All News List",
-      },
-    ],
-  },
-  {
-    img: <GiDigitalTrace />,
-    name: "Industry List",
-    toggleArrowButton: true,
-    heading: "",
-    submenu: [
-      {
-        path: "/app/add-industry-list",
-        icon: <TiNews />,
-        name: "Add Industry List",
-      },
-      {
-        path: "/app/all-industry-list",
-        icon: <TiNews />,
-        name: "All Industry List",
-      },
-      {
-        path: "/app/add-industry-details",
-        icon: <TiNews />,
-        name: "Add Industry Details",
+        name: "All News",
       },
     ],
   },
@@ -371,12 +343,12 @@ const SideBarRoute = [
     heading: "",
     submenu: [
       {
-        path: "/app/add-stacks",
+        path: "/app/add-our-team",
         icon: <FaChalkboardTeacher />,
         name: "Add Stacks",
       },
       {
-        path: "/app/all-stacks",
+        path: "/app/all-our-team",
         icon: <FaChalkboardTeacher />,
         name: "All Stacks",
       },

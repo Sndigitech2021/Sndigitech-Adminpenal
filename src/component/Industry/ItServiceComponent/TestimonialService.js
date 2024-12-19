@@ -39,7 +39,7 @@ const style1 = {
     height: "70%",
 };
 
-const OverviewService = ({ data, callApi, nullStateOverView }) => {
+const TestimonialService = ({ data, callApi, nullStateOverView }) => {
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [open, setOpen] = useState(false);
@@ -69,9 +69,9 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
     // const service = data && data.length > 0 ? data : [];
     const [service, setservice] = useState(data && data.length > 0 ? data : []);
     const handleFileChange = (e) => {
-        const uploadedfile1 = e.target.files[0];
-        setFile(uploadedfile1);
-        setServiceData((prev) => ({ ...prev, uploadedfile1: uploadedfile1 }));
+        const uploadedfile = e.target.files[0];
+        setFile(uploadedfile);
+        setServiceData((prev) => ({ ...prev, uploadedfile: uploadedfile }));
     };
 
     const handleInputChange = (e) => {
@@ -88,10 +88,10 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
         formData.append('sub_category', serviceData.sub_category)
         formData.append('main_title', serviceData.main_title)
         formData.append('main_description', serviceData.main_description)
-        formData.append('sub_title1', serviceData.sub_title1)
-        formData.append('sub_description1', serviceData.sub_description1)
-        formData.append('sub_title2', serviceData.sub_title2)
-        formData.append('sub_description2', serviceData.sub_description2)
+        // formData.append('sub_title1', serviceData.sub_title1)
+        // formData.append('sub_description1', serviceData.sub_description1)
+        // formData.append('sub_title2', serviceData.sub_title2)
+        // formData.append('sub_description2', serviceData.sub_description2)
         formData.append('type', serviceData.type)
         formData.append('uploadedfile', serviceData.uploadedfile)
         const config = {
@@ -153,7 +153,7 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
         <>
 
             <div>
-                <h1 style={{ textAlign: "center" }}>Overview Service</h1>
+                <h1 style={{ textAlign: "center" }}>Testimonial Service</h1>
 
                 <div className="table_container">
                     <div className="table_info">
@@ -164,10 +164,10 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                                     <th>Sub Category</th>
                                     <th>Main Title</th>
                                     <th>Main Description</th>
-                                    <th>Sub Title1</th>
+                                    {/* <th>Sub Title1</th>
                                     <th>Sub Description1</th>
                                     <th>Sub Title2</th>
-                                    <th>Sub Description2</th>
+                                    <th>Sub Description2</th> */}
                                     <th>Type</th>
                                     <th>Image</th>
                                     {/* <th>View</th> */}
@@ -190,29 +190,19 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                                                 <th>{index + 1}</th>
                                                 <td>{service.sub_category}</td>
                                                 <td>{service.main_title}</td>
-                                                <td>
-                                                    <DescriptionCell description={service.main_description} />
-                                                </td>
-                                                <td>{service.sub_title1}</td>
-                                                <td>
-                                                    <DescriptionCell description={service?.sub_description1} />
-                                                </td>
+                                                <td><DescriptionCell description={service.main_description} /></td>
+                                                {/* <td>{service.sub_title1}</td>
+                                                <td>{service.sub_description1}</td>
                                                 <td>{service.sub_title2}</td>
-                                                <td>
-                                                    <DescriptionCell description={service?.sub_description2} />
-                                                </td>
+                                                <td>{service.sub_description2}</td> */}
                                                 <td>{service.type}</td>
                                                 <td>
-                                                    {service.uploadedfile1 ? (
-                                                        <img
-                                                            src={service.uploadedfile1}
-                                                            alt="Uploaded"
-                                                            width="50"
-                                                            height="50"
-                                                        />
-                                                    ) : (
-                                                        'No Image'
-                                                    )}
+                                                    <img
+                                                        src={service.uploadedfile}
+                                                        alt="Image"
+                                                        width="50"
+                                                        height="50"
+                                                    />
                                                 </td>
                                                 <td>
                                                     <div
@@ -287,7 +277,7 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                                 placeholder="Enter description Here"
                             />
                         </div>
-                        <div className="name">
+                        {/* <div className="name">
                             <label>Sub Title1</label>
                             <input
                                 type="text"
@@ -326,7 +316,7 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                                 onChange={handleInputChange}
                                 placeholder="Enter description Here"
                             />
-                        </div>
+                        </div> */}
 
                         {/* Type Select */}
                         <div className="name">
@@ -423,4 +413,4 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
 
 }
 
-export default OverviewService
+export default TestimonialService
