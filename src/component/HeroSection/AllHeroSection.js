@@ -58,7 +58,7 @@ const AllHeroSection = () => {
   }
   const handleClose = () => setOpen(false);
   const [open1, setOpen1] = useState(false);
-  const [serviceData, setServiceData] = useState();
+  const [serviceData, setServiceData] = useState({});
   const handleOpen1 = (data) => {
     setOpen1(true);
     setServiceData(data)

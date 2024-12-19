@@ -79,7 +79,7 @@ const AddHeroSection = () => {
       method: 'POST',
       body: formData,
     };
-    console.log("configconfig", config);
+    // console.log("configconfig", config);
 
     APIRequestWithFile(config,
       (res) => {
