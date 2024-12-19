@@ -2,7 +2,9 @@ import axios from "axios";
 import ClearSession from "./ClearSession";
 import AddStacks from "../component/Stacks/AddStacks";
 
-export const BASEURL = "http://16.171.135.55:4000";
+// https://newapi.sndigitech.in/api/
+
+export const BASEURL = "https://newapi.sndigitech.in";
 
 const apiBaseUrl = `${BASEURL}/api/`;
 

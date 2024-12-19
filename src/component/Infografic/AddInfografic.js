@@ -24,7 +24,7 @@ const style = {
 };
 
 
-const AddIndustry = () => {
+const AddInfografic = () => {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serviceData, setServiceData] = useState({
@@ -164,8 +164,8 @@ const AddIndustry = () => {
 
   return (
     <>
-      <TitleChanger title="Add Industry" />
-      <BreadCrumb pageTitle="Add Industry" />
+      <TitleChanger title="Add Infographic List" />
+      <BreadCrumb pageTitle="Add Infographic List" />
 
       <div className="add_buttn">
         <div
@@ -205,6 +205,7 @@ const AddIndustry = () => {
                     <option value="industry_list">industry list</option>
                     <option value="blog_list">blog list</option>
                     <option value="new_list">new list</option>
+                    <option value="infographic_list">infographic list</option>
                   </select>
                 </div>
 
@@ -405,4 +406,4 @@ const AddIndustry = () => {
   );
 };
 
-export default AddIndustry;
+export default AddInfografic;

@@ -49,7 +49,7 @@ const style1 = {
   height: "70%",
 };
 
-const AllIndustry = () => {
+const AllBusiness = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [selectedData, setSelectedData] = useState({});
@@ -100,7 +100,7 @@ const AllIndustry = () => {
     const queryString = queryParams.length ? `&${queryParams.join("&")}` : "";
 
     const config = {
-      url: `${ApiUrl.getAllCategory}?pageName=industry_list`,
+      url: `${ApiUrl.getAllCategory}?pageName=business_list`,
       method: "GET",
     };
 
@@ -133,7 +133,7 @@ const AllIndustry = () => {
   const handleView = (service) => {
     // Navigate to service details page
     // navigate(`/app/all-it_service_details`);
-    navigate('/app/all-industry-details', { state: { service } });
+    navigate('/app/all-business-details', { state: { service } });
 
     // navigate(`all-it_service_details/${service}`);
   }
@@ -202,8 +202,8 @@ const AllIndustry = () => {
 
   return (
     <>
-      <TitleChanger title="All Industry List" />
-      <BreadCrumb pageTitle="All Industry List" />
+      <TitleChanger title="All Business List" />
+      <BreadCrumb pageTitle="All Business List" />
 
       <div className="name_filter">
         <label>Filter : </label>
@@ -477,4 +477,4 @@ const AllIndustry = () => {
   );
 };
 
-export default AllIndustry;
+export default AllBusiness;

@@ -5,7 +5,7 @@ import BreadCrumb from "../Breadcrumb/index";
 import { APIRequest, APIRequestWithFile, ApiUrl } from "../../utils/api";
 import axios from "axios";
 
-const AddITServiceDetails = () => {
+const AddBusinessDetails = () => {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serviceData, setServiceData] = useState({
@@ -126,7 +126,7 @@ const AddITServiceDetails = () => {
         console.log("response", res);
         toast.success(res.message);
         setServiceData({
-          id: "",
+          listById: "",
           category: "",
           sub_category: "",
           main_title: "",
@@ -168,8 +168,8 @@ const AddITServiceDetails = () => {
 
   return (
     <>
-      <TitleChanger title="Add IT Service Details" />
-      <BreadCrumb pageTitle="Add IT Service Details" />
+      <TitleChanger title="Add Business Details" />
+      <BreadCrumb pageTitle="Add Business Details" />
       <div>
         <div className="product_page">
           <div className="basic_info">
@@ -516,4 +516,4 @@ const AddITServiceDetails = () => {
   );
 };
 
-export default AddITServiceDetails;
+export default AddBusinessDetails;

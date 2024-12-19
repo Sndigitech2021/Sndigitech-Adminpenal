@@ -294,6 +294,52 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
+    name: "Infographic List",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/add-infographic-list",
+        icon: <TiNews />,
+        name: "Add Infographic List",
+      },
+      {
+        path: "/app/all-infographic-list",
+        icon: <TiNews />,
+        name: "All Infographic List",
+      },
+      {
+        path: "/app/add-infographic-details",
+        icon: <TiNews />,
+        name: "Add Infographic Details",
+      },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
+    name: "Business List",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/add-business-list",
+        icon: <TiNews />,
+        name: "Add Business List",
+      },
+      {
+        path: "/app/all-business-list",
+        icon: <TiNews />,
+        name: "All Business List",
+      },
+      {
+        path: "/app/add-business-details",
+        icon: <TiNews />,
+        name: "Add Business Details",
+      },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
     name: "Gallery",
     toggleArrowButton: true,
     heading: "",

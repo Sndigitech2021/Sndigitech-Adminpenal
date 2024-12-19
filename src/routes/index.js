@@ -46,6 +46,14 @@ const AddIndustry = lazy(() => import("../component/Industry/AddIndustry"));
 const AllIndustry = lazy(() => import("../component/Industry/AllIndustry"));
 const AddIndustryDetails = lazy(() => import("../component/Industry/AddIndustryDetails"));
 const AllIndustryDetails = lazy(() => import("../component/Industry/AllIndustryDetails"));
+const AddInfografic = lazy(() => import("../component/Infografic/AddInfografic"));
+const AllInfografic = lazy(() => import("../component/Infografic/AllInfografic"));
+const AddInfograficDetails = lazy(() => import("../component/Infografic/AddInfograficDetails"));
+const AllInfograficDetails = lazy(() => import("../component/Infografic/AllInfograficDetails"));
+const AddBusiness = lazy(() => import("../component/Business/AddBusiness"));
+const AllBusiness = lazy(() => import("../component/Business/AllBusiness"));
+const AddBusinessDetails = lazy(() => import("../component/Business/AddBusinessDetails"));
+const AllBusinessDetails = lazy(() => import("../component/Business/AllBusinessDetails"));
 
 // Define routes
 const routes = [
@@ -272,6 +280,46 @@ const routes = [
   {
     path: "/all-industry-details",
     component: AllIndustryDetails,
+    service: true,
+  },
+  {
+    path: "/add-infographic-list",
+    component: AddInfografic,
+    service: true,
+  },
+  {
+    path: "/all-infographic-list",
+    component: AllInfografic,
+    service: true,
+  },
+  {
+    path: "/add-infographic-details",
+    component: AddInfograficDetails,
+    service: true,
+  },
+  {
+    path: "/all-infographic-details",
+    component: AllInfograficDetails,
+    service: true,
+  },
+  {
+    path: "/add-business-list",
+    component: AddBusiness,
+    service: true,
+  },
+  {
+    path: "/all-business-list",
+    component: AllBusiness,
+    service: true,
+  },
+  {
+    path: "/add-business-details",
+    component: AddBusinessDetails,
+    service: true,
+  },
+  {
+    path: "/all-business-details",
+    component: AllBusinessDetails,
     service: true,
   },
 

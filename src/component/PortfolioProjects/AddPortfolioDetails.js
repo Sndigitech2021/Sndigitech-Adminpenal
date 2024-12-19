@@ -9,6 +9,7 @@ const AddPortfolioDetails = () => {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serviceData, setServiceData] = useState({
+    listById: "",
     category: "",
     sub_category: "",
     main_title: "",
@@ -84,7 +85,7 @@ const AddPortfolioDetails = () => {
 
     console.log("formDataformData", data);
 
-    data.append('listById', sanitizedData.id);
+    data.append('listById', sanitizedData.listById);
     data.append('category', sanitizedData.category);
     data.append('sub_category', sanitizedData.sub_category);
     data.append('main_title', sanitizedData.main_title);
@@ -125,7 +126,7 @@ const AddPortfolioDetails = () => {
         console.log("response", res);
         toast.success(res.message);
         setServiceData({
-          id: "",
+          listById: "",
           category: "",
           sub_category: "",
           main_title: "",
@@ -180,7 +181,7 @@ const AddPortfolioDetails = () => {
                   <input
                     type="text"
                     name="id"
-                    value={serviceData.id}
+                    value={serviceData.listById}
                     onChange={handleInputChange}
                     placeholder="Enter Service ID Here"
                   />
