@@ -52,7 +52,7 @@ const style1 = {
 const AllIndustry = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState('');
   const handleOpen = (id) => {
     setOpen(true);
     setSelectedData(id)
@@ -173,7 +173,7 @@ const AllIndustry = () => {
 
   const handleDelete = (id) => {
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/?id=${id}`,
       method: "DELETE",
     };
 
@@ -182,7 +182,8 @@ const AllIndustry = () => {
       (res) => {
         console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        getAllServices("hero"); // Refresh data after deletion
+        setSelectedData('')
+        getAllServices(); // Refresh data after deletion
       },
       (error) => {
         console.log(error, "Error in deletion");

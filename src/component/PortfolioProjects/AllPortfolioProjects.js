@@ -38,7 +38,7 @@ const AllPortfolioDetails = () => {
   // const handleClose = () => setOpen(false);
 
   const [open, setOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState('');
   const handleOpen = (id) => {
     setOpen(true);
     setSelectedData(id)
@@ -92,13 +92,13 @@ const AllPortfolioDetails = () => {
   const handleDelete = (id) => {
     // e.preventdefaut();
     // Add delete logic here
-    console.log('Account deleted', id);
+    // console.log('Account deleted', id);
 
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/?id=${id}`,
       method: "delete",
     }
-    console.log("asfgf", config);
+    // console.log("asfgf", config);
 
     APIRequest(
       config,
@@ -107,6 +107,7 @@ const AllPortfolioDetails = () => {
           console.log(res.data, "resresrestr");
           handleClose();
           toast.success(res.message);
+          setSelectedData('');
           getAllServices();
         }
 

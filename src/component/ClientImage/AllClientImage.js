@@ -50,7 +50,7 @@ const style1 = {
 
 const AllClientImage = () => {
   const [open, setOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState('');
   const handleOpen = (id) => {
     setOpen(true);
     setSelectedData(id)
@@ -165,7 +165,7 @@ const AllClientImage = () => {
 
   const handleDelete = (id) => {
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/?id=${id}`,
       method: "DELETE",
     };
 
@@ -174,7 +174,8 @@ const AllClientImage = () => {
       (res) => {
         console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        getAllServices("hero"); // Refresh data after deletion
+        getAllServices(); // Refresh data after deletion
+        setSelectedData('')
       },
       (error) => {
         console.log(error, "Error in deletion");

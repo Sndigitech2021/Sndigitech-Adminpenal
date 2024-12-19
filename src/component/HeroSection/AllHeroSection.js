@@ -29,7 +29,7 @@ const style = {
   // overflow: "auto",
   scrollbarWidth: "none",
   zIndex: "1100",
-  height: "33%",
+  height: "38%",
 };
 const style1 = {
   position: "absolute",
@@ -51,14 +51,14 @@ const style1 = {
 const AllHeroSection = () => {
   const [file, setFile] = useState(null);
   const [open, setOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState("");
   const handleOpen = (id) => {
     setOpen(true);
     setSelectedData(id)
   }
   const handleClose = () => setOpen(false);
   const [open1, setOpen1] = useState(false);
-  const [serviceData, setServiceData] = useState({});
+  const [serviceData, setServiceData] = useState();
   const handleOpen1 = (data) => {
     setOpen1(true);
     setServiceData(data)
@@ -165,7 +165,7 @@ const AllHeroSection = () => {
 
   const handleDelete = (id) => {
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/?id=${id}`,
       method: "DELETE",
     };
 
@@ -173,8 +173,11 @@ const AllHeroSection = () => {
       config,
       (res) => {
         console.log(res.data, "Deleted Successfully");
+        handleClose()
+        setSelectedData('');
         toast.success(res.message);
-        getAllServices("hero"); // Refresh data after deletion
+
+        getAllServices(); // Refresh data after deletion
       },
       (error) => {
         console.log(error, "Error in deletion");

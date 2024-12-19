@@ -154,7 +154,8 @@ const ProcessService = ({ data, callApi, nullStateOverView }) => {
                 // console.log(res.data, "Deleted Successfully");
                 toast.success(res.message);
                 handleClose();
-                // getAllServices("hero"); // Refresh data after deletion
+                setSelectedData('')
+                // getAllServices(); // Refresh data after deletion
             },
             (error) => {
                 console.log(error, "Error in deletion");

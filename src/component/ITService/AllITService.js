@@ -60,7 +60,7 @@ const AllITService = () => {
   const handleClose = () => setOpen(false);
 
   const [file, setFile] = useState(null);
-  const [serviceData, setServiceData] = useState({});
+  const [serviceData, setServiceData] = useState('');
   const [open1, setOpen1] = useState(false);
   const handleOpen1 = (data) => {
     setOpen1(true);
@@ -170,7 +170,7 @@ const AllITService = () => {
 
   const handleDelete = (id) => {
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/?id=${id}`,
       method: "DELETE",
     };
 
@@ -179,7 +179,8 @@ const AllITService = () => {
       (res) => {
         console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        getAllServices("hero"); // Refresh data after deletion
+        setSelectedData('');
+        getAllServices(); // Refresh data after deletion
       },
       (error) => {
         console.log(error, "Error in deletion");

@@ -48,7 +48,7 @@ const AllTestimonial = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
 
-  const getAllServices = (category) => {
+  const getAllServices = () => {
     setIsLoading(true);
 
     // Construct query parameters dynamically
@@ -58,7 +58,7 @@ const AllTestimonial = () => {
     const queryString = queryParams.length > 0 ? `&${queryParams.join('&')}` : '';
 
     const config = {
-      url: `${ApiUrl.getAllServices}?category=${category}${queryString}`,
+      url: `${ApiUrl.getAllServices}?category=testimonial${queryString}`,
       method: "GET",
     };
 
@@ -87,16 +87,17 @@ const AllTestimonial = () => {
   };
   const handleDelete = (id) => {
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/?id=${id}`,
       method: "DELETE",
     };
 
     APIRequest(
       config,
       (res) => {
-        console.log(res.data, "Deleted Successfully");
+        // console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        getAllServices("hero"); // Refresh data after deletion
+        setSelectedData('');
+        getAllServices(); // Refresh data after deletion
       },
       (error) => {
         console.log(error, "Error in deletion");
@@ -106,7 +107,7 @@ const AllTestimonial = () => {
   };
 
   useEffect(() => {
-    getAllServices("testimonial")
+    getAllServices()
 
   }, [filter, currentPage]);
 

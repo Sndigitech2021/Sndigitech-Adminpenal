@@ -140,6 +140,7 @@ const Faq = ({ data, callApi, nullStateOverView }) => {
                 // console.log(res.data, "Deleted Successfully");
                 toast.success(res.message);
                 handleClose();
+                setSelectedData('');
                 // getAllServices("hero"); // Refresh data after deletion
             },
             (error) => {

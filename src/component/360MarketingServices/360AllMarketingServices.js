@@ -33,7 +33,7 @@ const style = {
 
 const All360MarketingServices = () => {
   const [open, setOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState("");
   const handleOpen = (id) => {
     setOpen(true);
     setSelectedData(id)
@@ -48,7 +48,7 @@ const All360MarketingServices = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
 
-  const getAllServices = (category) => {
+  const getAllServices = () => {
     setIsLoading(true);
 
     // Construct query parameters dynamically
@@ -58,7 +58,7 @@ const All360MarketingServices = () => {
     const queryString = queryParams.length > 0 ? `&${queryParams.join('&')}` : '';
 
     const config = {
-      url: `${ApiUrl.getAllServices}?category=${category}${queryString}`,
+      url: `${ApiUrl.getAllServices}?category=360_marketing${queryString}`,
       method: "GET",
     };
 
@@ -87,7 +87,7 @@ const All360MarketingServices = () => {
   };
   const handleDelete = (id) => {
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/id=${id}`,
       method: "DELETE",
     };
 
@@ -96,7 +96,9 @@ const All360MarketingServices = () => {
       (res) => {
         console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        getAllServices("hero"); // Refresh data after deletion
+        setSelectedData('')
+        handleClose()
+        getAllServices(); // Refresh data after deletion
       },
       (error) => {
         console.log(error, "Error in deletion");
@@ -106,7 +108,7 @@ const All360MarketingServices = () => {
   };
 
   useEffect(() => {
-    getAllServices("360_marketing")
+    getAllServices()
 
   }, [filter, currentPage]);
 

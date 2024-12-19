@@ -43,7 +43,7 @@ const Features = ({ data, callApi, nullStateOverView }) => {
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [open, setOpen] = useState(false);
-    const [selectedData, setSelectedData] = useState({});
+    const [selectedData, setSelectedData] = useState('');
     const handleOpen = (id) => {
         setOpen(true);
         setSelectedData(id)
@@ -154,7 +154,8 @@ const Features = ({ data, callApi, nullStateOverView }) => {
                 // console.log(res.data, "Deleted Successfully");
                 toast.success(res.message);
                 handleClose();
-                // getAllServices("hero"); // Refresh data after deletion
+                setSelectedData('')
+                // getAllServices(); // Refresh data after deletion
             },
             (error) => {
                 console.log(error, "Error in deletion");

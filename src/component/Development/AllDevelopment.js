@@ -33,7 +33,7 @@ const style = {
 
 const AllDevelopmentProcess = () => {
   const [open, setOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState('');
   const handleOpen = (id) => {
     setOpen(true);
     setSelectedData(id)
@@ -49,10 +49,10 @@ const AllDevelopmentProcess = () => {
   // const [sub_category, setSubCategory] = useState();
 
 
-  const getAllServices = (category) => {
+  const getAllServices = () => {
     setIsLoading(true);
     const config = {
-      url: `${ApiUrl.getAllServices}?category=${category}`,
+      url: `${ApiUrl.getAllServices}?category=development_process`,
       method: "GET",
     }
 
@@ -87,13 +87,13 @@ const AllDevelopmentProcess = () => {
   const handleDelete = (id) => {
     // e.preventdefaut();
     // Add delete logic here
-    console.log('Account deleted', id);
+    // console.log('Account deleted', id);
 
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/?id=${id}`,
       method: "delete",
     }
-    console.log("asfgf", config);
+    // console.log("asfgf", config);
 
     APIRequest(
       config,
@@ -101,6 +101,7 @@ const AllDevelopmentProcess = () => {
         console.log(res.data, "resresrestr");
         handleClose();
         toast.success(res.message);
+        setSelectedData('');
         getAllServices();
       },
       (error) => {
@@ -112,7 +113,7 @@ const AllDevelopmentProcess = () => {
   };
 
   useEffect(() => {
-    getAllServices("development_process")
+    getAllServices()
 
   }, [currentPage]);
 

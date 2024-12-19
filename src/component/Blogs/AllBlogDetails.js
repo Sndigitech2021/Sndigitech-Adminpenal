@@ -42,7 +42,7 @@ const style = {
 const AllBlogDetails = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
-  const [selectedData, setSelectedData] = useState({});
+  const [selectedData, setSelectedData] = useState('');
   const handleOpen = (id) => {
     setOpen(true);
     setSelectedData(id)
@@ -68,7 +68,7 @@ const AllBlogDetails = () => {
 
 
   const getAllServices = useCallback(() => {
-    console.log("servicesss", service);
+    // console.log("servicesss", service);
 
     setIsLoading(true);
     const queryParams = [];
@@ -108,7 +108,7 @@ const AllBlogDetails = () => {
 
   const handleDelete = (id) => {
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/id=${id}`,
       method: "DELETE",
     };
 
@@ -117,7 +117,9 @@ const AllBlogDetails = () => {
       (res) => {
         console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        getAllServices("hero"); // Refresh data after deletion
+        handleClose()
+        setSelectedData('');
+        getAllServices(); // Refresh data after deletion
       },
       (error) => {
         console.log(error, "Error in deletion");

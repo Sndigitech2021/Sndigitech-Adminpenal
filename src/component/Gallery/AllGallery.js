@@ -58,7 +58,7 @@ const AllGallery = () => {
     const queryString = queryParams.length > 0 ? `&${queryParams.join('&')}` : '';
 
     const config = {
-      url: `${ApiUrl.getAllServices}?category=${category}${queryString}`,
+      url: `${ApiUrl.getAllServices}?category=gallery_image${queryString}`,
       method: "GET",
     };
 
@@ -87,7 +87,7 @@ const AllGallery = () => {
   };
   const handleDelete = (id) => {
     const config = {
-      url: `${ApiUrl.deleteService}/${id}`,
+      url: `${ApiUrl.deleteService}/?id=${id}`,
       method: "DELETE",
     };
 
@@ -96,7 +96,7 @@ const AllGallery = () => {
       (res) => {
         console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        getAllServices("hero"); // Refresh data after deletion
+        getAllServices(); // Refresh data after deletion
       },
       (error) => {
         console.log(error, "Error in deletion");
@@ -106,7 +106,7 @@ const AllGallery = () => {
   };
 
   useEffect(() => {
-    getAllServices("gallery_image")
+    getAllServices()
 
   }, [filter, currentPage]);
 
