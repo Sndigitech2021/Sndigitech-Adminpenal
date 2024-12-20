@@ -28,6 +28,13 @@ export const ApiUrl = {
   AddAllSubCategory: `${apiBaseUrl}portfolio/sub/development/add/admin`,
   getAllCategory: `${apiBaseUrl}portfolio/development/all/admin`,
 
+  addCareer: `${apiBaseUrl}career/add/admin`,
+  addSubCareer: `${apiBaseUrl}sub/career/add/admin`,
+  getAllCareer: `${apiBaseUrl}career/all/admin`,
+  getAllSubCareer: `${apiBaseUrl}sub/career/all/admin`,
+  deleteCareer: `${apiBaseUrl}category/with/sub/category/career/admin`,
+  deleteSubCareer: `${apiBaseUrl}sub/category/delete/admin`,
+
   addServiceDetails: `${apiBaseUrl}details/add/admin`,
   getServiceDetails: `${apiBaseUrl}details/admin`,
   updateServiceDetails: `${apiBaseUrl}details/update/admin`,

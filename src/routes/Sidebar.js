@@ -340,6 +340,29 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
+    name: "Career List",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/add-career-list",
+        icon: <TiNews />,
+        name: "Add Career List",
+      },
+      {
+        path: "/app/all-career-list",
+        icon: <TiNews />,
+        name: "All Career List",
+      },
+      // {
+      //   path: "/app/add-business-details",
+      //   icon: <TiNews />,
+      //   name: "Add Business Details",
+      // },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
     name: "Gallery",
     toggleArrowButton: true,
     heading: "",

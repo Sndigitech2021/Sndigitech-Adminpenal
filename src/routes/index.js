@@ -54,6 +54,9 @@ const AddBusiness = lazy(() => import("../component/Business/AddBusiness"));
 const AllBusiness = lazy(() => import("../component/Business/AllBusiness"));
 const AddBusinessDetails = lazy(() => import("../component/Business/AddBusinessDetails"));
 const AllBusinessDetails = lazy(() => import("../component/Business/AllBusinessDetails"));
+const AddCareer = lazy(() => import("../component/Career/AddCareer"));
+const AllCareer = lazy(() => import("../component/Career/AllCareer"));
+const AllCareerDetails = lazy(() => import("../component/Career/AllCareerDetails"));
 
 // Define routes
 const routes = [
@@ -322,6 +325,21 @@ const routes = [
     component: AllBusinessDetails,
     service: true,
   },
+  {
+    path: "/add-career-list",
+    component: AddCareer,
+    service: true,
+  },
+  {
+    path: "/all-career-list",
+    component: AllCareer,
+    service: true,
+  },
+  // {
+  //   path: "/all-career-details",
+  //   component: AllCareerDetails,
+  //   service: true,
+  // },
 
 ];
 
