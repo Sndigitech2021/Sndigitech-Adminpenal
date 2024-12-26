@@ -176,6 +176,7 @@ const AllClientImage = () => {
         toast.success(res.message);
         getAllServices(); // Refresh data after deletion
         setSelectedData('')
+        handleClose();
       },
       (error) => {
         console.log(error, "Error in deletion");

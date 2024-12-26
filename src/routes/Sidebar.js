@@ -71,7 +71,7 @@ const SideBarRoute = [
   // },
   {
     img: <GiDigitalTrace />,
-    name: "IT Service",
+    name: "IT Development Service",
     toggleArrowButton: true,
     heading: "",
     submenu: [
@@ -95,6 +95,24 @@ const SideBarRoute = [
       //   icon: <CiMonitor />,
       //   name: "All ITService Details",
       // },
+    ],
+  },
+  {
+    img: <GiDigitalTrace />,
+    name: "IT Development Process",
+    toggleArrowButton: true,
+    heading: "",
+    submenu: [
+      {
+        path: "/app/add-development-process",
+        icon: <FaConnectdevelop />,
+        name: "Add Development Process",
+      },
+      {
+        path: "/app/all-development-process",
+        icon: <FaConnectdevelop />,
+        name: "All Development Process",
+      },
     ],
   },
   {
@@ -133,24 +151,7 @@ const SideBarRoute = [
       },
     ],
   },
-  {
-    img: <GiDigitalTrace />,
-    name: "Development Process",
-    toggleArrowButton: true,
-    heading: "",
-    submenu: [
-      {
-        path: "/app/add-development-process",
-        icon: <FaConnectdevelop />,
-        name: "Add Development Process",
-      },
-      {
-        path: "/app/all-development-process",
-        icon: <FaConnectdevelop />,
-        name: "All Development Process",
-      },
-    ],
-  },
+
   {
     img: <GiDigitalTrace />,
     name: "360 Marketing ",
@@ -230,7 +231,7 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "Blogs List",
+    name: "Blogs",
     toggleArrowButton: true,
     heading: "",
     submenu: [
@@ -253,7 +254,7 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "News List",
+    name: "News",
     toggleArrowButton: true,
     heading: "",
     submenu: [
@@ -271,7 +272,7 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "Industry List",
+    name: "Industry",
     toggleArrowButton: true,
     heading: "",
     submenu: [
@@ -294,7 +295,7 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "Infographic List",
+    name: "Infographic ",
     toggleArrowButton: true,
     heading: "",
     submenu: [
@@ -317,7 +318,7 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "Business List",
+    name: "Business ",
     toggleArrowButton: true,
     heading: "",
     submenu: [
@@ -340,7 +341,7 @@ const SideBarRoute = [
   },
   {
     img: <GiDigitalTrace />,
-    name: "Career List",
+    name: "Career ",
     toggleArrowButton: true,
     heading: "",
     submenu: [

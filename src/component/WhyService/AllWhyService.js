@@ -4,7 +4,7 @@ import { color, styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import { RxCross1 } from "react-icons/rx";
 import { Height } from "@mui/icons-material";
-import { APIRequest, ApiUrl } from "../../utils/api";
+import { APIRequest, APIRequestWithFile, ApiUrl } from "../../utils/api";
 import { useEffect } from "react";
 import { RiTimelineView } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
@@ -31,6 +31,25 @@ const style = {
   height: "33%",
 };
 
+
+
+const style1 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 450,
+  backgroundColor: "background.paper",
+  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+  p: 4,
+  border: "none !important",
+  outline: "none",
+  overflow: "auto",
+  scrollbarWidth: "none",
+  zIndex: "1100",
+  height: "70%",
+};
+
 const AllWhyService = () => {
   const [open, setOpen] = useState(false);
   const [selectedData, setSelectedData] = useState('');
@@ -47,6 +66,34 @@ const AllWhyService = () => {
 
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
+
+  const [file, setFile] = useState(null);
+  const [serviceData, setServiceData] = useState({});
+  const [open1, setOpen1] = useState(false);
+  const handleOpen1 = (data) => {
+    setOpen1(true);
+    setServiceData(data)
+  }
+  const handleClose1 = () => setOpen1(false);
+
+  const handleFileChange = (e) => {
+    const uploadedfile = e.target.files[0];
+    setFile(uploadedfile);
+    setServiceData((prev) => ({ ...prev, uploadedfile: uploadedfile }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setServiceData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const isImage = (file) => {
+    return file && file.type.startsWith("image/");
+  };
+
+  const isVideo = (file) => {
+    return file && file.type.startsWith("video/");
+  };
 
   const getAllServices = () => {
     setIsLoading(true);
@@ -85,6 +132,40 @@ const AllWhyService = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  const handleUpdate = () => {
+
+    // console.log("service56789data", serviceData);
+
+
+    const formData = new FormData();
+    formData.append('title', serviceData.title)
+    formData.append('description', serviceData.description)
+    formData.append('type', serviceData.type)
+    formData.append('uploadedfile', serviceData.uploadedfile)
+    const config = {
+      url: `${ApiUrl.updateService}/?id=${serviceData._id}`,
+      method: "PUT",
+      body: formData
+    };
+
+    APIRequestWithFile(
+      config,
+      (res) => {
+        console.log(res.data, "updated Successfully");
+        toast.success(res.message);
+        getAllServices();
+        setFile(null)
+        setServiceData({})
+        handleClose1();
+      },
+      (error) => {
+        console.log(error, "Error in deletion");
+        toast.error(error?.message || "Error updating service");
+      }
+    );
+  };
+
   const handleDelete = (id) => {
     const config = {
       url: `${ApiUrl.deleteService}/?id=${id}`,
@@ -96,7 +177,8 @@ const AllWhyService = () => {
       (res) => {
         console.log(res.data, "Deleted Successfully");
         toast.success(res.message);
-        setSelectedData('');
+        setSelectedData('')
+        handleClose()
         getAllServices(); // Refresh data after deletion
       },
       (error) => {
@@ -200,6 +282,7 @@ const AllWhyService = () => {
                         <td>
                           <div
                             className="delet_button"
+                            onClick={() => handleOpen1(service)}
                           >
                             <i class="fa-solid fa-pen-to-square"></i>
                           </div>
@@ -268,6 +351,107 @@ const AllWhyService = () => {
               Confirm
             </Button>
             <Button variant="outlined" onClick={() => handleClose()}>
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+
+      {/* Edit Modal */}
+      <Modal
+        open={open1}
+        onClose={handleClose1}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style1}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Edit
+          </Typography>
+          <div className="basic_info_con1">
+
+            {/* Title Input */}
+            <div className="name">
+              <label>TITLE</label>
+              <input
+                type="text"
+                name="title"
+                value={serviceData.title}
+                onChange={handleInputChange}
+                placeholder="Enter Title Here"
+              />
+            </div>
+
+            {/* Description Input */}
+            <div className="name">
+              <label>DESCRIPTION</label>
+              <input
+                type="text"
+                name="description"
+                value={serviceData.description}
+                onChange={handleInputChange}
+                placeholder="Enter description Here"
+              />
+            </div>
+
+            {/* Type Select */}
+            <div className="name">
+              <label>TYPE</label>
+              <select
+                name="type"
+                value={serviceData?.type}
+                onChange={handleInputChange}
+              >
+                <option value="" disabled>
+                  Select Type
+                </option>
+                <option value="Image">Image</option>
+                {/* <option value="Video">Video</option> */}
+              </select>
+            </div>
+
+
+            <div className="main_image">
+              <p>Upload File</p>
+              <input
+                id="file-upload"
+                type="file"
+                accept="image/*,video/*" // Allows only images and videos
+                onChange={handleFileChange}
+                style={{ display: "none" }}
+              />
+              <label htmlFor="file-upload" className="custom-file-upload">
+                Upload Image/Video
+              </label>
+              <p>{file?.name}</p>
+              <div className="preview">
+                {isImage(file) && (
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt="Uploaded Preview"
+                    style={{ maxWidth: "50%", height: "50%" }}
+                  />
+                )}
+                {/* {isVideo(file) && (
+                  <video
+                    controls
+                    style={{ maxWidth: "100%", height: "50%" }}
+                  >
+                    <source src={URL.createObjectURL(file)} type={file.type} />
+                    Your browser does not support the video tag.
+                  </video>
+                )} */}
+              </div>
+            </div>
+
+          </div>
+          <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between' }}>
+            <Button variant="contained" color="error"
+              onClick={() => handleUpdate(serviceData._id)}
+            >
+              Update
+            </Button>
+            <Button variant="outlined" onClick={() => handleClose1()}>
               Cancel
             </Button>
           </Box>

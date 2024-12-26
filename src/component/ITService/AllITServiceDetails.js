@@ -237,7 +237,7 @@ const AllITServiceDetails = () => {
                       <Button
                         variant="contained"
                         color="error"
-                        onClick={() => handleDelete(sectionKey)} // Add proper delete handler
+                        onClick={() => handleDelete(sectionKey)}
                       >
                         Delete
                       </Button>

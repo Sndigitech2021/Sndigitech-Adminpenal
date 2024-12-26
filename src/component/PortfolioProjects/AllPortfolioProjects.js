@@ -89,36 +89,34 @@ const AllPortfolioDetails = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    // e.preventdefaut();
-    // Add delete logic here
-    // console.log('Account deleted', id);
+  // const handleDelete = (id) => {
 
-    const config = {
-      url: `${ApiUrl.deleteService}/?id=${id}`,
-      method: "delete",
-    }
-    // console.log("asfgf", config);
 
-    APIRequest(
-      config,
-      (res) => {
-        if (!res.error) {
-          console.log(res.data, "resresrestr");
-          handleClose();
-          toast.success(res.message);
-          setSelectedData('');
-          getAllServices();
-        }
+  //   const config = {
+  //     url: `${ApiUrl.deleteService}/?id=${id}`,
+  //     method: "delete",
+  //   }
 
-      },
-      (error) => {
-        console.log(error, "eerrroeeesserd");
-        toast.error("entry not found in portfolio")
-      }
-    )
 
-  };
+  //   APIRequest(
+  //     config,
+  //     (res) => {
+  //       if (!res.error) {
+  //         console.log(res.data, "resresrestr");
+  //         handleClose();
+  //         toast.success(res.message);
+  //         setSelectedData('');
+  //         getAllServices();
+  //       }
+
+  //     },
+  //     (error) => {
+  //       console.log(error, "eerrroeeesserd");
+  //       toast.error("entry not found in portfolio")
+  //     }
+  //   )
+
+  // };
 
   const handleView = (service) => {
     // Navigate to service details page
@@ -156,8 +154,8 @@ const AllPortfolioDetails = () => {
                 <th>Type</th>
                 <th>Image</th>
                 <th>View</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                {/* <th>Edit</th> */}
+                {/* <th>Delete</th> */}
               </tr>
             </thead>
             <tbody>
@@ -199,20 +197,20 @@ const AllPortfolioDetails = () => {
 
                             </div>
                           </td>
-                          <td>
+                          {/* <td>
                             <div
                               className="delet_button"
                             >
                               <i class="fa-solid fa-pen-to-square"></i>
                             </div>
-                          </td>
-                          <td>
+                          </td> */}
+                          {/* <td>
                             <div
                               className="delet_button"
                               onClick={() => handleOpen(subCategory._id)}>
                               <i class="fa-solid fa-trash"></i>
                             </div>
-                          </td>
+                          </td> */}
                         </tr>
                       ))
                     ) : (
@@ -261,7 +259,7 @@ const AllPortfolioDetails = () => {
         >Next</button>
       </div>
 
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -285,7 +283,7 @@ const AllPortfolioDetails = () => {
             </Button>
           </Box>
         </Box>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

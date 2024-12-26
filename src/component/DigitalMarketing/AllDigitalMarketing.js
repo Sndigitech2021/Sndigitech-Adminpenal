@@ -221,12 +221,12 @@ const AllDigitalMarketing = () => {
                 <th>S.no</th>
                 <th>Title</th>
                 {/* <th>Location</th> */}
-                <th>Type</th>
                 <th>Category</th>
                 <th>Sub-Category</th>
                 {/* <th>Technology</th> */}
                 <th>Description</th>
                 {/* <th>Is Verified</th> */}
+                <th>Type</th>
                 <th>Image</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -247,7 +247,6 @@ const AllDigitalMarketing = () => {
                         <td>{(currentPage - 1) * limit + index + 1}</td>
                         <td>{service.title}</td>
                         {/* <td>{service.location}</td> */}
-                        <td>{service.type}</td>
                         <td>{service.category}</td>
                         <td>{service.sub_category}</td>
                         {/* <td>{service.technology}</td> */}
@@ -255,6 +254,7 @@ const AllDigitalMarketing = () => {
                           <DescriptionCell description={service?.description} />
 
                         </td>
+                        <td>{service.type}</td>
                         {/* <td>{service.isVerified}</td> */}
                         <td>
                           <img
@@ -284,7 +284,7 @@ const AllDigitalMarketing = () => {
 
                   ) : (
                     <tr>
-                      <td colSpan="8" className="text-center">No Data Found</td>
+                      <td colSpan="9" className="text-center">No Data Found</td>
                     </tr>
                   )
                 )

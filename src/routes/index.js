@@ -60,9 +60,19 @@ const AllCareerDetails = lazy(() => import("../component/Career/AllCareerDetails
 
 // Define routes
 const routes = [
+  // {
+  //   path: "/dashboard",
+  //   component: Dashboard,
+  //   service: true,
+  // },
   {
-    path: "/dashboard",
-    component: Dashboard,
+    path: "/add-hero-section",
+    component: AddHeroSection,
+    service: true,
+  },
+  {
+    path: "/all-hero-section",
+    component: AllHeroSection,
     service: true,
   },
   {
@@ -173,16 +183,6 @@ const routes = [
   {
     path: "/all-faq",
     component: AllFaq,
-    service: true,
-  },
-  {
-    path: "/add-hero-section",
-    component: AddHeroSection,
-    service: true,
-  },
-  {
-    path: "/all-hero-section",
-    component: AllHeroSection,
     service: true,
   },
   {

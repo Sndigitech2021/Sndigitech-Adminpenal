@@ -42,7 +42,7 @@ const style1 = {
 const About = ({ data, callApi, nullStateOverView }) => {
 
     console.log("AboutAbout", data);
-    console.log("callApi", callApi);
+    // console.log("callApi", callApi);
 
     const [file, setFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -62,7 +62,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
     const handleClose1 = () => setOpen1(false);
 
     const isImage = (file) => {
-        return file && file.type.startsWith("image/");
+        return file && file?.type?.startsWith("image/");
     };
 
     // const isVideo = (file) => {
@@ -72,10 +72,19 @@ const About = ({ data, callApi, nullStateOverView }) => {
 
     // const service = data && data.length > 0 ? data : [];
     const [service, setservice] = useState(data && data.length > 0 ? data : []);
-    const handleFileChange = (e) => {
-        const uploadedfile1 = e.target.files[0];
-        setFile(uploadedfile1);
-        setServiceData((prev) => ({ ...prev, uploadedfile1: uploadedfile1 }));
+    // const handleFileChange = (e) => {
+    //     const uploadedfile1 = e.target.files[0];
+    //     setFile(uploadedfile1);
+    //     setServiceData((prev) => ({ ...prev, uploadedfile1: uploadedfile1 }));
+    // };
+    const handleFileChange = (e, fileKey) => {
+        const uploadedFile = e.target.files[0]; // Get the first selected file
+        setFile(uploadedFile); // Update the local file state (optional)
+
+        setServiceData((prev) => ({
+            ...prev,
+            [fileKey]: uploadedFile || null, // Dynamically update the specific file key
+        }));
     };
 
     const handleInputChange = (e) => {
@@ -85,7 +94,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
 
     const handleUpdate = async () => {
 
-        console.log("service56789data", serviceData);
+        // console.log("service56789data", serviceData);
 
         // callApi()
         const formData = new FormData();
@@ -97,13 +106,14 @@ const About = ({ data, callApi, nullStateOverView }) => {
         formData.append('sub_title2', serviceData.sub_title2)
         formData.append('sub_description2', serviceData.sub_description2)
         formData.append('type', serviceData.type)
-        formData.append('uploadedfile', serviceData.uploadedfile)
+        formData.append('uploadedfile1', serviceData.uploadedfile1)
+        formData.append('uploadedfile3', serviceData.uploadedfile3)
         const config = {
             url: `${ApiUrl.updateServiceDetails}/?id=${serviceData._id}`,
             method: "PUT",
             body: formData
         };
-        console.log("config", config);
+        // console.log("config", config);
 
         APIRequestWithFile(
             config,
@@ -111,18 +121,18 @@ const About = ({ data, callApi, nullStateOverView }) => {
                 console.log(res.data, "updated Successfully");
                 toast.success(res.message);
                 // getAllServices();
-                // callApi()
+
                 setFile(null)
                 setServiceData({})
                 handleClose1();
 
                 CallApiFucntion()
-                // callApi()
+
             },
             (error) => {
                 console.log(error, "Error in deletion");
                 toast.error(error?.message || "Error updating service");
-                handleClose();
+                // handleClose1();
             }
         );
     };
@@ -133,6 +143,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
     }
 
     const handleDelete = (id) => {
+        setIsLoading(true)
         const config = {
             url: `${ApiUrl.deleteServiceDetails}/?id=${id}`,
             method: "DELETE",
@@ -143,10 +154,13 @@ const About = ({ data, callApi, nullStateOverView }) => {
             (res) => {
                 console.log(res.data, "Deleted Successfully");
                 toast.success(res.message);
+                setIsLoading(false);
                 handleClose();
+                CallApiFucntion();
                 // getAllServices("hero"); // Refresh data after deletion
             },
             (error) => {
+                setIsLoading(false);
                 console.log(error, "Error in deletion");
                 toast.error(error.message);
             }
@@ -279,7 +293,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
                                 name="sub_category"
                                 value={serviceData.sub_category}
                                 onChange={handleInputChange}
-                                placeholder="Enter Title Here"
+                                placeholder="Enter sub_category Here"
                             />
                         </div>
 
@@ -291,7 +305,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
                                 name="main_title"
                                 value={serviceData.main_title}
                                 onChange={handleInputChange}
-                                placeholder="Enter description Here"
+                                placeholder="Enter main_title Here"
                             />
                         </div>
                         <div className="name">
@@ -301,7 +315,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
                                 name="main_description"
                                 value={serviceData.main_description}
                                 onChange={handleInputChange}
-                                placeholder="Enter description Here"
+                                placeholder="Enter main_description Here"
                             />
                         </div>
                         <div className="name">
@@ -311,7 +325,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
                                 name="sub_title1"
                                 value={serviceData.sub_title1}
                                 onChange={handleInputChange}
-                                placeholder="Enter description Here"
+                                placeholder="Enter sub_title1 Here"
                             />
                         </div>
                         <div className="name">
@@ -321,7 +335,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
                                 name="sub_description1"
                                 value={serviceData.sub_description1}
                                 onChange={handleInputChange}
-                                placeholder="Enter description Here"
+                                placeholder="Enter sub_description1 Here"
                             />
                         </div>
                         <div className="name">
@@ -331,7 +345,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
                                 name="sub_title2"
                                 value={serviceData.sub_title2}
                                 onChange={handleInputChange}
-                                placeholder="Enter description Here"
+                                placeholder="Enter sub_title2 Here"
                             />
                         </div>
                         <div className="name">
@@ -341,7 +355,7 @@ const About = ({ data, callApi, nullStateOverView }) => {
                                 name="sub_description2"
                                 value={serviceData.sub_description2}
                                 onChange={handleInputChange}
-                                placeholder="Enter description Here"
+                                placeholder="Enter sub_description2 Here"
                             />
                         </div>
 
@@ -363,37 +377,77 @@ const About = ({ data, callApi, nullStateOverView }) => {
 
 
                         <div className="main_image">
-                            <p>Upload File</p>
+                            <p>Upload File1</p>
                             <input
-                                id="file-upload"
+                                id="file-upload-1"
                                 type="file"
-                                accept="image/*,video/*" // Allows only images and videos
-                                onChange={handleFileChange}
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile1")}
                                 style={{ display: "none" }}
                             />
-                            <label htmlFor="file-upload" className="custom-file-upload">
+                            <label htmlFor="file-upload-1" className="custom-file-upload">
                                 Upload Image
                             </label>
-                            <p>{file?.name}</p>
+                            <p>{serviceData.uploadedfile1?.name}</p>
                             <div className="preview">
-                                {isImage(file) && (
+                                {serviceData.uploadedfile1 && isImage(serviceData.uploadedfile1) && (
                                     <img
-                                        src={URL.createObjectURL(file)}
-                                        alt="Uploaded Preview"
+                                        src={URL.createObjectURL(serviceData.uploadedfile1)}
+                                        alt="Uploaded Preview 1"
                                         style={{ maxWidth: "50%", height: "50%" }}
                                     />
                                 )}
-                                {/* {isVideo(file) && (
-                                    <video
-                                        controls
-                                        style={{ maxWidth: "100%", height: "50%" }}
-                                    >
-                                        <source src={URL.createObjectURL(file)} type={file.type} />
-                                        Your browser does not support the video tag.
-                                    </video>
-                                )} */}
                             </div>
                         </div>
+
+                        {/* <div className="main_image">
+                            <p>Upload File2</p>
+                            <input
+                                id="file-upload-2"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile2")}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload-2" className="custom-file-upload">
+                                Upload Image
+                            </label>
+                            <p>{serviceData.uploadedfile2?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile2 && isImage(serviceData.uploadedfile2) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile2)}
+                                        alt="Uploaded Preview 2"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
+                            </div>
+                        </div> */}
+
+                        <div className="main_image">
+                            <p>Upload File3</p>
+                            <input
+                                id="file-upload-3"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile3")}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload-3" className="custom-file-upload">
+                                Upload Image
+                            </label>
+                            <p>{serviceData.uploadedfile3?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile3 && isImage(serviceData.uploadedfile3) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile3)}
+                                        alt="Uploaded Preview 3"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
+                            </div>
+                        </div>
+
 
                     </div>
                     <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between' }}>
@@ -426,9 +480,9 @@ const About = ({ data, callApi, nullStateOverView }) => {
                         <Button variant="contained" color="error"
                             onClick={() => handleDelete(selectedData)}
                         >
-                            Confirm
+                            {isLoading ? "Confirming..." : "Confirm"}
                         </Button>
-                        <Button variant="outlined" onClick={() => handleClose()}>
+                        <Button variant="outlined" onClick={handleClose}>
                             Cancel
                         </Button>
                     </Box>

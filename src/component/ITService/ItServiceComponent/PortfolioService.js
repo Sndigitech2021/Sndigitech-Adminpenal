@@ -29,15 +29,23 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
     const [selectedService, setSelectedService] = useState({});
     const [serviceData, setServiceData] = useState({});
 
-    const handleFileChange = (e) => {
-        const uploadedFile = e.target.files[0];
-        setFile(uploadedFile);
-        setServiceData((prev) => ({ ...prev, uploadedfile: uploadedFile }));
+    const handleFileChange = (e, fileKey) => {
+        const uploadedFile = e.target.files[0]; // Get the first selected file
+        setFile(uploadedFile); // Update the local file state (optional)
+
+        setServiceData((prev) => ({
+            ...prev,
+            [fileKey]: uploadedFile || null, // Dynamically update the specific file key
+        }));
     };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setServiceData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const isImage = (file) => {
+        return file && file?.type?.startsWith("image/");
     };
 
     const handleEditModalOpen = (service) => {
@@ -61,30 +69,50 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
         setSelectedService({});
     };
 
+
+
+
     const handleUpdate = async () => {
-        try {
-            const formData = new FormData();
-            Object.entries(serviceData).forEach(([key, value]) => {
-                formData.append(key, value);
-            });
+        setIsLoading(true)
 
-            const config = {
-                url: `${ApiUrl.updateServiceDetails}/?id=${serviceData._id}`,
-                method: 'PUT',
-                body: formData,
-            };
+        const formData = new FormData();
+        formData.append('sub_category', serviceData.sub_category)
+        formData.append('main_title', serviceData.main_title)
+        formData.append('main_description', serviceData.main_description)
+        formData.append('sub_title1', serviceData.sub_title1)
+        formData.append('sub_description1', serviceData.sub_description1)
+        // formData.append('sub_title2', serviceData.sub_title2)
+        // formData.append('sub_description2', serviceData.sub_description2)
+        formData.append('type', serviceData.type)
+        formData.append('uploadedfile1', serviceData.uploadedfile1)
+        formData.append('uploadedfile3', serviceData.uploadedfile3)
+        formData.append('uploadedfile4', serviceData.uploadedfile4)
+        formData.append('uploadedfile5', serviceData.uploadedfile5)
 
-            await APIRequestWithFile(config);
-            toast.success('Service updated successfully');
-            await refreshServices();
-            handleEditModalClose();
-        } catch (error) {
-            console.error('Error updating service:', error);
-            toast.error(error?.message || 'Error updating service');
-        }
+        const config = {
+            url: `${ApiUrl.updateServiceDetails}/?id=${serviceData._id}`,
+            method: 'PUT',
+            body: formData,
+        };
+
+        APIRequestWithFile(config,
+            (res) => {
+                setIsLoading(false)
+                toast.success(res.message || 'Service updated successfully');
+                refreshServices();
+                handleEditModalClose();
+            },
+            (err) => {
+                // console.error('Error updating service:', err);
+                setIsLoading(false)
+                toast.error(err?.message || 'Error updating service');
+            },
+        )
+
     };
 
     const handleDelete = async () => {
+        isLoading(true)
         try {
             const config = {
                 url: `${ApiUrl.deleteServiceDetails}/?id=${selectedService}`,
@@ -92,12 +120,15 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
             };
 
             await APIRequest(config);
+            isLoading(false)
             toast.success('Service deleted successfully');
             await refreshServices();
             handleDeleteModalClose();
         } catch (error) {
             console.error('Error deleting service:', error);
+            setIsLoading(false)
             toast.error(error.message || 'Error deleting service');
+
         }
     };
 
@@ -106,7 +137,6 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
         await callApi();
     };
 
-    const isImage = (file) => file && file.type.startsWith('image/');
 
     return (
         <>
@@ -123,7 +153,6 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
                                     <th>Main Description</th>
                                     <th>Type</th>
                                     <th>Image1</th>
-                                    <th>Image2</th>
                                     <th>Image3</th>
                                     <th>Image4</th>
                                     <th>Image5</th>
@@ -160,7 +189,7 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
                                                     'No Image'
                                                 )}
                                             </td>
-                                            <td>
+                                            {/* <td>
                                                 {service.uploadedfile2 ? (
                                                     <img
                                                         src={service.uploadedfile2}
@@ -171,7 +200,7 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
                                                 ) : (
                                                     'No Image'
                                                 )}
-                                            </td>
+                                            </td> */}
                                             <td>
                                                 {service.uploadedfile3 ? (
                                                     <img
@@ -299,169 +328,10 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
                                 placeholder="Enter description Here"
                             />
                         </div>
-                        <div className="name">
-                            <label>Sub Title2</label>
-                            <input
-                                type="text"
-                                name="sub_title2"
-                                value={serviceData.sub_title2}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Description2</label>
-                            <input
-                                type="text"
-                                name="sub_description2"
-                                value={serviceData.sub_description2}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Title3</label>
-                            <input
-                                type="text"
-                                name="sub_title3"
-                                value={serviceData.sub_title3}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Description3</label>
-                            <input
-                                type="text"
-                                name="sub_description3"
-                                value={serviceData.sub_description3}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Title4</label>
-                            <input
-                                type="text"
-                                name="sub_title4"
-                                value={serviceData.sub_title4}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Description4</label>
-                            <input
-                                type="text"
-                                name="sub_description4"
-                                value={serviceData.sub_description4}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Title5</label>
-                            <input
-                                type="text"
-                                name="sub_title5"
-                                value={serviceData.sub_title5}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Description5</label>
-                            <input
-                                type="text"
-                                name="sub_description5"
-                                value={serviceData.sub_description5}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Title6</label>
-                            <input
-                                type="text"
-                                name="sub_title6"
-                                value={serviceData.sub_title6}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Description6</label>
-                            <input
-                                type="text"
-                                name="sub_description6"
-                                value={serviceData.sub_description6}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Title7</label>
-                            <input
-                                type="text"
-                                name="sub_title7"
-                                value={serviceData.sub_title7}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Description7</label>
-                            <input
-                                type="text"
-                                name="sub_description7"
-                                value={serviceData.sub_description7}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Title8</label>
-                            <input
-                                type="text"
-                                name="sub_title8"
-                                value={serviceData.sub_title8}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Description8</label>
-                            <input
-                                type="text"
-                                name="sub_description8"
-                                value={serviceData.sub_description8}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Title9</label>
-                            <input
-                                type="text"
-                                name="sub_title9"
-                                value={serviceData.sub_title9}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
-                        <div className="name">
-                            <label>Sub Description9</label>
-                            <input
-                                type="text"
-                                name="sub_description9"
-                                value={serviceData.sub_description9}
-                                onChange={handleInputChange}
-                                placeholder="Enter description Here"
-                            />
-                        </div>
+
 
                         {/* Type Select */}
-                        {/* <div className="name">
+                        <div className="name">
                             <label>TYPE</label>
                             <select
                                 name="type"
@@ -474,48 +344,108 @@ const PortfolioService = ({ data, callApi, nullStateOverView }) => {
                                 <option value="Image">Image</option>
                                 <option value="Video">Video</option>
                             </select>
-                        </div> */}
+                        </div>
 
 
-                        {/* <div className="main_image">
-                            <p>Upload File</p>
+                        <div className="main_image">
+                            <p>Upload File1</p>
                             <input
-                                id="file-upload"
+                                id="file-upload-1"
                                 type="file"
-                                accept="image/*,video/*" 
-                                onChange={handleFileChange}
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile1")}
                                 style={{ display: "none" }}
                             />
-                            <label htmlFor="file-upload" className="custom-file-upload">
+                            <label htmlFor="file-upload-1" className="custom-file-upload">
                                 Upload Image
                             </label>
-                            <p>{file?.name}</p>
+                            <p>{serviceData.uploadedfile1?.name}</p>
                             <div className="preview">
-                                {isImage(file) && (
+                                {serviceData.uploadedfile1 && isImage(serviceData.uploadedfile1) && (
                                     <img
-                                        src={URL.createObjectURL(file)}
-                                        alt="Uploaded Preview"
+                                        src={URL.createObjectURL(serviceData.uploadedfile1)}
+                                        alt="Uploaded Preview 1"
                                         style={{ maxWidth: "50%", height: "50%" }}
                                     />
                                 )}
-                                {isVideo(file) && (
-                                    <video
-                                        controls
-                                        style={{ maxWidth: "100%", height: "50%" }}
-                                    >
-                                        <source src={URL.createObjectURL(file)} type={file.type} />
-                                        Your browser does not support the video tag.
-                                    </video>
+                            </div>
+                        </div>
+                        <div className="main_image">
+                            <p>Upload File3</p>
+                            <input
+                                id="file-upload-2"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile3")}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload-2" className="custom-file-upload">
+                                Upload Image
+                            </label>
+                            <p>{serviceData.uploadedfile3?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile3 && isImage(serviceData.uploadedfile3) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile3)}
+                                        alt="Uploaded Preview 1"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
                                 )}
                             </div>
-                        </div> */}
+                        </div>
+                        <div className="main_image">
+                            <p>Upload File4</p>
+                            <input
+                                id="file-upload-3"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile4")}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload-3" className="custom-file-upload">
+                                Upload Image
+                            </label>
+                            <p>{serviceData.uploadedfile4?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile4 && isImage(serviceData.uploadedfile4) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile4)}
+                                        alt="Uploaded Preview 1"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                        <div className="main_image">
+                            <p>Upload File5</p>
+                            <input
+                                id="file-upload-4"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile5")}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload-4" className="custom-file-upload">
+                                Upload Image
+                            </label>
+                            <p>{serviceData.uploadedfile5?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile5 && isImage(serviceData.uploadedfile5) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile5)}
+                                        alt="Uploaded Preview 1"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
+                            </div>
+                        </div>
 
                     </div>
                     <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between' }}>
                         <Button variant="contained" color="error"
                             onClick={handleUpdate}
                         >
-                            Update
+                            {isLoading ? 'Updating...' : 'Update'}
                         </Button>
                         <Button variant="outlined" onClick={handleEditModalClose}>
                             Cancel

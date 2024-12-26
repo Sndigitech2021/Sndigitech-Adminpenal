@@ -32,7 +32,7 @@ const Login = () => {
         if (!res?.error) {
           setIsLoading(false);
           sessionStorage.setItem("data", JSON.stringify(res?.token));
-          navigate("/app/dashboard");
+          navigate("/app/add-hero-section");
           toast.success(res?.message);
         }
       },

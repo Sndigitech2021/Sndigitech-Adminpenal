@@ -23,7 +23,7 @@ const App = () => {
         <Route
           path="*"
           element={
-            <Navigate to={token ? "/app/dashboard" : "/login"} replace />
+            <Navigate to={token ? "/app/add-hero-section" : "/login"} replace />
           }
         />
       </Routes>

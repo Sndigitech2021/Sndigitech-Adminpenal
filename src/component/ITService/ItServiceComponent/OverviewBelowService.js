@@ -91,7 +91,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
     const handleClose1 = () => setOpen1(false);
 
     const isImage = (file) => {
-        return file && file.type && file.type.startsWith("image");
+        return file && file?.type && file?.type.startsWith("image");
     };
 
 
@@ -103,14 +103,14 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
     // const service = data && data.length > 0 ? data : [];
     const [service, setservice] = useState(data && data.length > 0 ? data : []);
 
-    const handleFileChange = (event, fileField) => {
-        const file = event.target.files[0];
-        if (file) {
-            setServiceData(prevState => ({
-                ...prevState,
-                [fileField]: file
-            }));
-        }
+    const handleFileChange = (e, fileKey) => {
+        const uploadedFile = e.target.files[0]; // Get the first selected file
+        setFile(uploadedFile); // Update the local file state (optional)
+
+        setServiceData((prev) => ({
+            ...prev,
+            [fileKey]: uploadedFile || null, // Dynamically update the specific file key
+        }));
     };
 
     const handleInputChange = (e) => {
@@ -146,7 +146,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
         formData.append('sub_title9', serviceData.sub_title9)
         formData.append('sub_description9', serviceData.sub_description9)
         formData.append('type', serviceData.type)
-        formData.append('uploadedfile1', serviceData.uploadedfil1)
+        formData.append('uploadedfile1', serviceData.uploadedfile1)
         formData.append('uploadedfile2', serviceData.uploadedfile2)
         formData.append('uploadedfile3', serviceData.uploadedfile3)
         formData.append('uploadedfile4', serviceData.uploadedfile4)
@@ -733,7 +733,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
 
 
                         <div className="main_image">
-                            <p>Upload File 1</p>
+                            <p>Upload File1</p>
                             <input
                                 id="file-upload1"
                                 type="file"
@@ -758,7 +758,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
 
                         {/* Repeat for other files */}
                         <div className="main_image">
-                            <p>Upload File 2</p>
+                            <p>Upload File2</p>
                             <input
                                 id="file-upload2"
                                 type="file"
@@ -767,7 +767,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                 style={{ display: "none" }}
                             />
                             <label htmlFor="file-upload2" className="custom-file-upload">
-                                Upload Image 2
+                                Upload Image2
                             </label>
                             <p>{serviceData.uploadedfile2?.name}</p>
                             <div className="preview">
@@ -781,7 +781,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                             </div>
                         </div>
                         <div className="main_image">
-                            <p>Upload File 3</p>
+                            <p>Upload File3</p>
                             <input
                                 id="file-upload3"
                                 type="file"
@@ -790,7 +790,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                 style={{ display: "none" }}
                             />
                             <label htmlFor="file-upload3" className="custom-file-upload">
-                                Upload Image 3
+                                Upload Image3
                             </label>
                             <p>{serviceData.uploadedfile3?.name}</p>
                             <div className="preview">
@@ -804,7 +804,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                             </div>
                         </div>
                         <div className="main_image">
-                            <p>Upload File 4</p>
+                            <p>Upload File4</p>
                             <input
                                 id="file-upload4"
                                 type="file"
@@ -813,7 +813,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                 style={{ display: "none" }}
                             />
                             <label htmlFor="file-upload4" className="custom-file-upload">
-                                Upload Image 4
+                                Upload Image4
                             </label>
                             <p>{serviceData.uploadedfile4?.name}</p>
                             <div className="preview">
@@ -827,7 +827,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                             </div>
                         </div>
                         <div className="main_image">
-                            <p>Upload File 5</p>
+                            <p>Upload File5</p>
                             <input
                                 id="file-upload5"
                                 type="file"
@@ -849,30 +849,100 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                                 )}
                             </div>
                         </div>
-
-                        {/* <div className="main_image">
-                            <p>Upload File 2</p>
+                        <div className="main_image">
+                            <p>Upload File6</p>
                             <input
-                                id="file-upload2"
+                                id="file-upload6"
                                 type="file"
                                 accept="image/*,video/*"
-                                onChange={(e) => handleFileChange(e, 'uploadedfile2')}
+                                onChange={(e) => handleFileChange(e, 'uploadedfile6')}
                                 style={{ display: "none" }}
                             />
-                            <label htmlFor="file-upload2" className="custom-file-upload">
-                                Upload Image 2
+                            <label htmlFor="file-upload6" className="custom-file-upload">
+                                Upload Image 5
                             </label>
-                            <p>{serviceData.uploadedfile2?.name}</p>
+                            <p>{serviceData.uploadedfile6?.name}</p>
                             <div className="preview">
-                                {serviceData.uploadedfile2 && isImage(serviceData.uploadedfile2) && (
+                                {serviceData.uploadedfile6 && isImage(serviceData.uploadedfile6) && (
                                     <img
-                                        src={URL.createObjectURL(serviceData.uploadedfile2)}
+                                        src={URL.createObjectURL(serviceData.uploadedfile6)}
                                         alt="Uploaded Preview"
                                         style={{ maxWidth: "50%", height: "50%" }}
                                     />
                                 )}
                             </div>
-                        </div> */}
+                        </div>
+                        <div className="main_image">
+                            <p>Upload File7</p>
+                            <input
+                                id="file-upload7"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, 'uploadedfile7')}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload7" className="custom-file-upload">
+                                Upload Image7
+                            </label>
+                            <p>{serviceData.uploadedfile7?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile7 && isImage(serviceData.uploadedfile7) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile7)}
+                                        alt="Uploaded Preview"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                        <div className="main_image">
+                            <p>Upload File8</p>
+                            <input
+                                id="file-upload8"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, 'uploadedfile8')}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload8" className="custom-file-upload">
+                                Upload Image8
+                            </label>
+                            <p>{serviceData.uploadedfile8?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile8 && isImage(serviceData.uploadedfile8) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile8)}
+                                        alt="Uploaded Preview"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                        <div className="main_image">
+                            <p>Upload File9</p>
+                            <input
+                                id="file-upload9"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, 'uploadedfile9')}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload9" className="custom-file-upload">
+                                Upload Image9
+                            </label>
+                            <p>{serviceData.uploadedfile9?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile9 && isImage(serviceData.uploadedfile9) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile9)}
+                                        alt="Uploaded Preview"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
+                            </div>
+                        </div>
+
+
 
 
                     </div>
@@ -880,7 +950,7 @@ const OverviewBelowService = ({ data, callApi, nullStateOverView }) => {
                         <Button variant="contained" color="error"
                             onClick={handleUpdate}
                         >
-                            Update
+                            {isLoading ? "Updating..." : "Update"}
                         </Button>
                         <Button variant="outlined" onClick={() => handleClose1()}>
                             Cancel

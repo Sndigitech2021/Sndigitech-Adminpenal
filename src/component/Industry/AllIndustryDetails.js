@@ -10,14 +10,15 @@ import { RiTimelineView } from "react-icons/ri";
 import { toast } from "react-toastify";
 import { DescriptionCell } from "../Description/DescriptionCell";
 import { useLocation } from 'react-router-dom';
-import OverviewService from "./ItServiceComponent/OverviewService";
-import WhyServices from "./ItServiceComponent/WhyServices";
-import PortfolioService from "./ItServiceComponent/PortfolioService";
-import TestimonialService from "./ItServiceComponent/TestimonialService";
-import Faq from "./ItServiceComponent/Faq";
-import OverviewBelowService from "./ItServiceComponent/OverviewBelowService";
-import WhyChooseUsService from "./ItServiceComponent/WhyChooseUsService";
-import ProcessService from "./ItServiceComponent/ProcessService";
+import OverViewService from './ItServiceComponent/OverviewService'
+import WhyServices from './ItServiceComponent/WhyServices'
+import PortfolioService from './ItServiceComponent/PortfolioService'
+import TestimonialService from './ItServiceComponent/TestimonialService'
+import Faq from './ItServiceComponent/Faq'
+import OverviewBelowService from './ItServiceComponent/OverviewBelowService'
+import WhyChooseUsService from './ItServiceComponent/WhyChooseUsService'
+import ProcessService from './ItServiceComponent/ProcessService'
+
 
 const style = {
   position: "absolute",
@@ -129,7 +130,7 @@ const AllIndustryDetails = () => {
     // console.log("viewdatahere", view);
 
     if (key === "overview_service") {
-      setCurrentView(<OverviewService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
+      setCurrentView(<OverViewService data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
     } else if (key === "why_services") {
       setCurrentView(<WhyServices data={view} callApi={getAllServices} nullStateOverView={nullStateOverView} />);
     } else if (key === "portfolio_service") {

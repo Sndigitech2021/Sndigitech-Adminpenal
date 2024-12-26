@@ -198,13 +198,13 @@ const AddBlogs = () => {
                     value={serviceData.pageName} // Bind the selected value to state
                     onChange={(e) => setServiceData({ ...serviceData, pageName: e.target.value })}
                   > // Update the state on selection change
-                    <option value="" disabled>
+                    <option value="blog_list" disabled>
                       Select Page Name
                     </option>
-                    <option value="portfolio_list">portfolio list</option>
-                    <option value="industry_list">industry list</option>
+                    {/* <option value="portfolio_list">portfolio list</option>
+                    <option value="industry_list">industry list</option> */}
                     <option value="blog_list">blog list</option>
-                    <option value="new_list">new list</option>
+                    {/* <option value="new_list">new list</option> */}
                   </select>
                 </div>
 

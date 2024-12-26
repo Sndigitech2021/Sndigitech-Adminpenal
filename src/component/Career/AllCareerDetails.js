@@ -22,7 +22,7 @@ import Introduction from "./ItServiceComponent/Introduction";
 import AboutSection from "./ItServiceComponent/AboutSection";
 import Features from "./ItServiceComponent/Features";
 
-const style1 = {
+const style = {
   position: "absolute",
   top: "50%",
   left: "50%",

@@ -105,10 +105,10 @@ const AddFaq = () => {
                   <select name="category" value={serviceData.category} // Bind the selected value to state
                     onChange={handleInputChange}
                   > // Update the state on selection change
-                    <option value="" disabled>
+                    <option value="faq" disabled>
                       Select Category
                     </option>
-                    <option value="industry_section">Industry Section</option>
+                    {/* <option value="industry_section">Industry Section</option>
                     <option value="digital_marketing">Digital Marketing</option>
                     <option value="digital_marketing_process">Digital Marketing Process</option>
                     <option value="360_marketing">360 Marketing</option>
@@ -122,7 +122,7 @@ const AddFaq = () => {
                     <option value="hero">Hero</option>
                     <option value="client_image">Client Image</option>
                     <option value="gallery_image">Gallery Image</option>
-                    <option value="why_sndigitech_section">Why SNDigitech Section</option>
+                    <option value="why_sndigitech_section">Why SNDigitech Section</option> */}
                     <option value="faq">FAQ</option>
                   </select>
                 </div>

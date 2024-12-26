@@ -58,7 +58,7 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
     const handleClose1 = () => setOpen1(false);
 
     const isImage = (file) => {
-        return file && file.type.startsWith("image/");
+        return file && file?.type?.startsWith("image/");
     };
 
     // const isVideo = (file) => {
@@ -68,10 +68,15 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
 
     // const service = data && data.length > 0 ? data : [];
     const [service, setservice] = useState(data && data.length > 0 ? data : []);
-    const handleFileChange = (e) => {
-        const uploadedfile1 = e.target.files[0];
-        setFile(uploadedfile1);
-        setServiceData((prev) => ({ ...prev, uploadedfile1: uploadedfile1 }));
+
+    const handleFileChange = (e, fileKey) => {
+        const uploadedFile = e.target.files[0]; // Get the first selected file
+        setFile(uploadedFile); // Update the local file state (optional)
+
+        setServiceData((prev) => ({
+            ...prev,
+            [fileKey]: uploadedFile || null, // Dynamically update the specific file key
+        }));
     };
 
     const handleInputChange = (e) => {
@@ -93,13 +98,14 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
         formData.append('sub_title2', serviceData.sub_title2)
         formData.append('sub_description2', serviceData.sub_description2)
         formData.append('type', serviceData.type)
-        formData.append('uploadedfile', serviceData.uploadedfile)
+        formData.append('uploadedfile1', serviceData.uploadedfile1)
+        formData.append('uploadedfile3', serviceData.uploadedfile3)
         const config = {
             url: `${ApiUrl.updateServiceDetails}/?id=${serviceData._id}`,
             method: "PUT",
             body: formData
         };
-        console.log("config", config);
+        // console.log("config", config);
 
         APIRequestWithFile(
             config,
@@ -140,7 +146,7 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                 console.log(res.data, "Deleted Successfully");
                 toast.success(res.message);
                 handleClose();
-                setSelectedData('');
+                setSelectedData('')
                 // getAllServices("hero"); // Refresh data after deletion
             },
             (error) => {
@@ -170,7 +176,8 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                                     <th>Sub Title2</th>
                                     <th>Sub Description2</th>
                                     <th>Type</th>
-                                    <th>Image</th>
+                                    <th>Image1</th>
+                                    <th>Image3</th>
                                     {/* <th>View</th> */}
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -207,6 +214,18 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                                                     {service.uploadedfile1 ? (
                                                         <img
                                                             src={service.uploadedfile1}
+                                                            alt="Uploaded"
+                                                            width="50"
+                                                            height="50"
+                                                        />
+                                                    ) : (
+                                                        'No Image'
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    {service.uploadedfile3 ? (
+                                                        <img
+                                                            src={service.uploadedfile3}
                                                             alt="Uploaded"
                                                             width="50"
                                                             height="50"
@@ -346,36 +365,76 @@ const OverviewService = ({ data, callApi, nullStateOverView }) => {
                         </div>
 
 
+
                         <div className="main_image">
-                            <p>Upload File</p>
+                            <p>Upload File1</p>
                             <input
-                                id="file-upload"
+                                id="file-upload-1"
                                 type="file"
-                                accept="image/*,video/*" // Allows only images and videos
-                                onChange={handleFileChange}
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile1")}
                                 style={{ display: "none" }}
                             />
-                            <label htmlFor="file-upload" className="custom-file-upload">
+                            <label htmlFor="file-upload-1" className="custom-file-upload">
                                 Upload Image
                             </label>
-                            <p>{file?.name}</p>
+                            <p>{serviceData.uploadedfile1?.name}</p>
                             <div className="preview">
-                                {isImage(file) && (
+                                {serviceData.uploadedfile1 && isImage(serviceData.uploadedfile1) && (
                                     <img
-                                        src={URL.createObjectURL(file)}
-                                        alt="Uploaded Preview"
+                                        src={URL.createObjectURL(serviceData.uploadedfile1)}
+                                        alt="Uploaded Preview 1"
                                         style={{ maxWidth: "50%", height: "50%" }}
                                     />
                                 )}
-                                {/* {isVideo(file) && (
-                                    <video
-                                        controls
-                                        style={{ maxWidth: "100%", height: "50%" }}
-                                    >
-                                        <source src={URL.createObjectURL(file)} type={file.type} />
-                                        Your browser does not support the video tag.
-                                    </video>
-                                )} */}
+                            </div>
+                        </div>
+
+                        {/* <div className="main_image">
+                            <p>Upload File2</p>
+                            <input
+                                id="file-upload-2"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile2")}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload-2" className="custom-file-upload">
+                                Upload Image
+                            </label>
+                            <p>{serviceData.uploadedfile2?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile2 && isImage(serviceData.uploadedfile2) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile2)}
+                                        alt="Uploaded Preview 2"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
+                            </div>
+                        </div> */}
+
+                        <div className="main_image">
+                            <p>Upload File3</p>
+                            <input
+                                id="file-upload-3"
+                                type="file"
+                                accept="image/*,video/*"
+                                onChange={(e) => handleFileChange(e, "uploadedfile3")}
+                                style={{ display: "none" }}
+                            />
+                            <label htmlFor="file-upload-3" className="custom-file-upload">
+                                Upload Image
+                            </label>
+                            <p>{serviceData.uploadedfile3?.name}</p>
+                            <div className="preview">
+                                {serviceData.uploadedfile3 && isImage(serviceData.uploadedfile3) && (
+                                    <img
+                                        src={URL.createObjectURL(serviceData.uploadedfile3)}
+                                        alt="Uploaded Preview 3"
+                                        style={{ maxWidth: "50%", height: "50%" }}
+                                    />
+                                )}
                             </div>
                         </div>
 

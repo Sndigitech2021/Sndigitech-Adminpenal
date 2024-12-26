@@ -211,15 +211,15 @@ const AddBlogDetails = () => {
                                         value={serviceData.sub_category} // Bind the selected value to state
                                         onChange={handleInputChange} // Update the state on selection change
                                     >
-                                        <option value="" disabled>
+                                        <option value="blog_details" disabled>
                                             Select Category
                                         </option>
-                                        <option value="service_details">Service Details</option>
+                                        {/* <option value="service_details">Service Details</option> */}
                                         <option value="blog_details">Blog Details</option>
-                                        <option value="portfolio_details">Portfolio Details</option>
+                                        {/* <option value="portfolio_details">Portfolio Details</option>
                                         <option value="industry_details">Industry Details</option>
                                         <option value="infographic_list">Infographic List</option>
-                                        <option value="business_list">Business List</option>
+                                        <option value="business_list">Business List</option> */}
                                     </select>
                                 </div>
 

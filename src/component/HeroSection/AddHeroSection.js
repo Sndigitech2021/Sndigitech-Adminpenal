@@ -171,30 +171,17 @@ const AddHeroSection = () => {
                   <select name="category" value={serviceData.category} // Bind the selected value to state
                     onChange={handleInputChange}
                   > // Update the state on selection change
-                    <option value="" disabled>
+                    <option value="hero" disabled>
                       Select Category
                     </option>
-                    <option value="industry_section">Industry Section</option>
-                    <option value="digital_marketing">Digital Marketing</option>
-                    <option value="digital_marketing_process">Digital Marketing Process</option>
-                    <option value="360_marketing">360 Marketing</option>
-                    <option value="development_process">Development Process</option>
-                    <option value="it_services">IT Services</option>
-                    <option value="news">News</option>
-                    <option value="blog">Blog</option>
-                    <option value="key_pointers">Key Pointers</option>
-                    <option value="our_team">Our Team</option>
-                    <option value="why_services">Why Services</option>
+
                     <option value="hero">Hero</option>
-                    <option value="client_image">Client Image</option>
-                    <option value="gallery_image">Gallery Image</option>
-                    <option value="why_sndigitech_section">Why SNDigitech Section</option>
                   </select>
                 </div>
 
                 {/* Sub-Category Select */}
                 <div className="name">
-                  <label>Sub CATEGORY</label>
+                  <label>Sub Category</label>
                   <select name="sub_category" // Ensure the name matches the field in the state
                     value={serviceData.sub_category} // Bind the selected value to the `sub_category` field in the state
                     onChange={handleInputChange}>
@@ -203,17 +190,7 @@ const AddHeroSection = () => {
                     </option>
                     <option value="home_page">Home Page</option>
                     <option value="about_page">About Page</option>
-                    <option value="service_list">Service List</option>
-                    <option value="service_details">Service Details</option>
-                    <option value="portfolio_list">Portfolio List</option>
-                    <option value="portfolio_details">Portfolio Details</option>
-                    <option value="blog_list">Blog List</option>
-                    <option value="blog_details">Blog Details</option>
-                    <option value="contact_us">Contact Us</option>
-                    <option value="testimonial">Testimonial</option>
-                    <option value="industry_page">Industry Page</option>
-                    <option value="industry_details">Industry Details</option>
-                    <option value="carrer_page">Career Page</option>
+
                   </select>
                 </div>
 
